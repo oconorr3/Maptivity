@@ -19,7 +19,7 @@ const propChangeRequiresMapClear = (oldProps, newProps) => {
 };
 
 
-class RealtimeDataVisualization extends React.Component {
+class Datamap extends React.Component {
       /*causes compiler error, idk why
       static propTypes = {
         arc: PropTypes.array,
@@ -122,11 +122,11 @@ class RealtimeDataVisualization extends React.Component {
   }
 
   function mapStateToProps(state) {
-      const { RealtimeDataVisualization } = state.authentication;
+      const { Datamap } = state.authentication;
       return {
-          RealtimeDataVisualization
+          Datamap
       };
   }
 
-  const connectedRealtimeDataVisualization = connect(mapStateToProps)(RealtimeDataVisualization);
-  export default RealtimeDataVisualization;
+  const connectedDatamap = connect(mapStateToProps)(Datamap);
+  export default Datamap;
