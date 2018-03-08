@@ -103,7 +103,8 @@ class Home extends React.Component {
             </div>
           </div>
 
-
+          <hr></hr>
+          
           <footer>
             <p>&copy; 2016 The Rabble Rousers, Inc.</p>
           </footer>
