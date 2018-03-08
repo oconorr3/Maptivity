@@ -1,132 +1,88 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import AppNavbar from './AppNavbar.jsx';
+import React, {PropTypes} from 'react';
+import Datamaps from 'datamaps/dist/datamaps.world.hires.min.js';
 
-import PropTypes from 'prop-types';
+export default class Datamap extends React.Component {
 
-import Datamaps from 'datamaps';
+    /*static propTypes = {
+        arc: React.PropTypes.array,
+        arcOptions: React.PropTypes.object,
+        bubbleOptions: React.PropTypes.object,
+        bubbles: React.PropTypes.array,
+        graticule: React.PropTypes.bool,
+        labels: React.PropTypes.bool
+    };*/
 
+    constructor(props) {
+        super(props);
+        window.addEventListener('resize', this.resize);
+    }
 
-const MAP_CLEARING_PROPS = [
-	'height', 'scope', 'setProjection', 'width'
-];
+    resize() {
+        if (this.map) {
+            this.map.resize();
+        }
+    }
+    componentDidMount() {
+        this.drawMap();
+    }
 
-const propChangeRequiresMapClear = (oldProps, newProps) => {
-	return MAP_CLEARING_PROPS.some((key) =>
-		oldProps[key] !== newProps[key]
-	);
-};
+    componentWillReceiveProps() {
+        this.clear();
+    }
 
+    componentDidUpdate() {
+        this.drawMap();
+    }
 
-class Datamap extends React.Component {
-      /*causes compiler error, idk why
-      static propTypes = {
-        arc: PropTypes.array,
-        arcOptions: PropTypes.object,
-        bubbleOptions: PropTypes.object,
-        bubbles: PropTypes.array,
-        data: PropTypes.object,
-        graticule: PropTypes.bool,
-        height: PropTypes.any,
-        labels: PropTypes.bool,
-        responsive: PropTypes.bool,
-        style: PropTypes.object,
-        updateChoroplethOptions: PropTypes.object,
-        width: PropTypes.any
-      };*/
+    componentWillUnmount() {
+        this.clear();
+        window.removeEventListener('resize', this.resize);
+    }
 
-    	constructor(props) {
-    		super(props);
-    		this.resizeMap = this.resizeMap.bind(this);
-    	}
+    clear() {
+        const container = this.refs.container;
 
-    	componentDidMount() {
-    		if (this.props.responsive) {
-    			window.addEventListener('resize', this.resizeMap);
-    		}
-    		this.drawMap();
-    	}
+        for (const child of Array.from(container.childNodes)) {
+            container.removeChild(child);
+        }
+    }
 
-    	componentWillReceiveProps(newProps) {
-    		if (propChangeRequiresMapClear(this.props, newProps)) {
-    			this.clear();
-    		}
-    	}
+    drawMap() {
+        var map = new Datamaps(Object.assign({}, {
+            //...this.props
+        }, {
+            element: this.refs.container,
+            projection: 'mercator',
+            responsive: true
+        }));
 
-    	componentDidUpdate() {
-    		this.drawMap();
-    	}
+        if (this.props.arc) {
+            map.arc(this.props.arc, this.props.arcOptions);
+        }
 
-    	componentWillUnmount() {
-    		this.clear();
-    		if (this.props.responsive) {
-    			window.removeEventListener('resize', this.resizeMap);
-    		}
-    	}
+        if (this.props.bubbles) {
+            map.bubbles(this.props.bubbles, this.props.bubbleOptions);
+        }
 
-    	clear() {
-    		const { container } = this.refs;
+        if (this.props.graticule) {
+            map.graticule();
+        }
 
-    		for (const child of Array.from(container.childNodes)) {
-    			container.removeChild(child);
-    		}
+        if (this.props.labels) {
+            map.labels();
+        }
 
-    		delete this.map;
-    	}
+        this.map = map;
+    }
 
-    	drawMap() {
-    		const {
-    			arc,
-    			arcOptions,
-    			bubbles,
-    			bubbleOptions,
-    			data,
-    			graticule,
-    			labels,
-    			updateChoroplethOptions
-    			//...props //causes compile error IDK
-    		} = this.props;
+    render() {
+        const style = {
+            position: 'relative',
+            width: '80%',
+            height: '60%'
+        };
 
-    		let map = this.map;
+        return <div ref="container" style={style}></div>;
+    }
 
-    		if (!map) {
-    			map = this.map = new Datamaps({
-    				//...props, //causes compile error IDK
-    				data,
-    				element: this.refs.container
-    			});
-    		}
-    	}
-
-    	resizeMap() {
-    		this.map.resize();
-    	}
-
-      render() {
-    		const style = {
-    			height: '100%',
-    			position: 'relative',
-    			width: '100%'
-    		};
-
-    		return (
-
-                <div>
-                    <AppNavbar></AppNavbar>
-                    <div ref="container" style={style} />
-                </div>
-        );
-    	}
-
-  }
-
-  function mapStateToProps(state) {
-      const { Datamap } = state.authentication;
-      return {
-          Datamap
-      };
-  }
-
-  const connectedDatamap = connect(mapStateToProps)(Datamap);
-  export default Datamap;
+}
