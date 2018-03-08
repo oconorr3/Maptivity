@@ -1,24 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { alertActions } from '../actions/login.alert.actions.js';
-
-
-import { Navbar } from 'react-bootstrap'
-import { Nav } from 'react-bootstrap'
-import { NavItem } from 'react-bootstrap'
-import { Button } from 'react-bootstrap'
-import { NavDropdown } from 'react-bootstrap'
-import { MenuItem } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap';
-
-import { LoginPage } from './LoginPage.jsx'
 
 class Home extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
-          username: '',
+          email: '',
           password: '',
           submitted: false
       };
@@ -104,7 +92,7 @@ class Home extends React.Component {
           </div>
 
           <hr></hr>
-          
+
           <footer>
             <p>&copy; 2016 The Rabble Rousers, Inc.</p>
           </footer>
