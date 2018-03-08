@@ -7,8 +7,34 @@ import PropTypes from 'prop-types';
 
 import Datamaps from 'datamaps';
 
-class RealtimeDataVisualization extends React.Component {
 
+const MAP_CLEARING_PROPS = [
+	'height', 'scope', 'setProjection', 'width'
+];
+
+const propChangeRequiresMapClear = (oldProps, newProps) => {
+	return MAP_CLEARING_PROPS.some((key) =>
+		oldProps[key] !== newProps[key]
+	);
+};
+
+
+class RealtimeDataVisualization extends React.Component {
+      /*causes compiler error, idk why
+      static propTypes = {
+        arc: PropTypes.array,
+        arcOptions: PropTypes.object,
+        bubbleOptions: PropTypes.object,
+        bubbles: PropTypes.array,
+        data: PropTypes.object,
+        graticule: PropTypes.bool,
+        height: PropTypes.any,
+        labels: PropTypes.bool,
+        responsive: PropTypes.bool,
+        style: PropTypes.object,
+        updateChoroplethOptions: PropTypes.object,
+        width: PropTypes.any
+      };*/
 
     	constructor(props) {
     		super(props);
@@ -59,14 +85,14 @@ class RealtimeDataVisualization extends React.Component {
     			graticule,
     			labels,
     			updateChoroplethOptions
-    			//...props
+    			//...props //causes compile error IDK
     		} = this.props;
 
     		let map = this.map;
 
     		if (!map) {
     			map = this.map = new Datamaps({
-    				//...props,
+    				//...props, //causes compile error IDK
     				data,
     				element: this.refs.container
     			});
