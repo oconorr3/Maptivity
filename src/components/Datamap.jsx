@@ -78,8 +78,8 @@ export default class Datamap extends React.Component {
     render() {
         const style = {
             position: 'relative',
-            width: '80%',
-            height: '60%'
+            width: '100%',
+            height: '100%'
         };
 
         return <div ref="container" style={style}></div>;

@@ -13,7 +13,8 @@ export default class App extends React.Component {
     return (
       <Router>
         <Switch>
-          <Route exact path='/' component={MapView}/>
+          <Route exact path='/' component={Home}/>
+          <Route exact path='/map' component={MapView}/>
           <Route path='*' component={NotFoundPage}/>
         </Switch>
       </Router>
