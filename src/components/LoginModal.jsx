@@ -1,5 +1,6 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Button, FormGroup, FormControl} from 'react-bootstrap';
 
 class LoginModal extends React.Component {
   constructor(props) {
@@ -33,23 +34,23 @@ class LoginModal extends React.Component {
 
   render() {
     return (
-      <div className="login-wrap">
-          <form className="login" onSubmit={this.handleSubmit}>
-            <input type="text" placeholder="Company" name="company"  onChange={this.handleChange}/>
-            <input type="text" placeholder="Username" name="username"  onChange={this.handleChange}/>
-            <input type="password" placeholder="Password" name="password"  onChange={this.handleChange}/>
-            <Link to="/Map">
-              <button type="submit" value="/Map" className="btn btn-success btn-sm" onSubmit={this.handleSubmit}>
-                SIGN IN
-              </button>
-            </Link>
-            <div className="remember-forgot">
-                <div className="row">
-                    <div className="col-md-6">
-                    </div>
-                </div>
-            </div>
-          </form>
+      <div className="container">
+        <div className="login-wrap">
+            <form className="login" onSubmit={this.handleSubmit}>
+              <input type="text" placeholder="Company" name="company"  onChange={this.handleChange}/>
+              <input type="text" placeholder="Username" name="username"  onChange={this.handleChange}/>
+              <input type="password" placeholder="Password" name="password"  onChange={this.handleChange}/>
+                <Button type="submit" value="/Map" className="signin-button" bsStyle="primary" bsSize="large" href="/Map" onClick={this.handleSubmit} block>
+                  SIGN IN
+                </Button>
+              <div className="remember-forgot">
+                  <div className="row">
+                      <div className="col-md-6">
+                      </div>
+                  </div>
+              </div>
+            </form>
+          </div>
         </div>
           );
   }

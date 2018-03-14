@@ -81,9 +81,9 @@ form.login button[type="submit"]
     outline: 0;
     cursor: pointer;
     letter-spacing: 1px;
-    border-color: #0E151F;
-    color: #FFFFFF;
+    border-color: #FFFFFF;
     background-color: #0E151F;
+    color:  #FFFFFF;
 }
 
 form.login button[type="submit"]:hover
