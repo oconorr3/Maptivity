@@ -5,41 +5,41 @@ class LoginModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        isVisible: true
-      }
-      // Bindings
+      company: '',
+      username: '',
+      password: '',
+      submitted: false
+    };
+
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleRemount = this.handleRemount.bind(this);
+  }
+
+  handleChange(e) {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+    console.log(name + " changed to => " + value);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.setState({
-      isVisible: false
-    }, function() {
-      console.log(this.state.isVisible)
-    });
-    return false;
-  }
-
-  handleRemount(e) {
-    this.setState({
-      isVisible: true
-    }, function() {
-      console.log(this.state.isVisible)
-    });
-    e.preventDefault();
+    console.log("submitting yo");
+    this.setState({ submitted: true });
+    const { username, password } = this.state;
+    if (username && password && password) {
+        console.log("Sign In action processed with valid username & password fields");
+    }
   }
 
   render() {
     return (
       <div className="login-wrap">
-          <form className="login">
-            <input type="text" placeholder="Company" />
-            <input type="text" placeholder="Username" />
-            <input type="password" placeholder="Password" />
+          <form className="login" onSubmit={this.handleSubmit}>
+            <input type="text" placeholder="Company" name="company"  onChange={this.handleChange}/>
+            <input type="text" placeholder="Username" name="username"  onChange={this.handleChange}/>
+            <input type="password" placeholder="Password" name="password"  onChange={this.handleChange}/>
             <Link to="/Map">
-              <button type="submit" value="/Map" className="btn btn-success btn-sm">
+              <button type="submit" value="/Map" className="btn btn-success btn-sm" onSubmit={this.handleSubmit}>
                 SIGN IN
               </button>
             </Link>
