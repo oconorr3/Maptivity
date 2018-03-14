@@ -1,6 +1,5 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import InputField from './InputField.jsx'
 
 class LoginModal extends React.Component {
   constructor(props) {
@@ -34,18 +33,24 @@ class LoginModal extends React.Component {
 
   render() {
     return (
-      <div className='LoginModal'>
-          <form onSubmit= { this.handleSubmit }>
-            <InputField type='text' name='username' placeholder='username' />
-            <InputField type='password' name='password' placeholder='password' />
-            <button> Sign In</button>
+      <div className="login-wrap">
+          <form className="login">
+            <input type="text" placeholder="Company" />
+            <input type="text" placeholder="Username" />
+            <input type="password" placeholder="Password" />
+            <Link to="/Map">
+              <button type="submit" value="/Map" className="btn btn-success btn-sm">
+                SIGN IN
+              </button>
+            </Link>
+            <div className="remember-forgot">
+                <div className="row">
+                    <div className="col-md-6">
+                    </div>
+                </div>
+            </div>
           </form>
-          <div className='social-signin'>
-            <button className="fb" onClick={ this.props.onClick }><i className="fa fa-facebook" aria-hidden="true"></i></button>
-            <button className="tw" onClick={ this.props.onClick }><i className="fa fa-twitter" aria-hidden="true"></i></button>
-          </div>
-            <a href='#'>Lost your password ?</a>
-       </div>
+        </div>
           );
   }
 }

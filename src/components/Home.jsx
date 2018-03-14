@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-import ModalContainer from './ModalContainer.jsx'
+import LoginModal from './LoginModal.jsx'
 
 
 class Home extends React.Component {
@@ -12,12 +12,10 @@ class Home extends React.Component {
 
 
   render() {
-    return (<div>
-      <div className="title">
-       <h1>Maptivity</h1>
-     </div>
-      <ModalContainer>
-      </ModalContainer>
+    return (
+    <div>
+       <h1 className="homepage-title">Maptivity</h1>
+      <LoginModal></LoginModal>
     </div>);
   }
 }

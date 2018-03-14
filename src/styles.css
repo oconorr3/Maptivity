@@ -1,4 +1,77 @@
-body {
-  margin: 0;
-  padding: 0;
+body
+{
+    background: url('https://s-media-cache-ak0.pinimg.com/originals/ea/7b/b0/ea7bb01ba5c99726519ae46e348a7125.png');
+    background-size: cover;
+    padding: 0;
+    margin: 0;
+}
+
+h1.homepage-title
+{
+    font-family: 'Open Sans' , sans-serif;
+    font-size: 96px;
+    font-weight: 600;
+    text-align: center;
+    color: #FFFFFF;
+    margin-top: 5%;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+
+}
+
+.login-wrap
+{
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    position: absolute;
+    top: 30%;
+    left: 0;
+    z-index: 99;
+}
+
+form.login
+{
+    width: 250px;
+    margin: 0 auto;
+}
+
+form.login input[type="text"], form.login input[type="password"]
+{
+    width: 100%;
+    margin: 0;
+    padding: 5px 10px;
+    background: 0;
+    border: 0;
+    border-bottom: 1px solid #FFFFFF;
+    outline: 0;
+    text-align: center;
+    font-style: italic;
+    font-size: 32px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    color: #FFFFFF;
+    outline: 0;
+}
+
+form.login button[type="submit"]
+{
+    align-self: center;
+    width: 100%;
+    font-size: 32px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-top: 16px;
+    outline: 0;
+    cursor: pointer;
+    letter-spacing: 1px;
+    border-color: #0E151F;
+    color: #FFFFFF;
+    background-color: #0E151F;
+}
+
+form.login button[type="submit"]:hover
+{
+    transition: background-color 0.5s ease;
 }
