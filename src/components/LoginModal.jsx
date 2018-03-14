@@ -24,35 +24,36 @@ class LoginModal extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log("submitting yo");
     this.setState({ submitted: true });
-    const { username, password } = this.state;
-    if (username && password && password) {
-        console.log(company + " " + username + " " + password);
+    const { company, username, password } = this.state;
+    if (company && username && password) {
+
+        console.log("Login Form Submitted with fields:\ncompany: " + company + "\nusername: " + username + "\npassword: " + password);
     }
   }
 
   render() {
+
     return (
-      <div className="container">
-        <div className="login-wrap">
-            <form className="login" onSubmit={this.handleSubmit}>
-              <input type="text" placeholder="Company" name="company"  onChange={this.handleChange}/>
-              <input type="text" placeholder="Username" name="username"  onChange={this.handleChange}/>
-              <input type="password" placeholder="Password" name="password"  onChange={this.handleChange}/>
-                <Button type="submit" value="/Map" className="signin-button" bsStyle="primary" bsSize="large" href="/Map" onClick={this.handleSubmit} block>
-                  SIGN IN
-                </Button>
+      <div className="login-wrap">
+          <form className="login" onSubmit={this.handleSubmit}>
+            <FormGroup>
+              <FormControl type="text" placeholder="Company" name="company"  onChange={this.handleChange}/>
+              <FormControl type="text" placeholder="Username" name="username"  onChange={this.handleChange}/>
+              <FormControl type="password" placeholder="Password" name="password"  onChange={this.handleChange}/>
+              <Button type="submit" className="btn btn-default btn-lg btn-block" link="/Map" onClick={this.handleSubmit}>
+                SIGN IN
+              </Button>
               <div className="remember-forgot">
                   <div className="row">
                       <div className="col-md-6">
                       </div>
                   </div>
               </div>
-            </form>
-          </div>
-        </div>
-          );
+            </FormGroup>
+          </form>
+      </div>
+    );
   }
 }
 
