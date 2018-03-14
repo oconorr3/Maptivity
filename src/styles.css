@@ -1,9 +1,24 @@
 body
 {
-    background: url('https://s-media-cache-ak0.pinimg.com/originals/ea/7b/b0/ea7bb01ba5c99726519ae46e348a7125.png');
     background-size: cover;
     padding: 0;
     margin: 0;
+}
+
+
+img.homepage-background {
+  /* Set rules to fill background */
+  min-height: 100%;
+  min-width: 1024px;
+
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+
+  /* Set up positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 h1.homepage-title

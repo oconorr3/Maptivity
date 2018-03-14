@@ -27,7 +27,7 @@ class LoginModal extends React.Component {
     this.setState({ submitted: true });
     const { username, password } = this.state;
     if (username && password && password) {
-        console.log("Sign In action processed with valid username & password fields");
+        console.log(company + " " + username + " " + password);
     }
   }
 

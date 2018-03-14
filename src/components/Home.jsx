@@ -12,11 +12,14 @@ class Home extends React.Component {
 
 
   render() {
+
     return (
-    <div>
-       <h1 className="homepage-title">Maptivity</h1>
-      <LoginModal></LoginModal>
-    </div>);
+      <div>
+         <img className="homepage-background" src={'https://s-media-cache-ak0.pinimg.com/originals/ea/7b/b0/ea7bb01ba5c99726519ae46e348a7125.png'}></img>
+         <h1 className="homepage-title">Maptivity</h1>
+         <LoginModal></LoginModal>
+      </div>
+    );
   }
 }
 
