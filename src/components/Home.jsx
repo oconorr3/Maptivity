@@ -10,28 +10,30 @@ class Home extends React.Component {
   }
 
 
-//<LoginModal classNameNameNameNameName="homepage-login-modal"></LoginModal>
+//<LoginModal classNameNameNameNameNameName="homepage-login-modal"></LoginModal>
   render() {
 
     return (
-      <div className="homepage-body" id="page-top">
+        <div>
           <nav className="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div className="container">
               <a className="navbar-brand js-scroll-trigger" href="#page-top">Maptivity</a>
               <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                Menu
-                <i className="fa fa-bars"></i>
+                <span className="navbar-toggler-icon"></span>
               </button>
               <div className="collapse navbar-collapse" id="navbarResponsive">
                 <ul className="navbar-nav ml-auto">
                   <li className="nav-item">
-                    <a className="nav-link js-scroll-trigger" href="/Map">Map</a>
+                    <a className="nav-link" href="/Map">Map</a>
                   </li>
                   <li className="nav-item">
                     <a className="nav-link js-scroll-trigger" href="#about">About</a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link js-scroll-trigger" href="#features">Features</a>
+                    <a className="nav-link js-scroll-trigger" href="#services">Services</a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link js-scroll-trigger" href="#contact">Pricing</a>
                   </li>
                   <li className="nav-item">
                     <a className="nav-link js-scroll-trigger" href="#contact">Contact</a>
@@ -41,89 +43,115 @@ class Home extends React.Component {
             </div>
           </nav>
 
-          <header className="masthead">
-            <div className="intro-body">
-              <div className="container">
-                <div className="row">
-                  <div className="col-lg-8 mx-auto">
-                    <h1 className="brand-heading">MAPTIVITY</h1>
-                    <p className="intro-text">A unique and low cost solution to your data visualization and analytic needs.</p>
-                    <a href="#about" className="btn btn-circle js-scroll-trigger">
-                      <i className="fa fa-angle-double-down animated"></i>
-                    </a>
-                  </div>
+          <header className="masthead text-center text-white d-flex">
+            <div className="container my-auto">
+              <div className="row">
+                <div className="col-lg-10 mx-auto">
+                  <h1 className="text-uppercase">
+                    <strong>A LOW COST SOLUTION TO YOUR DATA VISUALIZATION NEEDS</strong>
+                  </h1>
+                  <hr></hr>
+                </div>
+                <div className="col-lg-8 mx-auto">
+                  <p className="text-faded mb-5">Maptivity can help you make better decisions when it comes to your business. </p>
+                  <a className="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
                 </div>
               </div>
             </div>
           </header>
 
-          <section id="about" className="content-section text-center">
+          <section className="bg-primary" id="about">
             <div className="container">
               <div className="row">
-                <div className="col-lg-8 mx-auto">
-                  <h2>About Grayscale</h2>
-                  <p>Grayscale is a free Bootstrap theme created by Start Bootstrap. It can be yours right now, simply download the template on
-                    <a href="http://startbootstrap.com/template-overviews/grayscale/">the preview page</a>. The theme is open source, and you can use it for any purpose, personal or commercial.</p>
-                  <p>This theme features stock photos by
-                    <a href="http://gratisography.com/">Gratisography</a>
-                    along with a custom Google Maps skin courtesy of
-                    <a href="http://snazzymaps.com/">Snazzy Maps</a>.</p>
-                  <p>Grayscale includes full HTML, CSS, and custom JavaScript files along with SASS and LESS files for easy customization!</p>
+                <div className="col-lg-8 mx-auto text-center">
+                  <h2 className="section-heading text-white">About Us</h2>
+                  <hr className="light my-4"></hr>
+                  <p className="text-faded mb-4">Maptivity has everything you need to get your new or existing business a competitive edge in no time! Through modern data analytics and visualization Maptivity empowers your business to make better decisions to grow and thrive.</p>
+                  <a className="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>
                 </div>
               </div>
             </div>
           </section>
 
-          <section id="features" className="features-section content-section text-center">
-            <div className="container">
-              <div className="col-lg-8 mx-auto">
-                <h2>Maptivity Features</h2>
-                <p>Maptivity offers a variety of features to service your needs.</p>
-                <a href="http://startbootstrap.com/template-overviews/grayscale/" className="btn btn-default btn-lg">Visit Download Page</a>
-              </div>
-            </div>
-          </section>
-
-          <section id="contact" className="content-section text-center">
+          <section className="bg-dark" id="services">
             <div className="container">
               <div className="row">
-                <div className="col-lg-8 mx-auto">
-                  <h2>Contact Us</h2>
-                  <p>Feel free to contact us about any questions pertaining to our service
-                    <a href="https://github.com/oconorr3/Maptivity"> some contact info links(#s, emails idk)</a>
-                  </p>
-                  <ul className="list-inline banner-social-buttons">
-                    <li className="list-inline-item">
-                      <a href="https://github.com/oconorr3/Maptivity" className="btn btn-default btn-lg">
-                        <i className="fa fa-twitter fa-fw"></i>
-                        <span className="network-name">Twitter</span>
-                      </a>
-                    </li>
-                    <li className="list-inline-item">
-                      <a href="https://github.com/oconorr3/Maptivity" className="btn btn-default btn-lg">
-                        <i className="fa fa-github fa-fw"></i>
-                        <span className="network-name">Github</span>
-                      </a>
-                    </li>
-                    <li className="list-inline-item">
-                      <a href="https://plus.google.com/+Startbootstrap/posts" className="btn btn-default btn-lg">
-                        <i className="fa fa-google-plus fa-fw"></i>
-                        <span className="network-name">Google+</span>
-                      </a>
-                    </li>
-                  </ul>
+                <div className="col-lg-12 text-center">
+                  <h2 className="section-heading">At Your Service</h2>
+                  <hr className="my-4"></hr>
+                </div>
+              </div>
+            </div>
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-3 col-md-6 text-center">
+                  <div className="service-box mt-5 mx-auto">
+                    <i className="fa fa-4x fa-diamond text-primary mb-3 sr-icons">
+                    <h3 className="mb-3">Realtime Data Visualization</h3>
+                    <p className="text-muted mb-0">View the use of your app or service in realtime via our Geo-Spatial Data Visualization</p>
+                    </i>
+                  </div>
+                </div>
+                <div className="col-lg-3 col-md-6 text-center">
+                  <div className="service-box mt-5 mx-auto">
+                    <i className="fa fa-4x fa-paper-plane text-primary mb-3 sr-icons">
+                    <h3 className="mb-3">Ready to Ship</h3>
+                    <p className="text-muted mb-0">You can use this theme as is, or you can make changes!</p>
+                    </i>
+                  </div>
+                </div>
+                <div className="col-lg-3 col-md-6 text-center">
+                  <div className="service-box mt-5 mx-auto">
+                    <i className="fa fa-4x fa-newspaper-o text-primary mb-3 sr-icons">
+                    <h3 className="mb-3">Up to Date</h3>
+                    <p className="text-muted mb-0">We update dependencies to keep things fresh.</p>
+                    </i>
+                  </div>
+                </div>
+                <div className="col-lg-3 col-md-6 text-center">
+                  <div className="service-box mt-5 mx-auto">
+                    <i className="fa fa-4x fa-heart text-primary mb-3 sr-icons">
+                    <h3 className="mb-3">Made with Love</h3>
+                    <p className="text-muted mb-0">You have to make your websites with love these days!</p>
+                    </i>
+                  </div>
                 </div>
               </div>
             </div>
           </section>
 
-          <footer>
+
+          <section className="bg-primary text-white">
             <div className="container text-center">
-              <p>Copyright &copy; Maptivity 2018</p>
+              <h2 className="mb-4">Pricing</h2>
+              <a className="btn btn-light btn-xl sr-button" href="https://github.com/oconorr3/Maptivity">Link to repo for now</a>
             </div>
-          </footer>
-        </div>
+          </section>
 
+          <section id="contact">
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-8 mx-auto text-center">
+                  <h2 className="section-heading">Contact</h2>
+                  <hr className="my-4"></hr>
+                  <p className="mb-5">For questions or support please give us a call or send us an email and we will get back to you as soon as possible!</p>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-lg-4 ml-auto text-center">
+                  <i className="fa fa-phone fa-3x mb-3 sr-contact"></i>
+                  <p>XXX-XXX-XXXX</p>
+                </div>
+                <div className="col-lg-4 mr-auto text-center">
+                  <i className="fa fa-envelope-o fa-3x mb-3 sr-contact"></i>
+                  <p>
+                    <a href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
     );
   }
 }
