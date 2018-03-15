@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, FormGroup, FormControl} from 'react-bootstrap';
+import { Modal, Button, FormGroup, FormControl} from 'react-bootstrap';
 
 class LoginModal extends React.Component {
   constructor(props) {
@@ -35,24 +35,28 @@ class LoginModal extends React.Component {
   render() {
 
     return (
-      <div className="login-wrap">
-          <form className="login" onSubmit={this.handleSubmit}>
-            <FormGroup>
-              <FormControl type="text" placeholder="Company" name="company"  onChange={this.handleChange}/>
-              <FormControl type="text" placeholder="Username" name="username"  onChange={this.handleChange}/>
-              <FormControl type="password" placeholder="Password" name="password"  onChange={this.handleChange}/>
-              <Button type="submit" className="btn btn-default btn-lg btn-block" link="/Map" onClick={this.handleSubmit}>
-                SIGN IN
-              </Button>
-              <div className="remember-forgot">
-                  <div className="row">
-                      <div className="col-md-6">
-                      </div>
-                  </div>
-              </div>
-            </FormGroup>
-          </form>
-      </div>
+      <div className="login-modal-container">
+         <Modal.Dialog className="login-modal">
+           <Modal.Body className="login-modal-body">
+            <form className="login-form" onSubmit={this.handleSubmit}>
+              <FormGroup>
+                <FormControl type="text" placeholder="Company" name="company"  onChange={this.handleChange}/>
+                <FormControl type="text" placeholder="Username" name="username"  onChange={this.handleChange}/>
+                <FormControl type="password" placeholder="Password" name="password"  onChange={this.handleChange}/>
+                <Button type="submit" className="btn btn-default btn-lg btn-block" link="/Map" onClick={this.handleSubmit}>
+                  SIGN IN
+                </Button>
+                <div className="remember-forgot">
+                    <div className="row">
+                        <div className="col-md-6">
+                        </div>
+                    </div>
+                </div>
+              </FormGroup>
+            </form>
+          </Modal.Body>
+         </Modal.Dialog>
+       </div>
     );
   }
 }
