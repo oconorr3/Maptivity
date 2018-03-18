@@ -36,7 +36,7 @@ class Home extends React.Component {
           </Navbar>
 
 
-          <header className="masthead text-center text-white d-flex">
+          <header className="masthead text-center text-white d-flex" id="page-top">
             <div className="container my-auto">
               <div className="row">
                 <div className="col-lg-10 mx-auto">
