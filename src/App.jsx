@@ -9,8 +9,8 @@ export default class App extends React.Component {
   render() {
     return (<Router>
       <Switch>
-        <Route exact="exact" path='/' component={Home}/>
-        <Route exact="exact" path='/Map' component={MapContainer}/>
+        <Route exact path='/' component={Home}/>
+        <Route path='/Map' component={MapContainer}/>
         <Route path='*' component={NotFoundPage}/>
       </Switch>
     </Router>);
