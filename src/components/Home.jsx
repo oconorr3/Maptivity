@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import { Image, Button } from 'react-bootstrap';
+import { Image, Button, Navbar, NavItem, Nav } from 'react-bootstrap';
 import LoginModal from './LoginModal.jsx'
 
 
@@ -21,36 +21,19 @@ class Home extends React.Component {
     });
 }
 
-
-//<LoginModal classNameNameNameNameNameName="homepage-login-modal"></LoginModal>
   render() {
-
     return (
         <div>
-          <nav className="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-            <div className="container">
+          <Navbar className="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
               <Button className="navbar-brand js-scroll-trigger" href="#page-top">Maptivity</Button>
-              <div className="collapse navbar-collapse" id="navbarResponsive">
-                <ul className="navbar-nav ml-auto">
-                  <li className="nav-item">
-                    <Button className="nav-link" href="/Map">Map</Button>
-                  </li>
-                  <li className="nav-item">
-                    <Button className="nav-link js-scroll-trigger" href="#about">About</Button>
-                  </li>
-                  <li className="nav-item">
-                    <Button className="nav-link js-scroll-trigger" href="#services">Services</Button>
-                  </li>
-                  <li className="nav-item">
-                    <Button className="nav-link js-scroll-trigger" href="#contact">Pricing</Button>
-                  </li>
-                  <li className="nav-item">
-                    <Button className="nav-link js-scroll-trigger" href="#contact">Contact</Button>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
+                <Nav pullRight>
+                    <NavItem  className="nav-link" href="/Map">Map</NavItem>
+                    <NavItem  className="nav-link js-scroll-trigger" href="#about">About</NavItem >
+                    <NavItem  className="nav-link js-scroll-trigger" href="#services">Services</NavItem >
+                    <NavItem  className="nav-link js-scroll-trigger" href="#contact">Pricing</NavItem >
+                    <NavItem  className="nav-link js-scroll-trigger" href="#contact">Contact</NavItem >
+                </Nav>
+          </Navbar>
 
 
           <header className="masthead text-center text-white d-flex">
