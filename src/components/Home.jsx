@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import { Image } from 'react-bootstrap';
+import { Image, Button } from 'react-bootstrap';
 import LoginModal from './LoginModal.jsx'
 
 
@@ -29,31 +29,29 @@ class Home extends React.Component {
         <div>
           <nav className="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div className="container">
-              <a className="navbar-brand js-scroll-trigger" href="#page-top">Maptivity</a>
-              <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-              </button>
+              <Button className="navbar-brand js-scroll-trigger" href="#page-top">Maptivity</Button>
               <div className="collapse navbar-collapse" id="navbarResponsive">
                 <ul className="navbar-nav ml-auto">
                   <li className="nav-item">
-                    <a className="nav-link" href="/Map">Map</a>
+                    <Button className="nav-link" href="/Map">Map</Button>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link js-scroll-trigger" href="#about">About</a>
+                    <Button className="nav-link js-scroll-trigger" href="#about">About</Button>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link js-scroll-trigger" href="#services">Services</a>
+                    <Button className="nav-link js-scroll-trigger" href="#services">Services</Button>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link js-scroll-trigger" href="#contact">Pricing</a>
+                    <Button className="nav-link js-scroll-trigger" href="#contact">Pricing</Button>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link js-scroll-trigger" href="#contact">Contact</a>
+                    <Button className="nav-link js-scroll-trigger" href="#contact">Contact</Button>
                   </li>
                 </ul>
               </div>
             </div>
           </nav>
+
 
           <header className="masthead text-center text-white d-flex">
             <div className="container my-auto">
@@ -66,7 +64,7 @@ class Home extends React.Component {
                 </div>
                 <div className="col-lg-8 mx-auto">
                   <p className="text-faded mb-5">Maptivity can help you make better decisions when it comes to your business. </p>
-                  <a className="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
+                  <Button className="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</Button>
                   <button onClick={this.toggleLoginModal}> OPen Login Modal</button>
                   <LoginModal show={this.state.isLoginModalOpen} onClose={this.toggleLoginModal}>yolo</LoginModal>
                 </div>
@@ -81,7 +79,7 @@ class Home extends React.Component {
                   <h2 className="section-heading text-white">About Us</h2>
                   <hr className="light my-4"></hr>
                   <p className="text-faded mb-4">Maptivity has everything you need to get your new or existing business a competitive edge in no time! Through modern data analytics and visualization Maptivity empowers your business to make better decisions to grow and thrive.</p>
-                  <a className="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>
+                  <Button className="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</Button>
                 </div>
               </div>
             </div>
@@ -138,7 +136,7 @@ class Home extends React.Component {
           <section className="bg-primary text-white">
             <div className="container text-center">
               <h2 className="mb-4">Pricing</h2>
-              <a className="btn btn-light btn-xl sr-button" href="https://github.com/oconorr3/Maptivity">Link to repo for now</a>
+              <Button className="btn btn-light btn-xl sr-button" href="https://github.com/oconorr3/Maptivity">Link to repo for now</Button>
             </div>
           </section>
 
@@ -159,7 +157,7 @@ class Home extends React.Component {
                 <div className="col-lg-4 mr-auto text-center">
                   <i className="fa fa-envelope-o fa-3x mb-3 sr-contact"></i>
                   <p>
-                    <a href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</a>
+                    <Button href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</Button>
                   </p>
                 </div>
               </div>
