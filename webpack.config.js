@@ -1,12 +1,12 @@
-var webpack = require('webpack');
-var path = require('path');
+var webpack = require( 'webpack' );
+var path = require( 'path' );
 
-var BUILD_DIR = path.join(__dirname, 'public');
-var APP_DIR =  path.join(__dirname, 'src');
+var BUILD_DIR = path.join( __dirname, 'public' );
+var APP_DIR = path.join( __dirname, 'src' );
 
 var config = {
   devtool: "source-map",
-  entry:  APP_DIR + '/index.jsx',
+  entry: APP_DIR + '/index.jsx',
   output: {
     devtoolLineToLine: true,
     sourceMapFilename: "./bundle.js.map",
@@ -16,12 +16,34 @@ var config = {
     publicPath: '/'
   },
   module: {
-    loaders: [
-      { test: /\.(js|jsx)$/, loader: 'babel-loader', exclude: /node_modules/, query: {presets: ['react', 'env']} },
-      { test: /\.css$/, loader: "style-loader!css-loader" },
-      { test: /\.(png|jpg)$/, loader: 'file-loader?name=public/[name].[ext]'}
+    loaders: [ {
+        test: /\.(js|jsx)$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        query: {
+          presets: [ 'react', 'env' ]
+        }
+      },
+      {
+        test: /\.css$/,
+        loader: "style-loader!css-loader"
+      },
+      {
+        test: /\.(png|jpg)$/,
+        loader: 'file-loader?name=public/[name].[ext]'
+      },
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        loader: 'url-loader?limit=100000'
+      }
     ]
-  }
+  },
+  plugins: [
+    new webpack.ProvidePlugin( {
+      $: "jquery",
+      jQuery: "jquery"
+    } )
+  ]
 };
 
 module.exports = config;

@@ -3,5 +3,5 @@ import ReactDOM from 'react-dom';
 import App from './App.jsx';
 
 window.onload = () => {
-  ReactDOM.render(<App />, document.getElementById('root'));
+  ReactDOM.render(<App/>, document.getElementById('root'));
 };
