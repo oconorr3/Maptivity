@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Modal, Button, FormGroup, FormControl} from 'react-bootstrap';
 
@@ -34,6 +35,10 @@ class LoginModal extends React.Component {
 
   render() {
 
+    if (!this.props.show) {
+      return null;
+    }
+
     return (
       <div className="login-modal-container">
          <Modal.Dialog className="login-modal">
@@ -43,9 +48,6 @@ class LoginModal extends React.Component {
                 <FormControl type="text" placeholder="Company" name="company"  onChange={this.handleChange}/>
                 <FormControl type="text" placeholder="Username" name="username"  onChange={this.handleChange}/>
                 <FormControl type="password" placeholder="Password" name="password"  onChange={this.handleChange}/>
-                <Button type="submit" className="btn btn-default btn-lg btn-block" link="/Map" onClick={this.handleSubmit}>
-                  SIGN IN
-                </Button>
                 <div className="remember-forgot">
                     <div className="row">
                         <div className="col-md-6">
@@ -55,12 +57,24 @@ class LoginModal extends React.Component {
               </FormGroup>
             </form>
           </Modal.Body>
+          <Modal.Footer>
+            <Button type="submit" className="btn btn-default btn-lg btn-block" link="/Map" onClick={this.handleSubmit}>
+              SIGN IN
+            </Button>
+            <Button onClick={this.props.onClose}>
+              Close
+            </Button>
+          </Modal.Footer>
          </Modal.Dialog>
        </div>
     );
   }
 }
 
+LoginModal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  show: PropTypes.bool
+}
 /* REDUX FUNCTIONALITY
 function mapStateToProps(state) {
     const { LoginModal } = state.authentication;

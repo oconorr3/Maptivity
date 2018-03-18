@@ -7,7 +7,19 @@ import LoginModal from './LoginModal.jsx'
 class Home extends React.Component {
   constructor(props) {
     super(props);
+
+    this.toggleLoginModal = this.toggleLoginModal.bind(this);
+    this.state = {
+      isLoginModalOpen: false
+    };
   }
+
+  toggleLoginModal() {
+    console.log("Toggling Login Modal");
+    this.setState({
+      isLoginModalOpen: !this.state.isLoginModalOpen
+    });
+}
 
 
 //<LoginModal classNameNameNameNameNameName="homepage-login-modal"></LoginModal>
@@ -55,6 +67,8 @@ class Home extends React.Component {
                 <div className="col-lg-8 mx-auto">
                   <p className="text-faded mb-5">Maptivity can help you make better decisions when it comes to your business. </p>
                   <a className="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
+                  <button onClick={this.toggleLoginModal}> OPen Login Modal</button>
+                  <LoginModal show={this.state.isLoginModalOpen} onClose={this.toggleLoginModal}>yolo</LoginModal>
                 </div>
               </div>
             </div>
