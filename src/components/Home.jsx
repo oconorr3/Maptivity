@@ -8,31 +8,31 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
 
-    this.toggleLoginModal = this.toggleLoginModal.bind(this);
     this.state = {
-      isLoginModalOpen: false
+      showLoginModal: false
     };
   }
 
-  toggleLoginModal() {
-    console.log("Toggling Login Modal");
-    this.setState({
-      isLoginModalOpen: !this.state.isLoginModalOpen
-    });
-}
-
   render() {
+    let loginModalClose = () => this.setState({ showLoginModal: false });
+
     return (
         <div>
-          <Navbar className="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-              <Button className="navbar-brand js-scroll-trigger" href="#page-top">Maptivity</Button>
-                <Nav pullRight>
-                    <NavItem  className="nav-link" href="/Map">Map</NavItem>
-                    <NavItem  className="nav-link js-scroll-trigger" href="#about">About</NavItem >
-                    <NavItem  className="nav-link js-scroll-trigger" href="#services">Services</NavItem >
-                    <NavItem  className="nav-link js-scroll-trigger" href="#contact">Pricing</NavItem >
-                    <NavItem  className="nav-link js-scroll-trigger" href="#contact">Contact</NavItem >
-                </Nav>
+          <Navbar fixedTop >
+              <Navbar.Header>
+                 <Navbar.Brand>
+                   <a href="#page-top">Maptivity</a>
+                 </Navbar.Brand>
+               </Navbar.Header>
+                <Nav bsStyle="pills" pullRight>
+                    <NavItem href="/Map">Map</NavItem>
+                    <NavItem href="#about">About</NavItem >
+                    <NavItem href="#services">Services</NavItem >
+                    <NavItem href="#contact">Pricing</NavItem >
+                    <NavItem href="#contact">Contact</NavItem >
+                    <NavItem onClick={() => this.setState({ showLoginModal: true })}>Sign In</NavItem>
+                  </Nav>
+                  <LoginModal show={this.state.showLoginModal} onHide={loginModalClose}/>
           </Navbar>
 
 
@@ -48,8 +48,6 @@ class Home extends React.Component {
                 <div className="col-lg-8 mx-auto">
                   <p className="text-faded mb-5">Maptivity can help you make better decisions when it comes to your business. </p>
                   <Button className="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</Button>
-                  <button onClick={this.toggleLoginModal}> OPen Login Modal</button>
-                  <LoginModal show={this.state.isLoginModalOpen} onClose={this.toggleLoginModal}>yolo</LoginModal>
                 </div>
               </div>
             </div>
@@ -57,7 +55,7 @@ class Home extends React.Component {
 
           <section className="bg-primary" id="about">
             <div className="container">
-              <div className="row">
+              <div className="row" >
                 <div className="col-lg-8 mx-auto text-center">
                   <h2 className="section-heading text-white">About Us</h2>
                   <hr className="light my-4"></hr>
