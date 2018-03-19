@@ -18,18 +18,18 @@ class Home extends React.Component {
 
     return (
         <div>
-          <Navbar fixedTop >
+          <Navbar id="mainNav" fixedTop >
               <Navbar.Header>
                  <Navbar.Brand>
                    <a href="#page-top">Maptivity</a>
                  </Navbar.Brand>
                </Navbar.Header>
                 <Nav bsStyle="pills" pullRight>
-                    <NavItem href="/Map">Map</NavItem>
-                    <NavItem href="#about">About</NavItem >
-                    <NavItem href="#services">Services</NavItem >
-                    <NavItem href="#contact">Pricing</NavItem >
-                    <NavItem href="#contact">Contact</NavItem >
+                    <NavItem id="nav-item" href="/Map">Map</NavItem>
+                    <NavItem id="nav-item" href="#about">About</NavItem >
+                    <NavItem id="nav-item" href="#services">Services</NavItem >
+                    <NavItem id="nav-item" href="#contact">Pricing</NavItem >
+                    <NavItem id="nav-item" href="#contact">Contact</NavItem >
                     <NavItem onClick={() => this.setState({ showLoginModal: true })}>Sign In</NavItem>
                   </Nav>
                   <LoginModal show={this.state.showLoginModal} onHide={loginModalClose}/>
