@@ -11,4 +11,4 @@ app.get('*', function(req, res) {
     res.sendFile(path.join(DIST_DIR, "index.html"));
 });
 
-app.listen(PORT, () => console.log("Personal website backend listening on port " + PORT));
+app.listen(PORT, () => console.log("Maptivity server listening on port " + PORT));

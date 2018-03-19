@@ -1,12 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-<<<<<<< HEAD:src/components/HomePage.jsx
 //import {connect} from 'react-redux';
-=======
 import { Image } from 'react-bootstrap';
 import LoginModal from './LoginModal.jsx'
-
->>>>>>> 28c6d4e3d7c6e790852a5cf948b125adfaa14eb0:src/components/Home.jsx
 
 export default class HomePage extends React.Component {
   constructor(props) {
@@ -14,14 +10,8 @@ export default class HomePage extends React.Component {
   }
 
 
-//<LoginModal classNameNameNameNameNameName="homepage-login-modal"></LoginModal>
+//<LoginModal className="homepage-login-modal"></LoginModal>
   render() {
-
-<<<<<<< HEAD:src/components/HomePage.jsx
-
-  handleSignIn(e) {
-    e.preventDefault();
-=======
     return (
         <div>
           <nav className="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -33,7 +23,7 @@ export default class HomePage extends React.Component {
               <div className="collapse navbar-collapse" id="navbarResponsive">
                 <ul className="navbar-nav ml-auto">
                   <li className="nav-item">
-                    <a className="nav-link" href="/Map">Map</a>
+                    <a className="nav-link" href="/map">Map</a>
                   </li>
                   <li className="nav-item">
                     <a className="nav-link js-scroll-trigger" href="#about">About</a>
@@ -51,7 +41,6 @@ export default class HomePage extends React.Component {
               </div>
             </div>
           </nav>
->>>>>>> 28c6d4e3d7c6e790852a5cf948b125adfaa14eb0:src/components/Home.jsx
 
           <header className="masthead text-center text-white d-flex">
             <div className="container my-auto">
@@ -166,7 +155,6 @@ export default class HomePage extends React.Component {
   }
 }
 
-<<<<<<< HEAD:src/components/HomePage.jsx
 /* REDUX FUNCTIONALITY
 function mapStateToProps(state) {
     const { Home } = state.authentication;
@@ -177,6 +165,3 @@ function mapStateToProps(state) {
 
 const connectedHome = connect(mapStateToProps)(Home);
 */
-=======
-export default Home;
->>>>>>> 28c6d4e3d7c6e790852a5cf948b125adfaa14eb0:src/components/Home.jsx
