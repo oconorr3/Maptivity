@@ -1,35 +1,54 @@
 {
-  "name": "ReactNodeBoilerplate",
+  "name": "maptivity",
   "version": "1.0.0",
-  "description": "React, React Router, Express, and Webpack",
-  "main": "server.js",
+  "description": "Geospatial Realtime Database/API Activity Tracker",
+  "main": "index.jsx",
   "scripts": {
-    "start": "npm-run-all --parallel watch:server watch:build",
-    "watch:build": "webpack --watch",
-    "watch:server": "nodemon server.js"
+    "dev": "webpack --mode development --watch",
+    "build": "webpack --mode production",
+    "start": "concurrently --kill-others \"npm run build\" \"node server.js\"",
+    "start-dev": "concurrently --kill-others \"npm run dev\" \"supervisor server.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oconorr3/Maptivity.git"
   },
   "author": "Cody Douglass",
-  "license": "MIT",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oconorr3/Maptivity/issues"
+  },
+  "homepage": "https://github.com/oconorr3/Maptivity#readme",
   "dependencies": {
+    "bootstrap": "^3.3.7",
+    "datamaps": "^0.5.8",
     "express": "^4.16.2",
+    "jquery": "^3.3.1",
+    "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
+    "react-router-bootstrap": "^0.24.4",
     "react-router-dom": "^4.2.2",
-    "redux": "^3.7.2",
-    "datamaps": "^0.5.1"
+    "redux": "^3.7.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "concurrently": "^3.5.1",
     "css-loader": "^0.28.9",
     "file-loader": "^1.1.6",
     "nodemon": "^1.15.0",
     "npm-run-all": "^4.1.2",
+    "postcss-loader": "^2.1.0",
     "style-loader": "^0.20.2",
-    "webpack": "^3.11.0"
+    "supervisor": "^0.12.0",
+    "url-loader": "^0.6.2",
+    "webpack": "^4.0.1",
+    "webpack-cli": "^2.0.9"
   }
 }
