@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import Datamap from './Datamap.jsx';
 import MapNav from './MapNav.jsx'
 
-export default class MapContainer extends React.Component {
+export default class MapPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

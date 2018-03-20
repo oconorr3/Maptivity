@@ -1,10 +1,11 @@
-var webpack = require('webpack');
-var path = require('path');
+const webpack = require( 'webpack' );
+const path = require( 'path' );
 
-var BUILD_DIR = path.join(__dirname, 'public');
-var APP_DIR = path.join(__dirname, 'src');
 
-var config = {
+const BUILD_DIR = path.join( __dirname, 'public' );
+const APP_DIR = path.join( __dirname, 'src' );
+
+module.exports = {
   devtool: "source-map",
   entry: APP_DIR + '/index.jsx',
   output: {
@@ -16,24 +17,56 @@ var config = {
     publicPath: '/'
   },
   module: {
-    loaders: [{
+    rules: [ {
         test: /\.(js|jsx)$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        query: {
-          presets: ['react', 'env']
-        }
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [ 'react', 'env', 'stage-2' ]
+          }
+        },
+        exclude: /node_modules/
       },
       {
-        test: /\.css$/,
-        loader: "style-loader!css-loader"
+        test: /\.(css|less)$/,
+        use: [ {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1
+            }
+          },
+          {
+            loader: 'postcss-loader'
+          }
+        ]
+      },
+      {
+        test: /\.json$/,
+        use: [ {
+          loader: 'json-loader'
+        } ]
       },
       {
         test: /\.(png|jpg)$/,
-        loader: 'file-loader?name=public/[name].[ext]'
+        use: [ {
+          loader: 'file-loader?name=[name].[ext]'
+        } ]
+      },
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        use: [ {
+          loader: 'url-loader?limit=100000'
+        } ]
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.ProvidePlugin( {
+      $: "jquery",
+      jQuery: "jquery"
+    } )
+  ]
 };
-
-module.exports = config;

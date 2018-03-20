@@ -3,8 +3,7 @@ import {Link} from 'react-router-dom';
 import { Clearfix, Grid, Row, Col, Image, Button, Navbar, NavItem, Nav } from 'react-bootstrap';
 import LoginModal from './LoginModal.jsx'
 
-
-class Home extends React.Component {
+export default class HomePage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -34,7 +33,6 @@ class Home extends React.Component {
                   </Nav>
                   <LoginModal show={this.state.showLoginModal} onHide={loginModalClose}/>
           </Navbar>
-
 
           <header className="masthead text-center text-white d-flex" id="page-top">
             <Grid>
@@ -141,4 +139,13 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+/* REDUX FUNCTIONALITY
+function mapStateToProps(state) {
+    const { Home } = state.authentication;
+    return {
+        Home
+    };
+}
+
+const connectedHome = connect(mapStateToProps)(Home);
+*/
