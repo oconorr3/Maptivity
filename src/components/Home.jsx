@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import { Row, Col, Image, Button, Navbar, NavItem, Nav } from 'react-bootstrap';
+import { Clearfix, Grid, Row, Col, Image, Button, Navbar, NavItem, Nav } from 'react-bootstrap';
 import LoginModal from './LoginModal.jsx'
 
 
@@ -37,112 +37,104 @@ class Home extends React.Component {
 
 
           <header className="masthead text-center text-white d-flex" id="page-top">
-            <div className="container my-auto">
+            <Grid>
               <Row>
-                <Col lg={12}>
+                <Col lg={12} className="mx-auto">
                   <h1 className="text-uppercase">
                     <strong>A LOW COST SOLUTION TO YOUR DATA VISUALIZATION NEEDS</strong>
                   </h1>
                   <hr></hr>
                 </Col>
-                <Col lg={8}>
+                <Col lg={12} className="mx-auto">
                   <p className="text-faded mb-5">Maptivity can help you make better decisions when it comes to your business. </p>
                   <Button bsStyle="primary" href="#about">Find Out More</Button>
                 </Col>
               </Row>
-            </div>
+            </Grid>
           </header>
 
           <section className="bg-primary" id="about">
-            <div className="container">
+            <Grid>
               <Row>
-                <Col lg={8}>
+                <Col lg={12} className="text-center mx-auto">
                   <h2 className="section-heading text-white">About Us</h2>
                   <hr className="light my-4"></hr>
                   <p className="text-faded mb-4">Maptivity has everything you need to get your new or existing business a competitive edge in no time! Through modern data analytics and visualization Maptivity empowers your business to make better decisions to grow and thrive.</p>
                   <Button bsStyle="default" href="#services">Get Started!</Button>
                 </Col>
               </Row>
-            </div>
+            </Grid>
           </section>
 
           <section className="bg-dark" id="services">
-            <div className="container">
+            <Grid>
               <Row>
-                <Col lg={12}>
+                <Col lg={12} className="text-center">
                   <h2 className="section-heading">At Your Service</h2>
                   <hr className="my-4"></hr>
                 </Col>
               </Row>
-            </div>
-            <div className="container">
+            </Grid>
+            <Grid>
               <Row>
-                <Col lg={3} md={6}>
-                  <div className="service-box mt-5 mx-auto">
+                <Col lg={6} md={6} className="text-center">
                     <i className="fa fa-4x fa-diamond text-primary mb-3 sr-icons">
                     <h3 className="mb-3">Realtime Data Visualization</h3>
                     <p className="text-muted mb-0">View the use of your app or service in realtime via our Geo-Spatial Data Visualization</p>
                     </i>
-                  </div>
                 </Col>
-                <Col lg={3} md={6}>
-                  <div className="service-box mt-5 mx-auto">
+                <Col lg={6} md={6} className="text-center">
                     <i className="fa fa-4x fa-paper-plane text-primary mb-3 sr-icons">
                     <h3 className="mb-3">Ready to Ship</h3>
-                    <p className="text-muted mb-0">You can use this theme as is, or you can make changes!</p>
+                    <p className="text-muted mb-0">You can use this rabble as is, or you can make changes!</p>
                     </i>
-                  </div>
                 </Col>
-                <Col lg={3} md={6}>
-                  <div className="service-box mt-5 mx-auto">
+                <Clearfix></Clearfix>
+                <Col lg={6} md={6} className="text-center">
                     <i className="fa fa-4x fa-newspaper-o text-primary mb-3 sr-icons">
                     <h3 className="mb-3">Up to Date</h3>
-                    <p className="text-muted mb-0">We update dependencies to keep things fresh.</p>
+                    <p className="text-muted mb-0">We regularly rouse new rabble to keep you up to date with the best rabble.</p>
                     </i>
-                  </div>
                 </Col>
-                <Col lg={3} md={6}>
-                  <div className="service-box mt-5 mx-auto">
+                <Col lg={6} md={6} className="text-center">
                     <i className="fa fa-4x fa-heart text-primary mb-3 sr-icons">
                     <h3 className="mb-3">Made with Love</h3>
-                    <p className="text-muted mb-0">You have to make your websites with love these days!</p>
+                    <p className="text-muted mb-0">You have to love the rabble you raise these Days! #RabbleRousers</p>
                     </i>
-                  </div>
                 </Col>
               </Row>
-            </div>
+            </Grid>
           </section>
 
-
           <section className="bg-primary text-white">
-            <div className="container text-center">
+            <Grid className="text-center">
               <h2 className="mb-4">Pricing</h2>
               <Button bsStyle="default" href="https://github.com/oconorr3/Maptivity">Link to repo for now</Button>
-            </div>
+            </Grid>
           </section>
 
           <section id="contact">
-            <div className="container">
+            <Grid>
               <Row>
-                <Col lg={8}>
+                <Col lg={12} className="mx-auto text-center">
                   <h2 className="section-heading">Contact</h2>
                   <hr className="my-4"></hr>
                   <p className="mb-5">For questions or support please give us a call or send us an email and we will get back to you as soon as possible!</p>
                 </Col>
               </Row>
-              <Row className="row">
-                <Col lg={4}>
+              <Row>
+                <Col lg={12} className="ml-auto text-center">
                   <i className="fa fa-phone fa-3x mb-3 sr-contact"></i>
                   <p>XXX-XXX-XXXX</p>
                 </Col>
-                <Col lg={4}>
+                <Col lg={12} className="mr-auto text-center">
                   <i className="fa fa-envelope-o fa-3x mb-3 sr-contact"></i>
                   <p>
                     <Button bsStyle="default" href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</Button>
                   </p>
                 </Col>
               </Row>
-            </div>
+            </Grid>
           </section>
         </div>
     );
