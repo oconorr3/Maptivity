@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Modal, Button, FormGroup, FormControl} from 'react-bootstrap';
+import { Modal, Button, Form, FormGroup, FormControl} from 'react-bootstrap';
 
 class LoginModal extends React.Component {
   constructor(props) {
@@ -34,41 +35,40 @@ class LoginModal extends React.Component {
 
   render() {
 
+    if (!this.props.show) {
+      return null;
+    }
+
     return (
-      <div className="login-modal-container">
-         <Modal.Dialog className="login-modal">
-           <Modal.Body className="login-modal-body">
-            <form className="login-form" onSubmit={this.handleSubmit}>
-              <FormGroup>
-                <FormControl type="text" placeholder="Company" name="company"  onChange={this.handleChange}/>
-                <FormControl type="text" placeholder="Username" name="username"  onChange={this.handleChange}/>
-                <FormControl type="password" placeholder="Password" name="password"  onChange={this.handleChange}/>
-                <Button type="submit" className="btn btn-default btn-lg btn-block" link="/Map" onClick={this.handleSubmit}>
-                  SIGN IN
-                </Button>
-                <div className="remember-forgot">
-                    <div className="row">
-                        <div className="col-md-6">
-                        </div>
-                    </div>
-                </div>
-              </FormGroup>
-            </form>
-          </Modal.Body>
-         </Modal.Dialog>
-       </div>
+      <Modal
+        {...this.props}
+        aria-labelledby="contained-modal-title"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title">Sign In</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form className="login-form" onSubmit={this.handleSubmit}>
+            <FormGroup>
+              <FormControl type="text" placeholder="Company" name="company"  onChange={this.handleChange}/>
+            </FormGroup>
+            <FormGroup>
+              <FormControl type="text" placeholder="Username" name="username"  onChange={this.handleChange}/>
+            </FormGroup>
+            <FormGroup>
+              <FormControl type="password" placeholder="Password" name="password"  onChange={this.handleChange}/>
+            </FormGroup>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button bsStyle="primary" bsSize="large" link="/Map" onClick={this.handleSubmit}>
+            SIGN IN
+          </Button>
+          <Button onClick={this.props.onHide}>Cancel</Button>
+        </Modal.Footer>
+      </Modal>
     );
   }
 }
 
-/* REDUX FUNCTIONALITY
-function mapStateToProps(state) {
-    const { LoginModal } = state.authentication;
-    return {
-        LoginModal
-    };
-}
-
-const connectedLoginModal = connect(mapStateToProps)(LoginModal);
-*/
 export default LoginModal;
