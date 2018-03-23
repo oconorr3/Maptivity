@@ -74,7 +74,20 @@ export default class Datamap extends React.Component {
       ...this.props,
       element: this.refs.container,
       projection: 'mercator',
-      responsive: true
+      responsive: true,
+      geographyConfig: {
+        borderColor: '#444',
+        borderWidth: 0.2,
+        dataurl: 'https://github.com/markmarkoh/datamaps/blob/master/dist/datamaps.world.hires.js'
+      },
+
+      done: function(datamap) {
+         datamap.svg.call(d3.behavior.zoom().on("zoom", redraw));
+
+         function redraw() {
+              datamap.svg.selectAll("g").attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+         }
+      }
     });
 
     if (this.props.arc) {
@@ -114,7 +127,7 @@ export default class Datamap extends React.Component {
 
   render() {
     const style = {
-      position: 'relative',
+      position: 'absolute',
       width: '100%',
       height: '100%'
     };
