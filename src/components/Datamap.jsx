@@ -2,16 +2,75 @@ import propTypes from 'prop-types';
 import React from 'react';
 import Datamaps from 'datamaps';
 
+
+
+
+/*const defaultOptions = {
+    scope: 'world', //currently supports 'usa' and 'world', however with custom map data you can specify your own
+    projection: 'mercator', //style of projection to be used. try "mercator"
+    height: null, //if not null, datamaps will grab the height of 'element'
+    width: null, //if not null, datamaps will grab the width of 'element'
+    responsive: false, //if true, call `resize()` on the map object when it should adjust it's size
+    done: function() {}, //callback when the map is done drawing
+    fills: {
+      defaultFill: '#ABDDA4' //the keys in this object map to the "fillKey" of [data] or [bubbles]
+    },
+
+    geographyConfig: {
+        dataUrl: null, //if not null, datamaps will fetch the map JSON (currently only supports topojson)
+        hideAntarctica: true,
+        borderWidth: 1,
+        borderOpacity: 1,
+        borderColor: '#FDFDFD',
+        popupTemplate: function(geography, data) { //this function should just return a string
+          return '<div class="hoverinfo"><strong>' + geography.properties.name + '</strong></div>';
+        },
+        popupOnHover: true, //disable the popup while hovering
+        highlightOnHover: true,
+        highlightFillColor: '#FC8D59',
+        highlightBorderColor: 'rgba(250, 15, 160, 0.2)',
+        highlightBorderWidth: 2,
+        highlightBorderOpacity: 1
+    },
+    bubblesConfig: {
+        borderWidth: 2,
+        borderOpacity: 1,
+        borderColor: '#FFFFFF',
+        popupOnHover: true,
+        radius: null,
+        popupTemplate: function(geography, data) {
+          return '<div class="hoverinfo"><strong>' + data.name + '</strong></div>';
+        },
+        fillOpacity: 0.75,
+        animate: true,
+        highlightOnHover: true,
+        highlightFillColor: '#FC8D59',
+        highlightBorderColor: 'rgba(250, 15, 160, 0.2)',
+        highlightBorderWidth: 2,
+        highlightBorderOpacity: 1,
+        highlightFillOpacity: 0.85,
+        exitDelay: 100,
+        key: JSON.stringify
+    },
+    arcConfig: {
+      strokeColor: '#DD1C77',
+      strokeWidth: 1,
+      arcSharpness: 1,
+      animationSpeed: 600
+    }
+  };
+*/
 export default class Datamap extends React.Component {
   constructor(props) {
     super(props);
-    window.addEventListener('resize', this.resize);
+    //window.addEventListener('resize', this.resize);
   }
 
   resize() {
-    if (this.map) {
-      this.map.resize();
-    }
+    //if (this.map) {
+    //  console.log("resizing Map...");
+    //  this.map.resize();
+    //}
   }
 
   componentDidMount() {
@@ -41,7 +100,7 @@ export default class Datamap extends React.Component {
 
   fadingBubbles(layer, data) {
     let className = 'fadingBubble';
-    let defaultColor = 'blue';
+    let defaultColor = 'rgba(155, 224, 255, 0.5)';
     let initialRadius = 1;
     let bubbles = layer.selectAll(className).data(data, JSON.stringify) // bind the data
 
@@ -73,14 +132,32 @@ export default class Datamap extends React.Component {
     var map = new Datamaps({
       ...this.props,
       element: this.refs.container,
-      projection: 'mercator',
-      responsive: true,
+      scope: 'world', //currently supports 'usa' and 'world', however with custom map data you can specify your own
+      projection: 'mercator', //style of projection to be used. try "mercator"
+      height: null, //if not null, datamaps will grab the height of 'element'
+      width: null, //if not null, datamaps will grab the width of 'element'
+      responsive: false, //if true, call `resize()` on the map object when it should adjust it's size
       geographyConfig: {
-        borderColor: '#444',
-        borderWidth: 0.2,
-        dataurl: 'https://github.com/markmarkoh/datamaps/blob/master/dist/datamaps.world.hires.js'
+        dataUrl: null, //if not null, datamaps will fetch the map JSON (currently only supports topojson)
+        hideAntarctica: false,
+        borderWidth: 0.5,
+        borderOpacity: 0.5,
+        borderColor: '#FDFDFD',
+        popupTemplate: function(geography, data) { //this function should just return a string
+          return '<div class="hoverinfo"><strong>' + geography.properties.name + '</strong></div>';
+        },
+        popupOnHover: false, //disable the popup while hovering
+        highlightOnHover: false,
+        highlightFillColor: '#FC8D59',
+        highlightBorderColor: 'rgba(250, 15, 160, 0.2)',
+        highlightBorderWidth: 2,
+        highlightBorderOpacity: 1
       },
+      fills: {
+          defaultFill: '#0E151F'
+        },
 
+      //callback when the map is done drawing
       done: function(datamap) {
          datamap.svg.call(d3.behavior.zoom().on("zoom", redraw));
 

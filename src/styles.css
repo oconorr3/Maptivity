@@ -8,6 +8,10 @@ body {
   font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
 }
 
+.datamap {
+  background-color: #1B273F;
+}
+
 hr {
   max-width: 50px;
   border-width: 3px;
