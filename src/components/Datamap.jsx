@@ -2,64 +2,13 @@ import propTypes from 'prop-types';
 import React from 'react';
 import Datamaps from 'datamaps/dist/datamaps.world.hires.min.js';;
 
-/*const defaultOptions = {
-    scope: 'world', //currently supports 'usa' and 'world', however with custom map data you can specify your own
-    projection: 'mercator', //style of projection to be used. try "mercator"
-    height: null, //if not null, datamaps will grab the height of 'element'
-    width: null, //if not null, datamaps will grab the width of 'element'
-    responsive: false, //if true, call `resize()` on the map object when it should adjust it's size
-    done: function() {}, //callback when the map is done drawing
-    fills: {
-      defaultFill: '#ABDDA4' //the keys in this object map to the "fillKey" of [data] or [bubbles]
-    },
+var selectedRegion = "world";
 
-    geographyConfig: {
-        dataUrl: null, //if not null, datamaps will fetch the map JSON (currently only supports topojson)
-        hideAntarctica: true,
-        borderWidth: 1,
-        borderOpacity: 1,
-        borderColor: '#FDFDFD',
-        popupTemplate: function(geography, data) { //this function should just return a string
-          return '<div class="hoverinfo"><strong>' + geography.properties.name + '</strong></div>';
-        },
-        popupOnHover: true, //disable the popup while hovering
-        highlightOnHover: true,
-        highlightFillColor: '#FC8D59',
-        highlightBorderColor: 'rgba(250, 15, 160, 0.2)',
-        highlightBorderWidth: 2,
-        highlightBorderOpacity: 1
-    },
-    bubblesConfig: {
-        borderWidth: 2,
-        borderOpacity: 1,
-        borderColor: '#FFFFFF',
-        popupOnHover: true,
-        radius: null,
-        popupTemplate: function(geography, data) {
-          return '<div class="hoverinfo"><strong>' + data.name + '</strong></div>';
-        },
-        fillOpacity: 0.75,
-        animate: true,
-        highlightOnHover: true,
-        highlightFillColor: '#FC8D59',
-        highlightBorderColor: 'rgba(250, 15, 160, 0.2)',
-        highlightBorderWidth: 2,
-        highlightBorderOpacity: 1,
-        highlightFillOpacity: 0.85,
-        exitDelay: 100,
-        key: JSON.stringify
-    },
-    arcConfig: {
-      strokeColor: '#DD1C77',
-      strokeWidth: 1,
-      arcSharpness: 1,
-      animationSpeed: 600
-    }
-  };
-*/
+
 export default class Datamap extends React.Component {
   constructor(props) {
     super(props);
+
     window.addEventListener('resize', this.resize);
   }
 
@@ -134,6 +83,42 @@ export default class Datamap extends React.Component {
       height: null, //if not null, datamaps will grab the height of 'element'
       width: null, //if not null, datamaps will grab the width of 'element'
       responsive: true, //if true, call `resize()` on the map object when it should adjust it's size
+      done: function(datamap) { //callback when the map is done drawing
+          //Zoom functionality for clicking on datamap countries/regions
+         datamap.svg.selectAll(".datamaps-subunit").on('click', function(geography) {
+                console.log("currently selected: " + selectedRegion + "\njust selected: " + geography.properties.name);
+
+                if (geography.properties.name == selectedRegion) {
+                    console.log("clearing...");
+                    datamap.svg.selectAll("g").transition()
+                     .duration(750)
+                     .style("stroke-width", "1.5px")
+                     .attr("transform", "");
+                } else {
+                  console.log("focusing on " + geography.properties.name);
+                  selectedRegion = geography.properties.name
+                  var bounds = map.path.bounds(geography);
+                  var dx = bounds[1][0] - bounds[0][0];
+                  var dy = bounds[1][1] - bounds[0][1];
+                  var x = (bounds[0][0] + bounds[1][0]) / 2;
+                  var y = (bounds[0][1] + bounds[1][1]) / 2;
+                  var  scale = .9 / Math.max(dx / window.innerWidth, dy / window.innerHeight);
+                  var translate = [window.innerWidth / 2 - scale * x, window.innerHeight / 2 - scale * y];
+
+                  datamap.svg.selectAll("g").transition()
+                    .duration(750)
+                    .style("stroke-width", 1.5 / scale + "px")
+                    .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
+                  //datamap.svg.selectAll(".datamaps-subunits").transition().duration(750).attr("transform", "translate(" + x + "," + y + ")");
+                }
+          });
+
+         //Zoom functionality for mousewheel and panning (HAS BUG)
+         datamap.svg.call(d3.behavior.zoom().on("zoom", redraw));
+         function redraw() {
+              datamap.svg.selectAll("g").attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+         }
+      },
       geographyConfig: {
         dataUrl: null, //if not null, datamaps will fetch the map JSON (currently only supports topojson)
         hideAntarctica: true,
@@ -152,16 +137,10 @@ export default class Datamap extends React.Component {
       },
       fills: {
           defaultFill: '#0E151F'
-        },
-
-      //callback when the map is done drawing
-      done: function(datamap) {
-         datamap.svg.call(d3.behavior.zoom().on("zoom", redraw));
-
-         function redraw() {
-              datamap.svg.selectAll("g").attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-         }
-      }
+      },
+      data: {
+          USA: {long: '39.8283° N', lat: '98.5795° W'}
+        }
     });
 
     if (this.props.arc) {
@@ -181,6 +160,8 @@ export default class Datamap extends React.Component {
     }
 
     this.map = map;
+
+
     this.map.addPlugin('fadingBubbles', this.fadingBubbles.bind(this.map));
   }
 
