@@ -6,8 +6,6 @@ export default class MapPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      scope: 'world',
-      selectedRegion: 'ALL'
     };
 
   }
@@ -21,13 +19,13 @@ export default class MapPage extends React.Component {
   }
 
   render() {
-    return (<div className="App">
-      <div className="App-options">
-        <MapNav/>
+    return (
+
+        <div className="App">
+          <div className="App-map">
+            <Datamap {...this.state} className="datamap"/>
+          </div>
       </div>
-      <div className="App-map">
-        <Datamap {...this.state} className="datamap"/>
-      </div>
-    </div>);
+    );
   }
 }

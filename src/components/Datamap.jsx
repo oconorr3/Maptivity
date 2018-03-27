@@ -1,9 +1,6 @@
 import propTypes from 'prop-types';
 import React from 'react';
-import Datamaps from 'datamaps';
-
-
-
+import Datamaps from 'datamaps/dist/datamaps.world.hires.min.js';;
 
 /*const defaultOptions = {
     scope: 'world', //currently supports 'usa' and 'world', however with custom map data you can specify your own
@@ -63,14 +60,14 @@ import Datamaps from 'datamaps';
 export default class Datamap extends React.Component {
   constructor(props) {
     super(props);
-    //window.addEventListener('resize', this.resize);
+    window.addEventListener('resize', this.resize);
   }
 
   resize() {
-    //if (this.map) {
-    //  console.log("resizing Map...");
-    //  this.map.resize();
-    //}
+    if (this.map) {
+      console.log("resizing Map...");
+      this.map.resize();
+    }
   }
 
   componentDidMount() {
@@ -136,18 +133,18 @@ export default class Datamap extends React.Component {
       projection: 'mercator', //style of projection to be used. try "mercator"
       height: null, //if not null, datamaps will grab the height of 'element'
       width: null, //if not null, datamaps will grab the width of 'element'
-      responsive: false, //if true, call `resize()` on the map object when it should adjust it's size
+      responsive: true, //if true, call `resize()` on the map object when it should adjust it's size
       geographyConfig: {
         dataUrl: null, //if not null, datamaps will fetch the map JSON (currently only supports topojson)
-        hideAntarctica: false,
+        hideAntarctica: true,
         borderWidth: 0.5,
         borderOpacity: 0.5,
         borderColor: '#FDFDFD',
         popupTemplate: function(geography, data) { //this function should just return a string
           return '<div class="hoverinfo"><strong>' + geography.properties.name + '</strong></div>';
         },
-        popupOnHover: false, //disable the popup while hovering
-        highlightOnHover: false,
+        popupOnHover: true, //disable the popup while hovering
+        highlightOnHover: true,
         highlightFillColor: '#FC8D59',
         highlightBorderColor: 'rgba(250, 15, 160, 0.2)',
         highlightBorderWidth: 2,
@@ -204,13 +201,17 @@ export default class Datamap extends React.Component {
 
   render() {
     const style = {
-      position: 'absolute',
+      position: 'relative',
       width: '100%',
       height: '100%'
     };
 
+    const testButtonStyle = {
+      position: 'relative',
+    }
+
     return (<div>
-      <button onClick={this.drawBubbles}>Draw Fading Bubbles</button>
+      <button onClick={this.drawBubbles} style={testButtonStyle}>Draw Fading Bubbles</button>
       <div ref="container" style={style}></div>
     </div>);
   }
