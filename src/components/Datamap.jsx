@@ -3,7 +3,7 @@ import React from 'react';
 import Datamaps from 'datamaps/dist/datamaps.world.hires.min.js';;
 
 var selectedRegion = "world";
-
+const zoomFactor = 0.8
 
 export default class Datamap extends React.Component {
   constructor(props) {
@@ -102,7 +102,7 @@ export default class Datamap extends React.Component {
                   var dy = bounds[1][1] - bounds[0][1];
                   var x = (bounds[0][0] + bounds[1][0]) / 2;
                   var y = (bounds[0][1] + bounds[1][1]) / 2;
-                  var  scale = .9 / Math.max(dx / window.innerWidth, dy / window.innerHeight);
+                  var  scale = zoomFactor / Math.max(dx / window.innerWidth, dy / window.innerHeight);
                   var translate = [window.innerWidth / 2 - scale * x, window.innerHeight / 2 - scale * y];
 
                   datamap.svg.selectAll("g").transition()
@@ -123,20 +123,20 @@ export default class Datamap extends React.Component {
         dataUrl: null, //if not null, datamaps will fetch the map JSON (currently only supports topojson)
         hideAntarctica: true,
         borderWidth: 0.5,
-        borderOpacity: 0.5,
-        borderColor: '#FDFDFD',
+        borderOpacity: 0.7,
+        borderColor: 'rgba(155, 224, 255, 1)',
         popupTemplate: function(geography, data) { //this function should just return a string
           return '<div class="hoverinfo"><strong>' + geography.properties.name + '</strong></div>';
         },
-        popupOnHover: true, //disable the popup while hovering
+        popupOnHover: false, //disable the popup while hovering
         highlightOnHover: true,
-        highlightFillColor: '#FC8D59',
-        highlightBorderColor: 'rgba(250, 15, 160, 0.2)',
+        highlightFillColor: 'rgba(240, 95, 54, 0.7)',
+        highlightBorderColor: 'rgba(240, 95, 54, 0.2)',
         highlightBorderWidth: 2,
         highlightBorderOpacity: 1
       },
       fills: {
-          defaultFill: '#0E151F'
+          defaultFill: '#1B273F'
       },
       data: {
           USA: {long: '39.8283° N', lat: '98.5795° W'}
