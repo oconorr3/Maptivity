@@ -1,22 +1,14 @@
 import propTypes from 'prop-types';
 import React from 'react';
-import Datamaps from 'datamaps/dist/datamaps.world.hires.min.js';;
+import Datamap from 'datamaps/dist/datamaps.world.hires.min.js';
+//import {countryRegionData} from '../data/countryRegionData.json';
 
 var selectedRegion = "world";
-const zoomFactor = 0.8
+const zoomFactor = 0.8;
 
-export default class Datamap extends React.Component {
+export default class Map extends React.Component {
   constructor(props) {
     super(props);
-
-    window.addEventListener('resize', this.resize);
-  }
-
-  resize() {
-    if (this.map) {
-      console.log("resizing Map...");
-      this.map.resize();
-    }
   }
 
   componentDidMount() {
@@ -74,12 +66,54 @@ export default class Datamap extends React.Component {
       .remove();
   }
 
+  //Possible functionality for dynamically zooming to different geo regions
+  /*setProjection (element) {
+      if (currentProjection == "africa") {
+          //zoom to Africa
+          var projection = d3.geo.mercator()
+            .center([23, -3])
+            .rotate([4.4, 0])
+            .scale(400)
+            .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
+          var path = d3.geo.path()
+            .projection(projection);
+
+          return {path: path, projection: projection};
+
+       } else if (currentProjection == "europe") {
+          //Zoom on Europe
+          var projection = d3.geo.mercator()
+            .center([45, 60])
+            .rotate([0, 0])
+            .scale(400)
+            .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
+          var path = d3.geo.path()
+            .projection(projection);
+
+        return { path: path, projection: projection };
+
+       } else { // (currentProjection == "world") {
+          // Zoom in on World
+          var projection = d3.geo.mercator()
+            .center([10, -10])
+            .rotate([0, 0])
+            .scale(300)
+            .translate([element.offsetWidth / 2, element.offsetHeight]);
+          var path = d3.geo.path()
+            .projection(projection);
+
+          return {path: path, projection: projection};
+
+      }
+  }*/
+
   drawMap() {
-    var map = new Datamaps({
+    var map = new Datamap({
       ...this.props,
       element: this.refs.container,
       scope: 'world', //currently supports 'usa' and 'world', however with custom map data you can specify your own
-      projection: 'mercator', //style of projection to be used. try "mercator"
+      //setProjection: this.setProjection,
+      //projection: 'mercator', //style of projection to be used. try "mercator"
       height: null, //if not null, datamaps will grab the height of 'element'
       width: null, //if not null, datamaps will grab the width of 'element'
       responsive: true, //if true, call `resize()` on the map object when it should adjust it's size
@@ -114,10 +148,9 @@ export default class Datamap extends React.Component {
           });
 
          //Zoom functionality for mousewheel and panning (HAS BUG)
-         datamap.svg.call(d3.behavior.zoom().on("zoom", redraw));
-         function redraw() {
-              datamap.svg.selectAll("g").attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-         }
+         /*datamap.svg.call(d3.behavior.zoom().on("zoom", function() {
+            map.svg.selectAll("g").attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+         }));*/
       },
       geographyConfig: {
         dataUrl: null, //if not null, datamaps will fetch the map JSON (currently only supports topojson)
@@ -130,7 +163,7 @@ export default class Datamap extends React.Component {
         },
         popupOnHover: false, //disable the popup while hovering
         highlightOnHover: true,
-        highlightFillColor: 'rgba(240, 95, 54, 0.7)',
+        highlightFillColor: 'rgba(240, 95, 54, 0.4)',
         highlightBorderColor: 'rgba(240, 95, 54, 0.2)',
         highlightBorderWidth: 2,
         highlightBorderOpacity: 1
@@ -139,8 +172,7 @@ export default class Datamap extends React.Component {
           defaultFill: '#1B273F'
       },
       data: {
-          USA: {long: '39.8283° N', lat: '98.5795° W'}
-        }
+      }
     });
 
     if (this.props.arc) {
@@ -159,9 +191,11 @@ export default class Datamap extends React.Component {
       map.labels();
     }
 
+
     this.map = map;
-
-
+    window.addEventListener('resize', function() {
+        map.resize;
+    });
     this.map.addPlugin('fadingBubbles', this.fadingBubbles.bind(this.map));
   }
 
@@ -198,7 +232,7 @@ export default class Datamap extends React.Component {
   }
 }
 
-Datamap.propTypes = {
+Map.propTypes = {
   arc: propTypes.array,
   arcOptions: propTypes.object,
   bubbleOptions: propTypes.object,

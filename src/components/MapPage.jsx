@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import Datamap from './Datamap.jsx';
+import Map from './Map.jsx';
 import MapNav from './MapNav.jsx'
 
 export default class MapPage extends React.Component {
@@ -23,7 +23,7 @@ export default class MapPage extends React.Component {
 
         <div className="App">
           <div className="App-map">
-            <Datamap {...this.state} className="datamap"/>
+            <Map {...this.state} className="datamap"/>
           </div>
       </div>
     );
