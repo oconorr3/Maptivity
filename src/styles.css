@@ -10,6 +10,77 @@ body {
 
 .datamap {
   background-color: rgba(14, 21, 31, 1);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.map-nav {
+  position: absolute;
+}
+
+.top-left-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(155, 224, 255, 0.6);
+  border-color: rgba(27, 39, 63, 0.7);
+}
+
+.top-right-panel {
+  position: absolute;
+  top: 0;
+  right: 0%;
+  background-color: rgba(155, 224, 255, 0.6);
+  border-color: rgba(27, 39, 63, 0.7);
+}
+
+.bottom-left-panel {
+  position: absolute;
+  bottom: 0%;
+  left: 0;
+  background-color: rgba(155, 224, 255, 0.6);
+  border-color: rgba(27, 39, 63, 0.7);
+}
+
+.bottom-right-panel {
+  bottom: 0%;
+  right: 0%;
+  position: absolute;
+  background-color: rgba(155, 224, 255, 0.6);
+  border-color: rgba(27, 39, 63, 0.7);
+}
+
+.top-left-button{
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #F05F40;
+  border-color: #F05F40;
+}
+
+.top-right-button {
+  position: absolute;
+  top: 0;
+  right: 0%;
+  background-color: #F05F40;
+  border-color: #F05F40;
+}
+
+.bottom-left-button{
+  position: absolute;
+  bottom: 0%;
+  left: 0;
+  background-color: #F05F40;
+  border-color: #F05F40;
+}
+
+.bottom-right-button {
+  bottom: 0%;
+  right: 0%;
+  position: absolute;
+  background-color: #F05F40;
+  border-color: #F05F40;
 }
 
 hr {

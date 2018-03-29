@@ -20,11 +20,9 @@ export default class MapPage extends React.Component {
 
   render() {
     return (
-
-        <div className="App">
-          <div className="App-map">
-            <Map {...this.state} className="datamap"/>
-          </div>
+        <div>
+            <MapNav></MapNav>
+            <Map {...this.state} className="datamap"></Map>
       </div>
     );
   }

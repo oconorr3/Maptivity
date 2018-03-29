@@ -1,7 +1,7 @@
 import propTypes from 'prop-types';
 import React from 'react';
-import Datamap from 'datamaps/dist/datamaps.world.hires.min.js';
-//import {countryRegionData} from '../data/countryRegionData.json';
+import WorldMap from 'datamaps/dist/datamaps.world.hires.js';
+import {Button} from 'react-bootstrap';
 
 var selectedRegion = "world";
 const zoomFactor = 0.9;
@@ -123,12 +123,12 @@ export default class Map extends React.Component {
   }*/
 
   drawMap() {
-    var map = new Datamap({
+    var map = new WorldMap({
       ...this.props,
       element: this.refs.container,
       scope: 'world', //currently supports 'usa' and 'world', however with custom map data you can specify your own
       //setProjection: this.setProjection,
-      //projection: 'mercator', //style of projection to be used. try "mercator"
+      projection: 'mercator', //style of projection to be used. try "mercator"
       responsive: true, //if true, call `resize()` on the map object when it should adjust it's size
       geographyConfig: {
         dataUrl: null, //if not null, datamaps will fetch the map JSON (currently only supports topojson)
@@ -151,6 +151,7 @@ export default class Map extends React.Component {
          datamap.svg.selectAll(".datamaps-subunit").on('click', function(geography) {
                 if (geography.properties.name == selectedRegion) {
                     console.log("clearing...");
+                    selectedRegion = "world";
                     datamap.svg.selectAll("g").transition()
                      .duration(750)
                      .style("stroke-width", "1.5px")
@@ -159,10 +160,9 @@ export default class Map extends React.Component {
                   console.log("focusing on " + geography.properties.name);
                   selectedRegion = geography.properties.name;
                   if (selectedRegion == "United States") {
-                    datamap.scope = 'usa';
-                     datamap.geographyConfig.dataUrl = 'https://github.com/Anujarya300/bubble_maps/blob/master/data/geography-data/usa.topo.json';
+
                   }
-                  /*var bounds = map.path.bounds(geography);
+                  var bounds = map.path.bounds(geography);
                   var dx = bounds[1][0] - bounds[0][0];
                   var dy = bounds[1][1] - bounds[0][1];
                   var x = (bounds[0][0] + bounds[1][0]) / 2;
@@ -174,8 +174,6 @@ export default class Map extends React.Component {
                     .duration(750)
                     .style("stroke-width", 1.5 / scale + "px")
                     .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
-                    */
-                  //datamap.svg.selectAll(".datamaps-subunits").transition().duration(750).attr("transform", "translate(" + x + "," + y + ")");
                 }
           });
 
@@ -185,7 +183,7 @@ export default class Map extends React.Component {
          }));*/
       },
       fills: {
-          defaultFill: 'rgba(27, 39, 63, 0.8)'
+          defaultFill: 'rgba(27, 39, 63, 1)'
       },
       data: {
       }
@@ -235,20 +233,12 @@ export default class Map extends React.Component {
   }
 
   render() {
-    const style = {
-      position: 'relative',
-      width: '100%',
-      height: '100%'
-    };
-
-    const testButtonStyle = {
-      position: 'relative',
-    }
-
-    return (<div>
-      <button onClick={this.drawBubbles} style={testButtonStyle}>Draw Fading Bubbles</button>
-      <div ref="container" style={style}></div>
-    </div>);
+    return (
+      <div>
+        <Button bsStyle="primary" onClick={this.drawBubbles}>Draw Fading Bubbles</Button>
+        <div ref="container"></div>
+      </div>
+  );
   }
 }
 
