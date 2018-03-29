@@ -4,7 +4,7 @@ import Datamap from 'datamaps/dist/datamaps.world.hires.min.js';
 //import {countryRegionData} from '../data/countryRegionData.json';
 
 var selectedRegion = "world";
-const zoomFactor = 0.8;
+const zoomFactor = 0.9;
 
 export default class Map extends React.Component {
   constructor(props) {
@@ -67,7 +67,7 @@ export default class Map extends React.Component {
   }
 
   //Possible functionality for dynamically zooming to different geo regions
-  /*setProjection (element) {
+  /*setProjection (element, options) {
       if (currentProjection == "africa") {
           //zoom to Africa
           var projection = d3.geo.mercator()
@@ -92,7 +92,22 @@ export default class Map extends React.Component {
 
         return { path: path, projection: projection };
 
-       } else { // (currentProjection == "world") {
+       } else if (currentProjection == "india") {
+         var projection = d3.geo.mercator()
+              .center([78.9629, 23.5937]) // always in [East Latitude, North Longitude]
+              .scale(1000);
+          var path = d3.geo.path().projection(projection);
+          return { path: path, projection: projection };
+
+       } else if (currentProject == "canada") {
+          var projection = d3.geo.mercator()
+             .center([-106.3468, 68.1304]) // always in [East Latitude, North Longitude]
+             .scale(250)
+             .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
+
+             var path = d3.geo.path().projection(projection);
+             return { path: path, projection: projection };
+       }else { // (currentProjection == "world") {
           // Zoom in on World
           var projection = d3.geo.mercator()
             .center([10, -10])
@@ -114,47 +129,10 @@ export default class Map extends React.Component {
       scope: 'world', //currently supports 'usa' and 'world', however with custom map data you can specify your own
       //setProjection: this.setProjection,
       //projection: 'mercator', //style of projection to be used. try "mercator"
-      height: null, //if not null, datamaps will grab the height of 'element'
-      width: null, //if not null, datamaps will grab the width of 'element'
       responsive: true, //if true, call `resize()` on the map object when it should adjust it's size
-      done: function(datamap) { //callback when the map is done drawing
-          //Zoom functionality for clicking on datamap countries/regions
-         datamap.svg.selectAll(".datamaps-subunit").on('click', function(geography) {
-                console.log("currently selected: " + selectedRegion + "\njust selected: " + geography.properties.name);
-
-                if (geography.properties.name == selectedRegion) {
-                    console.log("clearing...");
-                    datamap.svg.selectAll("g").transition()
-                     .duration(750)
-                     .style("stroke-width", "1.5px")
-                     .attr("transform", "");
-                } else {
-                  console.log("focusing on " + geography.properties.name);
-                  selectedRegion = geography.properties.name
-                  var bounds = map.path.bounds(geography);
-                  var dx = bounds[1][0] - bounds[0][0];
-                  var dy = bounds[1][1] - bounds[0][1];
-                  var x = (bounds[0][0] + bounds[1][0]) / 2;
-                  var y = (bounds[0][1] + bounds[1][1]) / 2;
-                  var  scale = zoomFactor / Math.max(dx / window.innerWidth, dy / window.innerHeight);
-                  var translate = [window.innerWidth / 2 - scale * x, window.innerHeight / 2 - scale * y];
-
-                  datamap.svg.selectAll("g").transition()
-                    .duration(750)
-                    .style("stroke-width", 1.5 / scale + "px")
-                    .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
-                  //datamap.svg.selectAll(".datamaps-subunits").transition().duration(750).attr("transform", "translate(" + x + "," + y + ")");
-                }
-          });
-
-         //Zoom functionality for mousewheel and panning (HAS BUG)
-         /*datamap.svg.call(d3.behavior.zoom().on("zoom", function() {
-            map.svg.selectAll("g").attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-         }));*/
-      },
       geographyConfig: {
         dataUrl: null, //if not null, datamaps will fetch the map JSON (currently only supports topojson)
-        hideAntarctica: true,
+        hideAntarctica: false,
         borderWidth: 0.5,
         borderOpacity: 0.7,
         borderColor: 'rgba(155, 224, 255, 1)',
@@ -168,8 +146,46 @@ export default class Map extends React.Component {
         highlightBorderWidth: 2,
         highlightBorderOpacity: 1
       },
+      done: function(datamap) { //callback when the map is done drawing
+          //Zoom functionality for clicking on datamap countries/regions
+         datamap.svg.selectAll(".datamaps-subunit").on('click', function(geography) {
+                if (geography.properties.name == selectedRegion) {
+                    console.log("clearing...");
+                    datamap.svg.selectAll("g").transition()
+                     .duration(750)
+                     .style("stroke-width", "1.5px")
+                     .attr("transform", "");
+                } else {
+                  console.log("focusing on " + geography.properties.name);
+                  selectedRegion = geography.properties.name;
+                  if (selectedRegion == "United States") {
+                    datamap.scope = 'usa';
+                     datamap.geographyConfig.dataUrl = 'https://github.com/Anujarya300/bubble_maps/blob/master/data/geography-data/usa.topo.json';
+                  }
+                  /*var bounds = map.path.bounds(geography);
+                  var dx = bounds[1][0] - bounds[0][0];
+                  var dy = bounds[1][1] - bounds[0][1];
+                  var x = (bounds[0][0] + bounds[1][0]) / 2;
+                  var y = (bounds[0][1] + bounds[1][1]) / 2;
+                  var  scale = zoomFactor / Math.max(dx / window.innerWidth, dy / window.innerHeight);
+                  var translate = [window.innerWidth / 2 - scale * x, window.innerHeight / 2 - scale * y];
+
+                  datamap.svg.selectAll("g").transition()
+                    .duration(750)
+                    .style("stroke-width", 1.5 / scale + "px")
+                    .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
+                    */
+                  //datamap.svg.selectAll(".datamaps-subunits").transition().duration(750).attr("transform", "translate(" + x + "," + y + ")");
+                }
+          });
+
+         //Zoom functionality for mousewheel and panning (HAS BUG)
+         /*datamap.svg.call(d3.behavior.zoom().on("zoom", function() {
+            map.svg.selectAll("g").attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+         }));*/
+      },
       fills: {
-          defaultFill: '#1B273F'
+          defaultFill: 'rgba(27, 39, 63, 0.8)'
       },
       data: {
       }
@@ -194,7 +210,11 @@ export default class Map extends React.Component {
 
     this.map = map;
     window.addEventListener('resize', function() {
-        map.resize;
+        var newsize, oldsize, options;
+        options = map.options;
+        newsize = options.element.clientWidth;
+        oldsize = d3.select(options.element).select('svg').attr('data-width');
+        return d3.select(options.element).select('svg').selectAll('g').attr('transform', 'scale(' + (newsize / oldsize) + ')');
     });
     this.map.addPlugin('fadingBubbles', this.fadingBubbles.bind(this.map));
   }
