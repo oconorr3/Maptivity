@@ -22,7 +22,7 @@ export default class MapPage extends React.Component {
     return (
         <div>
             <MapNav></MapNav>
-            <Map {...this.state} className="datamap"></Map>
+            <Map {...this.state}></Map>
       </div>
     );
   }
