@@ -95,6 +95,8 @@ body {
   position: fixed;
   height:50px;
   width:50px;
+  background-size: 100%;
+  background-image: url("../img/compass_rose.svg");
   color: rgba(155, 224, 255, 1);
   background-color: rgba(27, 39, 63, 1);
   border-color: rgba(155, 224, 255, 1);
@@ -269,7 +271,7 @@ header.masthead p {
   color: #FFFF !important;
 }
 
-.btn {
+.btn-homepage {
   font-weight: 700;
   text-transform: uppercase;
   border: none;

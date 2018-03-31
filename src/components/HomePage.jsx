@@ -45,7 +45,7 @@ export default class HomePage extends React.Component {
                 </Col>
                 <Col lg={12} className="mx-auto">
                   <p className="text-faded mb-5">Maptivity can help you make better decisions when it comes to your business. </p>
-                  <Button bsStyle="primary" href="#about">Find Out More</Button>
+                  <Button className="btn-homepage" bsStyle="primary" bsSize="large" href="#about">Find Out More</Button>
                 </Col>
               </Row>
             </Grid>
@@ -58,7 +58,7 @@ export default class HomePage extends React.Component {
                   <h2 className="section-heading text-white">About Us</h2>
                   <hr className="light my-4"></hr>
                   <p className="text-faded mb-4">Maptivity has everything you need to get your new or existing business a competitive edge in no time! Through modern data analytics and visualization Maptivity empowers your business to make better decisions to grow and thrive.</p>
-                  <Button bsStyle="default" href="#services">Get Started!</Button>
+                  <Button className="btn-homepage" bsStyle="default" href="#services">Get Started!</Button>
                 </Col>
               </Row>
             </Grid>
@@ -107,7 +107,7 @@ export default class HomePage extends React.Component {
           <section className="bg-primary text-white">
             <Grid className="text-center">
               <h2 className="mb-4">Pricing</h2>
-              <Button bsStyle="default" href="https://github.com/oconorr3/Maptivity">Link to repo for now</Button>
+              <Button className="btn-homepage" bsStyle="default" href="https://github.com/oconorr3/Maptivity">Link to repo for now</Button>
             </Grid>
           </section>
 
@@ -128,7 +128,7 @@ export default class HomePage extends React.Component {
                 <Col lg={12} className="mr-auto text-center">
                   <i className="fa fa-envelope-o fa-3x mb-3 sr-contact"></i>
                   <p>
-                    <Button bsStyle="default" href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</Button>
+                    <Button className="btn-homepage" bsStyle="default" href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</Button>
                   </p>
                 </Col>
               </Row>
