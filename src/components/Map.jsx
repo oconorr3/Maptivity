@@ -9,6 +9,9 @@ const zoomFactor = 0.9;
 export default class Map extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      mapType: false
+    };
   }
 
   componentDidMount() {
@@ -147,40 +150,27 @@ export default class Map extends React.Component {
         highlightBorderOpacity: 1
       },
       done: function(datamap) { //callback when the map is done drawing
-          //Zoom functionality for clicking on datamap countries/regions
+          //Handling for when a region is selected
          datamap.svg.selectAll(".datamaps-subunit").on('click', function(geography) {
-                if (geography.properties.name == selectedRegion) {
-                    console.log("clearing...");
-                    selectedRegion = "world";
-                    datamap.svg.selectAll("g").transition()
-                     .duration(750)
-                     .style("stroke-width", "1.5px")
-                     .attr("transform", "");
-                } else {
-                  console.log("focusing on " + geography.properties.name);
-                  selectedRegion = geography.properties.name;
-                  if (selectedRegion == "United States") {
-
-                  }
-                  var bounds = map.path.bounds(geography);
-                  var dx = bounds[1][0] - bounds[0][0];
-                  var dy = bounds[1][1] - bounds[0][1];
-                  var x = (bounds[0][0] + bounds[1][0]) / 2;
-                  var y = (bounds[0][1] + bounds[1][1]) / 2;
-                  var  scale = zoomFactor / Math.max(dx / window.innerWidth, dy / window.innerHeight);
-                  var translate = [window.innerWidth / 2 - scale * x, window.innerHeight / 2 - scale * y];
-
-                  datamap.svg.selectAll("g").transition()
-                    .duration(750)
-                    .style("stroke-width", 1.5 / scale + "px")
-                    .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
-                }
+              if (geography.properties.name == selectedRegion) {
+                  console.log("clearing...");
+                  selectedRegion = "world";
+              } else {
+                console.log("focusing on " + geography.properties.name);
+                selectedRegion = geography.properties.name;
+              }
           });
 
          //Zoom functionality for mousewheel and panning (HAS BUG)
-         /*datamap.svg.call(d3.behavior.zoom().on("zoom", function() {
-            map.svg.selectAll("g").attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-         }));*/
+         datamap.svg.call(d3.behavior.zoom().scaleExtent([1, 4]).on("zoom", function() {
+             console.log("zooming");
+             var e = d3.event,
+             // constrain the x and y components of the translation by the dimensions of the viewport
+             tx = Math.min(0, Math.max(e.translate[0], window.innerWidth - window.innerWidth * e.scale)),
+             ty = Math.min(0, Math.max(e.translate[1], window.innerHeight - window.innerHeight * e.scale));
+             //update the <g> element's transform attribute with the correct translation and scale
+             map.svg.selectAll("g").attr("transform", "translate(" + [tx, ty] + ")scale(" + e.scale + ")");
+         }));
       },
       fills: {
           defaultFill: 'rgba(27, 39, 63, 1)'
