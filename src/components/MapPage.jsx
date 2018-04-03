@@ -1,13 +1,11 @@
 import React, {PropTypes} from 'react';
-import Datamap from './Datamap.jsx';
+import Map from './Map.jsx';
 import MapNav from './MapNav.jsx'
 
 export default class MapPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      scope: 'world',
-      selectedRegion: 'ALL'
     };
 
   }
@@ -21,13 +19,11 @@ export default class MapPage extends React.Component {
   }
 
   render() {
-    return (<div className="App">
-      <div className="App-options">
-        <MapNav/>
+    return (
+        <div>
+            <MapNav></MapNav>
+            <Map {...this.state}></Map>
       </div>
-      <div className="App-map">
-        <Datamap {...this.state}/>
-      </div>
-    </div>);
+    );
   }
 }
