@@ -9,7 +9,17 @@ const PORT = 3000;
 app.use(express.static(DIST_DIR));
 
 app.get('/data/:year', function(req, res) {
-  res.send(req.params.year + ' hi');
+  let data = [
+    {
+      "latitude": "28.014067",
+      "longitude": "-81.728676"
+    }, {
+      "latitude": "40.750793",
+      "longitude": "-73.989525",
+      "magnitude": 3
+    }
+  ];
+  res.send(data);
   //res.sendFile(path.join(DATA_DIR, `phoneData${req.params.year}.csv`))
 });
 

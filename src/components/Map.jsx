@@ -24,6 +24,9 @@ export default class Map extends React.Component {
 
   componentDidUpdate() {
     this.drawMap();
+    console.log('updating, draw bubbles if data exists');
+    if(this.props.data)
+      this.drawBubbles();
   }
 
   componentWillUnmount() {
@@ -208,7 +211,7 @@ export default class Map extends React.Component {
   }
 
   drawBubbles = () => {
-    var data = [
+    /*var data = [
       {
         "latitude": "28.014067",
         "longitude": "-81.728676"
@@ -217,15 +220,15 @@ export default class Map extends React.Component {
         "longitude": "-73.989525",
         "magnitude": 3
       }
-    ];
+    ];*/
 
-    this.map.fadingBubbles(data);
+    this.map.fadingBubbles(this.props.data);
   }
 
   render() {
     return (
       <div>
-        <Button className="top-middle" onClick={this.drawBubbles}>Draw Fading Bubbles</Button>
+        <Button className="top-middle" onClick={this.drawBubbles} disabled={!this.props.data}>Draw Fading Bubbles</Button>
         <div className="datamap" ref="container"></div>
       </div>
   );
