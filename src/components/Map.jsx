@@ -2,6 +2,8 @@ import propTypes from 'prop-types';
 import React from 'react';
 import WorldMap from 'datamaps/dist/datamaps.world.hires.js';
 import {Button} from 'react-bootstrap';
+import LoginModal from './LoginModal.jsx'
+
 
 var selectedRegion = "world";
 const zoomFactor = 0.9;
@@ -10,7 +12,8 @@ export default class Map extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      mapType: false
+      mapType: false,
+      showLoginModal: false
     };
   }
 
@@ -126,6 +129,7 @@ export default class Map extends React.Component {
   }*/
 
   drawMap() {
+
     var map = new WorldMap({
       ...this.props,
       element: this.refs.container,
@@ -140,9 +144,10 @@ export default class Map extends React.Component {
         borderOpacity: 0.7,
         borderColor: 'rgba(155, 224, 255, 1)',
         popupTemplate: function(geography, data) { //this function should just return a string
+          console.log("trying....");
           return '<div class="hoverinfo"><strong>' + geography.properties.name + '</strong></div>';
         },
-        popupOnHover: false, //disable the popup while hovering
+        popupOnHover: true, //disable the popup while hovering
         highlightOnHover: true,
         highlightFillColor: 'rgba(240, 95, 54, 0.4)',
         highlightBorderColor: 'rgba(240, 95, 54, 0.2)',
@@ -150,6 +155,10 @@ export default class Map extends React.Component {
         highlightBorderOpacity: 1
       },
       done: function(datamap) { //callback when the map is done drawing
+        datamap.svg.selectAll(".datamaps-subunit").on('mouseenter', function(geography) {
+            console.log("onHover");
+            showCustomPopUp();
+         });
           //Handling for when a region is selected
          datamap.svg.selectAll(".datamaps-subunit").on('click', function(geography) {
               if (geography.properties.name == selectedRegion) {
@@ -222,9 +231,17 @@ export default class Map extends React.Component {
     this.map.fadingBubbles(data);
   }
 
+  showCustomPopUp() {
+      console.log("showing custom popup");
+      this.setState({ showLoginModal: true });
+  }
+
   render() {
+    let loginModalClose = () => this.setState({ showLoginModal: false });
+
     return (
       <div>
+        <LoginModal id="modal" ref="modal" show={this.state.showLoginModal} onHide={loginModalClose}/>
         <Button className="top-left-panel" onClick={this.drawBubbles}>Draw Fading Bubbles</Button>
         <div className="datamap" ref="container"></div>
       </div>
