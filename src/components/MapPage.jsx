@@ -6,8 +6,16 @@ export default class MapPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      data: null
     };
 
+  }
+
+  //utilizing class properties to bind functions correctly, babel stage-2
+  updateData = (data) => {
+    this.setState({
+      data
+    });
   }
 
   update(region) {
@@ -21,7 +29,7 @@ export default class MapPage extends React.Component {
   render() {
     return (
         <div>
-            <MapNav></MapNav>
+            <MapNav updateData={this.updateData}></MapNav>
             <Map {...this.state}></Map>
       </div>
     );

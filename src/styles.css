@@ -13,93 +13,73 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  z-index:1;
+  z-index: 1;
 }
 
-.top-left-panel {
-  position: fixed;
-  top: 2%;
-  left: 1%;
-  z-index: 2;
-  background-color: rgba(155, 224, 255, 0.6);
-  border-color: rgba(27, 39, 63, 0.7);
+/***** DRAWER MENU STYLE OVERRIDES *****/
+
+.nav-content *{
+  z-index: 10;
+  text-align: center;
 }
 
-.top-right-panel {
-  position: fixed;
-  top: 2%;
-  right: 1%;
-  z-index: 2;
-  background-color: rgba(155, 224, 255, 0.6);
-  border-color: rgba(27, 39, 63, 0.7);
+.css-sourceMap-modules-importLoaders-1-localIdentName-ReactDrawer__drawer___2r5VH-sass {
+  background-color: rgba(27, 39, 63, .9) !important;
 }
 
-.bottom-left-panel {
-  position: fixed;
-  bottom: 2%;
-  left: 1%;
-  z-index: 2;
-  background-color: rgba(155, 224, 255, 0.6);
-  border-color: rgba(27, 39, 63, 0.7);
+.css-sourceMap-modules-importLoaders-1-localIdentName-ReactDrawer__drawer-left___2xURN-sass {
+    width: auto !important;
+    padding: 0 15px;
+    border-right: 3px solid rgba(155, 224, 255, .75);
 }
 
-.bottom-right-panel {
-  bottom: 2%;
-  right: 1%;
-  position: fixed;
-  z-index: 2;
-  background-color: rgba(155, 224, 255, 0.6);
-  border-color: rgba(27, 39, 63, 0.7);
+.css-sourceMap-modules-importLoaders-1-localIdentName-ReactDrawer__drawer-bottom___2f9G_-sass {
+    z-index: 8;
+    height: auto !important;
+    padding: 10px 10px 10px 25px;
+    border-top: 1px solid rgba(155, 224, 255, .75);
 }
 
-.top-left-button{
+.css-sourceMap-modules-importLoaders-1-localIdentName-ReactDrawer__overlay___2QFmC-sass {
+  background-color: rgba(0,0,0,.4) !important;
+}
+
+.btn, .btn:focus {
+  color: rgba(155, 224, 255, .75);
+  background-color: rgba(25, 25, 25, .9);
+  border-color: rgba(155, 224, 255, 1);
+}
+
+.btn:hover, .btn:active  {
+  color: rgba(155, 224, 255, 1) !important;
+  background-color: rgba(27, 39, 63, .9) !important;
+}
+
+.top-middle {
   position: fixed;
   top: 0;
-  left: 0;
-  z-index: 2;
-  height:50px;
-  width:50px;
-  color: rgba(155, 224, 255, 1);
-  background-color: rgba(27, 39, 63, 1);
-  border-color: rgba(155, 224, 255, 1);
+  left: 50%;
+  z-index: 5;
+  transform: translate(-50%, 0);
 }
 
 .top-right-button {
   position: fixed;
-  top: 0;
+  top: 0%;
   right: 0%;
-  z-index: 2;
-  height:50px;
-  width:50px;
-  color: rgba(155, 224, 255, 1);
-  background-color: rgba(27, 39, 63, 1);
-  border-color: rgba(155, 224, 255, 1);
+  z-index: 5;
 }
 
-.bottom-left-button{
+.top-right-button-config {
   position: fixed;
-  bottom: 0%;
-  left: 0;
-  z-index: 2;
-  height:50px;
-  width:50px;
-  color: rgba(155, 224, 255, 1);
-  background-color: rgba(27, 39, 63, 1);
-  border-color: rgba(155, 224, 255, 1);
+  top: 5%;
+  right: 0%;
+  z-index: 5;
 }
 
-.bottom-right-button {
-  bottom: 0%;
-  right: 0%;
-  z-index: 2;
-  position: fixed;
-  height:50px;
-  width:50px;
-  background-size: 100%;
-  background-image: url("../img/compass_rose.svg");
-  color: rgba(155, 224, 255, 1);
-  background-color: rgba(27, 39, 63, 1);
-  border-color: rgba(155, 224, 255, 1);
+.nav-title {
+  margin: 10px;
+  color: rgba(200, 200, 200, 1);
 }
 
 hr {

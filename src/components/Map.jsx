@@ -225,7 +225,7 @@ export default class Map extends React.Component {
   render() {
     return (
       <div>
-        <Button className="top-left-panel" onClick={this.drawBubbles}>Draw Fading Bubbles</Button>
+        <Button className="top-middle" onClick={this.drawBubbles}>Draw Fading Bubbles</Button>
         <div className="datamap" ref="container"></div>
       </div>
   );

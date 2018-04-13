@@ -1,84 +1,72 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import { Clearfix, Grid, Row, Col, Image, Button, Panel } from 'react-bootstrap';
+import { Row, Col, Image, Button, Panel } from 'react-bootstrap';
+import ReactDrawer from 'react-drawer';
+import axios from 'axios';
 
+import 'react-drawer/lib/react-drawer.css';
 
 export default class MapNav extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      topLeftOpen: false,
-      topRightOpen: false,
-      bottomLeftOpen: false,
-      bottomRightOpen: false
+      leftOpen: false,
+      bottomOpen: false,
     };
-
   }
+
+  retrieveData = (event) => {
+    //this.props.updateData will call appropriate function on MapPage to setState
+    let year = event.target.getAttribute('data-year');
+    console.log(year);
+    axios.get(`/data/${year}`)
+      .then(response => {
+        console.log(response);
+        this.props.updateData(response.data);
+        this.setState({
+          leftOpen: false
+        });
+      })
+      .catch(error => alert(error.message)); //shouldn't happen unless we provide invalid params
+  }
+
+  onLeftClose = (event) => {
+    this.setState({
+      leftOpen: false
+    });
+  }
+
 
   render() {
     return (
-      <div>
-        <div>
-          <Button className="top-left-button" onClick={() => this.setState({ topLeftOpen: !this.state.topLeftOpen })}>
-            TL
-          </Button>
-          <Panel className="top-left-panel" id="collapsible-panel-example-1" expanded={this.state.topLeftOpen}
-              onMouseLeave={() => this.setState({ topLeftOpen: !this.state.topLeftOpen })}>
-            <Panel.Collapse>
-              <Panel.Heading>
-                <Panel.Title componentClass="h3">Something</Panel.Title>
-              </Panel.Heading>
-              <Panel.Body>
-                topleftOpen
-              </Panel.Body>
-            </Panel.Collapse>
-          </Panel>
-        </div>
-        <div>
-          <Button className="top-right-button" onClick={() => this.setState({ topRightOpen: !this.state.topRightOpen })}>
-            TR
-          </Button>
-          <Panel className="top-right-panel" id="collapsible-panel-example-1" expanded={this.state.topRightOpen}
-              onMouseLeave={() => this.setState({ topRightOpen: !this.state.topRightOpen })}>
-            <Panel.Collapse>
-              <Panel.Heading>
-                <Panel.Title componentClass="h3">Something</Panel.Title>
-              </Panel.Heading>
-              <Panel.Body>
-                topRightOpen
-              </Panel.Body>
-            </Panel.Collapse>
-          </Panel>
-        </div>
-        <Button className="bottom-left-button" onClick={() => this.setState({ bottomLeftOpen: !this.state.bottomLeftOpen })}>
-          BL
+      <div className='nav-content'>
+        <ReactDrawer
+          open={this.state.leftOpen}
+          position='left'
+          onClose={this.onLeftClose}>
+            <h2 className='nav-title'> Data </h2>
+            <Button onClick={this.retrieveData} data-year={2016}>Retrieve 2016 Phone Data</Button>
+        </ReactDrawer>
+        <Button className="top-right-button" onClick={() => this.setState({ leftOpen: !this.state.leftOpen })}>
+            Open Data Nav Bar
         </Button>
-        <Panel className="bottom-left-panel" id="collapsible-panel-example-1" expanded={this.state.bottomLeftOpen}
-            onMouseLeave={() => this.setState({ bottomLeftOpen: !this.state.bottomLeftOpen })}>
-          <Panel.Collapse>
-            <Panel.Heading>
-              <Panel.Title componentClass="h3">Something</Panel.Title>
-            </Panel.Heading>
-            <Panel.Body>
-              bottomLeftOpen
-            </Panel.Body>
-          </Panel.Collapse>
-        </Panel>
 
-        <Button className="bottom-right-button" onClick={() => this.setState({ bottomRightOpen: !this.state.bottomRightOpen })}>
-          BR
+        <ReactDrawer
+          open={this.state.bottomOpen}
+          position='bottom'
+          noOverlay>
+            <Col md={6}>
+              <h2 className='nav-title'> Config </h2>
+              <Button>Config Stuff</Button>
+            </Col>
+            <Col md={6}>
+              <h2 className='nav-title'> Config 2 </h2>
+              <Button>Other Config Stuff</Button>
+            </Col>
+        </ReactDrawer>
+        <Button className="top-right-button-config" onClick={() => this.setState({ bottomOpen: !this.state.bottomOpen })}>
+            Toggle Config Nav Bar
         </Button>
-        <Panel className="bottom-right-panel" bsStyle="info" id="collapsible-panel-example-1" expanded={this.state.bottomRightOpen}
-            onMouseLeave={() => this.setState({ bottomRightOpen: !this.state.bottomRightOpen })}>
-          <Panel.Collapse>
-            <Panel.Heading>
-              <Panel.Title componentClass="h3">Legend</Panel.Title>
-            </Panel.Heading>
-            <Panel.Body>
-              bottomRightOpen
-            </Panel.Body>
-          </Panel.Collapse>
-        </Panel>
+
       </div>
     );
   }
