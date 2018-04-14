@@ -2,6 +2,8 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import { Clearfix, Grid, Row, Col, Image, Button, Navbar, NavItem, Nav } from 'react-bootstrap';
 import LoginModal from './LoginModal.jsx'
+import ReactBootstrapSlider from 'react-bootstrap-slider';
+
 
 export default class HomePage extends React.Component {
   constructor(props) {
@@ -38,7 +40,7 @@ export default class HomePage extends React.Component {
             <Grid>
               <Row>
                 <Col lg={12} className="mx-auto">
-                  <h1 className="text-uppercase">
+                  <h1 className="text-primary">
                     <strong>A LOW COST SOLUTION TO YOUR DATA VISUALIZATION NEEDS</strong>
                   </h1>
                   <hr></hr>
@@ -68,7 +70,7 @@ export default class HomePage extends React.Component {
             <Grid>
               <Row>
                 <Col lg={12} className="text-center">
-                  <h2 className="section-heading">At Your Service</h2>
+                  <h2 className="section-heading text-white">At Your Service</h2>
                   <hr className="my-4"></hr>
                 </Col>
               </Row>
