@@ -134,7 +134,7 @@ export default class Map extends React.Component {
       element: this.refs.container,
       scope: 'world', //currently supports 'usa' and 'world', however with custom map data you can specify your own
       //setProjection: this.setProjection,
-      projection: 'mercator', //style of projection to be used. try "mercator"
+      projection: 'equirectangular', //style of projection to be used. try "mercator"
       responsive: true, //if true, call `resize()` on the map object when it should adjust it's size
       geographyConfig: {
         dataUrl: null, //if not null, datamaps will fetch the map JSON (currently only supports topojson)
