@@ -26,6 +26,7 @@
     "datamaps": "^0.5.8",
     "express": "^4.16.2",
     "fast-csv": "^2.4.1",
+    "fs": "0.0.1-security",
     "jquery": "^3.3.1",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
