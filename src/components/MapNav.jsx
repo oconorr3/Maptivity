@@ -1,7 +1,8 @@
 import React from 'react';
-import { Row, Col, Image, Button, Panel } from 'react-bootstrap';
+import { Clearfix, Grid, Row, Col, Image, Button, Panel } from 'react-bootstrap';
 import ReactDrawer from 'react-drawer';
 import axios from 'axios';
+import PlaybackControl from './PlaybackControl.jsx';
 
 import 'react-drawer/lib/react-drawer.css';
 
@@ -11,6 +12,7 @@ export default class MapNav extends React.Component {
     this.state = {
       leftOpen: false,
       bottomOpen: false,
+      loadedData: 'No Data Loaded'
     };
   }
 
@@ -36,7 +38,10 @@ export default class MapNav extends React.Component {
   }
 
 
+
   render() {
+    const wrapperStyle = { width: 400, margin: 50 };
+
     return (
       <div className='nav-content'>
         <ReactDrawer
@@ -54,14 +59,41 @@ export default class MapNav extends React.Component {
           open={this.state.bottomOpen}
           position='bottom'
           noOverlay>
-            <Col md={6}>
-              <h2 className='nav-title'> Config </h2>
-              <Button>Config Stuff</Button>
-            </Col>
-            <Col md={6}>
-              <h2 className='nav-title'> Config 2 </h2>
-              <Button>Other Config Stuff</Button>
-            </Col>
+          <Grid fluid={true}>
+            <Row>
+              <Col lg={1}>
+                <h5 className='config-drawer-title'> Total </h5>
+                <hr></hr>
+              </Col>
+              <Col lg={3}>
+                <h5 className='config-drawer-title'> Playback </h5>
+                <hr></hr>
+                <p className='text-faded'>{this.state.loadedData}</p>
+                <hr></hr>
+                <PlaybackControl></PlaybackControl>
+              </Col>
+              <Col lg={2}>
+                <h5 className='config-drawer-title'> North America </h5>
+                <hr></hr>
+              </Col>
+              <Col lg={2}>
+                <h5 className='config-drawer-title'> South America </h5>
+                <hr></hr>
+              </Col>
+              <Col lg={1}>
+                <h5 className='config-drawer-title'> Europe </h5>
+                <hr></hr>
+              </Col>
+              <Col lg={1}>
+                <h5 className='config-drawer-title'> Africa </h5>
+                <hr></hr>
+              </Col>
+              <Col lg={1}>
+                <h5 className='config-drawer-title'> Asia </h5>
+                <hr></hr>
+              </Col>
+            </Row>
+          </Grid>
         </ReactDrawer>
         <Button className="top-right-button-config" onClick={() => this.setState({ bottomOpen: !this.state.bottomOpen })}>
             Toggle Config Nav Bar

@@ -2,8 +2,6 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import { Clearfix, Grid, Row, Col, Image, Button, Navbar, NavItem, Nav } from 'react-bootstrap';
 import LoginModal from './LoginModal.jsx'
-import ReactBootstrapSlider from 'react-bootstrap-slider';
-
 
 export default class HomePage extends React.Component {
   constructor(props) {
@@ -58,7 +56,7 @@ export default class HomePage extends React.Component {
               <Row>
                 <Col lg={12} className="text-center mx-auto">
                   <h2 className="section-heading text-white">About Us</h2>
-                  <hr className="light my-4"></hr>
+                  <hr className="light-short my-4"></hr>
                   <p className="text-faded mb-4">Maptivity has everything you need to get your new or existing business a competitive edge in no time! Through modern data analytics and visualization Maptivity empowers your business to make better decisions to grow and thrive.</p>
                   <Button className="btn-homepage" bsStyle="default" href="#services">Get Started!</Button>
                 </Col>
@@ -71,7 +69,7 @@ export default class HomePage extends React.Component {
               <Row>
                 <Col lg={12} className="text-center">
                   <h2 className="section-heading text-white">At Your Service</h2>
-                  <hr className="my-4"></hr>
+                  <hr className="dark-short my-4"></hr>
                 </Col>
               </Row>
             </Grid>

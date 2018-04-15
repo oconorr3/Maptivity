@@ -82,14 +82,25 @@ body {
   color: rgba(200, 200, 200, 1);
 }
 
+.config-drawer-title {
+  margin-left: 0px;
+  color: rgba(200, 200, 200, 1);
+}
+
 hr {
+
+}
+
+hr.dark-short {
   max-width: 50px;
   border-width: 3px;
   border-color: #F05F40;
 }
 
-hr.light {
+hr.light-short {
   border-color: #fff;
+  max-width: 50px;
+  border-width: 3px;
 }
 
 a {
