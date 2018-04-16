@@ -3,7 +3,7 @@ const express = require('express');
 const http = require("http");
 const socketIo = require("socket.io");
 const csv = require('csv');
-const phoneDataSeventeen = require('./2017phoneData.js');
+const data = require('./data_conversions_helpers.js');
 
 const DIST_DIR = path.join(__dirname, 'public/');
 const PORT = 3000;
@@ -17,7 +17,7 @@ const server = http.createServer(app);
 const io = socketIo(server);
 
 io.on("connection", (socket) => {
-  console.log("Connected to client and here is phone data: " + JSON.stringify(phoneDataSeventeen.phoneData)), setInterval(
+  console.log("Connected to client and here is phone data: " + JSON.stringify(data.phoneData)), setInterval(
     () => socket.emit('testEvent', "Message from server sent"),
     5000
   );
