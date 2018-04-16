@@ -48,15 +48,12 @@ export default class Map extends React.Component {
     let initialRadius = 1;
     let bubbles = layer.selectAll(className).data(data, JSON.stringify) // bind the data
 
-    console.log(data);
-    console.log(bubbles);
-    console.log(data[0]);
-    console.log('\n');
+
 
     bubbles.enter().append('circle')
       .attr('class', className)
-      .attr('cx', data => this.latLngToXY(data.latitude, data.longitude)[0]) // this refers to the datamap instance in this case
-      .attr('cy', data => this.latLngToXY(data.latitude, data.longitude)[1])
+      .attr('cx', data => this.latLngToXY(data.geoLocation.latitude, data.geoLocation.longitude)[0]) // this refers to the datamap instance in this case
+      .attr('cy', data => this.latLngToXY(data.geoLocation.latitude, data.geoLocation.longitude)[1])
       .attr('r', () => initialRadius)
       .style('fill', data => { //check if 'fills' option is set and if fillkey was provided  in data
         if (this.options.fills && data.fillKey && this.options.fills[data.fillKey])
@@ -216,21 +213,16 @@ export default class Map extends React.Component {
   }
 
   drawBubbles = () => {
-    /*var data = [
-      {
-        "latitude": "28.014067",
-        "longitude": "-81.728676"
-      }, {
-        "latitude": "40.750793",
-        "longitude": "-73.989525",
-        "magnitude": 3
-      }
-    ];*/
 
-    var index;
-    for (index = 0; index < this.props.data.length; index++) {
-      this.map.fadingBubbles(this.props.data[index]);
-    }
+    this.props.data.forEach((datum, index) => {
+
+        setTimeout(() => {
+
+            this.map.fadingBubbles([datum]);
+
+        }, index * 100);
+
+    });
   }
 
   render() {
