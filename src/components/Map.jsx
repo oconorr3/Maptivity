@@ -48,6 +48,11 @@ export default class Map extends React.Component {
     let initialRadius = 1;
     let bubbles = layer.selectAll(className).data(data, JSON.stringify) // bind the data
 
+    console.log(data);
+    console.log(bubbles);
+    console.log(data[0]);
+    console.log('\n');
+
     bubbles.enter().append('circle')
       .attr('class', className)
       .attr('cx', data => this.latLngToXY(data.latitude, data.longitude)[0]) // this refers to the datamap instance in this case
@@ -222,7 +227,10 @@ export default class Map extends React.Component {
       }
     ];*/
 
-    this.map.fadingBubbles(this.props.data);
+    var index;
+    for (index = 0; index < this.props.data.length; index++) {
+      this.map.fadingBubbles(this.props.data[index]);
+    }
   }
 
   render() {

@@ -20,12 +20,13 @@ export default class MapNav extends React.Component {
     //this.props.updateData will call appropriate function on MapPage to setState
     let year = event.target.getAttribute('data-year');
     console.log(year);
-    axios.get(`/data/${year}`)
+    axios.get(`/data/${year}.json`)
       .then(response => {
         console.log(response);
         this.props.updateData(response.data);
         this.setState({
-          leftOpen: false
+          leftOpen: false,
+          bottomOpen: true
         });
       })
       .catch(error => alert(error.message)); //shouldn't happen unless we provide invalid params
@@ -49,7 +50,7 @@ export default class MapNav extends React.Component {
           position='left'
           onClose={this.onLeftClose}>
             <h2 className='nav-title'> Data </h2>
-            <Button onClick={this.retrieveData} data-year={2016}>Retrieve 2016 Phone Data</Button>
+            <Button onClick={this.retrieveData} data-year={2017}>Retrieve 2017 Phone Data</Button>
         </ReactDrawer>
         <Button className="top-right-button" onClick={() => this.setState({ leftOpen: !this.state.leftOpen })}>
             Open Data Nav Bar
