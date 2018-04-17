@@ -13,7 +13,7 @@ export default class Map extends React.Component {
     super(props);
     this.state = {
       mapType: false,
-      timeScaleFactor: 10
+      timeScaleFactor: 100000
     };
   }
 
@@ -57,7 +57,7 @@ export default class Map extends React.Component {
       .attr('class', className)
       .attr('cx', data => this.latLngToXY(data.latitude, data.longitude)[0]) // this refers to the datamap instance in this case
       .attr('cy', data => this.latLngToXY(data.latitude, data.longitude)[1])
-      .attr('r', () => initialRadius / 5)
+      .attr('r', () => initialRadius / 10)
       .style('fill', data => { //check if 'fills' option is set and if fillkey was provided  in data
         if (this.options.fills && data.fillKey && this.options.fills[data.fillKey])
           return this.options.fills[data.fillKey];
@@ -71,7 +71,7 @@ export default class Map extends React.Component {
           return defaultColor;
       })
       .transition().duration(2000).ease(Math.sqrt)
-      .attr('r', data => data.magnitude ? data.magnitude * 1 : 3)
+      .attr('r', data => data.magnitude ? data.magnitude * 1 : 4)
       .style('fill-opacity', 1e-6)
       .style('stroke-opacity', 1e-6)
       .remove();
@@ -216,24 +216,33 @@ export default class Map extends React.Component {
   }
 
   drawBubbles = () => {
-    this.props.data.forEach((datum, index) => {
-      let ms = 0;
-      if (this.props.data[index + 1]) {
+    let data = this.props.data;
+    let first = moment(data[0].timeStamp,"YYYY/MM/DD HH:mm:ss");
+    let last = moment(data[data.length - 1].timeStamp,"YYYY/MM/DD HH:mm:ss");
+    let totalMilliseconds = last.diff(first);
+    let totalDays = moment.duration(totalMilliseconds, 'milliseconds').asDays();
+    console.log(`Total Days in Dataset --- ${totalDays} \n`);
+        let totalSimulationTimeInMinutes = totalMilliseconds / 1000 / 60 / this.state.timeScaleFactor;
+    console.log(`Total Simulation Time In minutes --- ${totalSimulationTimeInMinutes} \n`)
+    data.forEach((datum, index) => {
+      let ms = 1;
+      if (data[index + 1]) {
         let now  = datum.timeStamp;
-        let next = this.props.data[index + 1].timeStamp;
-        //"timeStamp":"2016-01-05T05:09:00.000Z"
-        ms = moment(next,"YYYY/MM/DD HH:mm:ss").diff(moment(now,"YYYY/MM/DD HH:mm:ss"));
-      }
-
-      if (ms == 0) {
-        console.log('DOne playback');
-      }
+        let next = data[index + 1].timeStamp;
+        ms = moment(next).diff(moment(now));
+        if(ms <= 0) {
+          console.log(`whoops! Time in seconds to next ping: ${ms / 1000 / this.state.timeScaleFactor}`);
+          ms = 1;
+        }
         setTimeout(() => {
 
             this.map.fadingBubbles([datum]);
 
         }, ms / this.state.timeScaleFactor);
-
+      }
+      else {
+        console.log('playback complete');
+      }
     });
 
   }
