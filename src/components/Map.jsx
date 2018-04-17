@@ -137,7 +137,7 @@ export default class Map extends React.Component {
     var map = new WorldMap({
       ...this.props,
       element: this.refs.container,
-      scope: 'usa', //currently supports 'usa' and 'world', however with custom map data you can specify your own
+      scope: 'world', //currently supports 'usa' and 'world', however with custom map data you can specify your own
       //setProjection: this.setProjection,
       projection: 'equirectangular', //style of projection to be used. try "mercator"
       responsive: true, //if true, call `resize()` on the map object when it should adjust it's size
