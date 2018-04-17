@@ -5,6 +5,8 @@ import USAMap from 'datamaps/dist/datamaps.usa.js';
 import {Button} from 'react-bootstrap';
 import moment from 'moment';
 
+import TimedPlayback from '../helpers.js';
+
 var selectedRegion = "world";
 const zoomFactor = 0.9;
 
@@ -13,7 +15,7 @@ export default class Map extends React.Component {
     super(props);
     this.state = {
       mapType: false,
-      timeScaleFactor: 100000
+      timeScaleFactor: 1000000
     };
   }
 
@@ -27,9 +29,14 @@ export default class Map extends React.Component {
 
   componentDidUpdate() {
     this.drawMap();
-    console.log('updating, draw bubbles if data exists');
-    if(this.props.data)
+    if(this.timer && this.props.simulationPlaying != this.timer.isPlaying){
+      console.log('toggling playback');
+      this.togglePlay();
+    }
+    if(!this.timer && this.props.data) {
+      console.log('drawing bubbles');
       this.drawBubbles();
+    }
   }
 
   componentWillUnmount() {
@@ -43,6 +50,14 @@ export default class Map extends React.Component {
     for (const child of Array.from(container.childNodes)) {
       container.removeChild(child);
     }
+  }
+
+  togglePlay() {
+    console.log(`was playing: ${this.timer.isPlaying}`);
+    if(this.timer.isPlaying)
+      this.timer.pause();
+    else
+      this.timer.resume();
   }
 
   fadingBubbles(layer, data) {
@@ -217,34 +232,20 @@ export default class Map extends React.Component {
 
   drawBubbles = () => {
     let data = this.props.data;
-    let first = moment(data[0].timeStamp,"YYYY/MM/DD HH:mm:ss");
-    let last = moment(data[data.length - 1].timeStamp,"YYYY/MM/DD HH:mm:ss");
+    let first = moment(data[0].timestamp,"YYYY/MM/DD HH:mm:ss");
+    let last = moment(data[data.length - 1].timestamp,"YYYY/MM/DD HH:mm:ss");
     let totalMilliseconds = last.diff(first);
     let totalDays = moment.duration(totalMilliseconds, 'milliseconds').asDays();
     console.log(`Total Days in Dataset --- ${totalDays} \n`);
-        let totalSimulationTimeInMinutes = totalMilliseconds / 1000 / 60 / this.state.timeScaleFactor;
-    console.log(`Total Simulation Time In minutes --- ${totalSimulationTimeInMinutes} \n`)
-    data.forEach((datum, index) => {
-      let ms = 1;
-      if (data[index + 1]) {
-        let now  = datum.timeStamp;
-        let next = data[index + 1].timeStamp;
-        ms = moment(next).diff(moment(now));
-        if(ms <= 0) {
-          console.log(`whoops! Time in seconds to next ping: ${ms / 1000 / this.state.timeScaleFactor}`);
-          ms = 1;
-        }
-        setTimeout(() => {
-
-            this.map.fadingBubbles([datum]);
-
-        }, ms / this.state.timeScaleFactor);
-      }
-      else {
-        console.log('playback complete');
-      }
-    });
-
+    let totalSimulationTimeInMinutes = totalMilliseconds / 1000 / 60 / this.state.timeScaleFactor;
+    console.log(`Total Simulation Time In minutes --- ${totalSimulationTimeInMinutes} \n`);
+    if(this.timer) { //if we already had a simulation going, destroy old timeouts and this.timer
+      this.timer.pause();
+      this.timer = null;
+    }
+    this.timer = new TimedPlayback(data, (datum) => {
+        this.map.fadingBubbles([datum]);
+    }, this.state.timeScaleFactor);
   }
 
   render() {
