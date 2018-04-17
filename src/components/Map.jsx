@@ -2,6 +2,7 @@ import propTypes from 'prop-types';
 import React from 'react';
 import WorldMap from 'datamaps/dist/datamaps.world.hires.js';
 import {Button} from 'react-bootstrap';
+import moment from 'moment';
 
 var selectedRegion = "world";
 const zoomFactor = 0.9;
@@ -10,7 +11,8 @@ export default class Map extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      mapType: false
+      mapType: false,
+      timeScaleFactor: 10
     };
   }
 
@@ -45,15 +47,15 @@ export default class Map extends React.Component {
   fadingBubbles(layer, data) {
     let className = 'fadingBubble';
     let defaultColor = 'rgba(155, 224, 255, 0.5)';
-    let initialRadius = 1;
+    let initialRadius = 0.1;
     let bubbles = layer.selectAll(className).data(data, JSON.stringify) // bind the data
 
 
 
     bubbles.enter().append('circle')
       .attr('class', className)
-      .attr('cx', data => this.latLngToXY(data.geoLocation.latitude, data.geoLocation.longitude)[0]) // this refers to the datamap instance in this case
-      .attr('cy', data => this.latLngToXY(data.geoLocation.latitude, data.geoLocation.longitude)[1])
+      .attr('cx', data => this.latLngToXY(data.latitude, data.longitude)[0]) // this refers to the datamap instance in this case
+      .attr('cy', data => this.latLngToXY(data.latitude, data.longitude)[1])
       .attr('r', () => initialRadius)
       .style('fill', data => { //check if 'fills' option is set and if fillkey was provided  in data
         if (this.options.fills && data.fillKey && this.options.fills[data.fillKey])
@@ -215,12 +217,28 @@ export default class Map extends React.Component {
   drawBubbles = () => {
 
     this.props.data.forEach((datum, index) => {
+      let ms;
+      let s;
+      if (index == 0) {
+        let now  = datum.timeStamp;
+        let next = this.props.data[index + 1].timeStamp;
+        //"timeStamp":"2016-01-05T05:09:00.000Z"
+        ms = moment(next,"YYYY/MM/DD HH:mm:ss").diff(moment(now,"YYYY/MM/DD HH:mm:ss"));
+        console.log('ms =' + ms);
+        //let d = moment.duration(ms);
+        //s = Math.floor(d.asHours()) + moment.utc(ms).format(":mm:ss");
 
+        //console.log('now = ' + now);
+        //console.log('next = ' + next);
+
+        //console.log('s = ' + s);
+        console.log('divided by timescale factor = ' + ms / this.state.timeScaleFactor);
+      }
         setTimeout(() => {
 
             this.map.fadingBubbles([datum]);
 
-        }, index * 100);
+        }, ms / this.state.timeScaleFactor);
 
     });
   }

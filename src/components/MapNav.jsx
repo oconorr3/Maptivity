@@ -10,7 +10,7 @@ export default class MapNav extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      leftOpen: false,
+      topOpen: false,
       bottomOpen: false,
       loadedData: 'No Data Loaded'
     };
@@ -20,21 +20,21 @@ export default class MapNav extends React.Component {
     //this.props.updateData will call appropriate function on MapPage to setState
     let year = event.target.getAttribute('data-year');
     console.log(year);
-    axios.get(`/data/${year}.json`)
+    axios.get(`/data/${year}`)
       .then(response => {
         console.log(response);
         this.props.updateData(response.data);
         this.setState({
-          leftOpen: false,
+          topOpen: false,
           bottomOpen: true
         });
       })
       .catch(error => alert(error.message)); //shouldn't happen unless we provide invalid params
   }
 
-  onLeftClose = (event) => {
+  onTopClose = (event) => {
     this.setState({
-      leftOpen: false
+      topOpen: false
     });
   }
 
@@ -46,13 +46,13 @@ export default class MapNav extends React.Component {
     return (
       <div className='nav-content'>
         <ReactDrawer
-          open={this.state.leftOpen}
-          position='left'
-          onClose={this.onLeftClose}>
+          open={this.state.topOpen}
+          position='top'
+          onClose={this.onTopClose}>
             <h2 className='nav-title'> Data </h2>
-            <Button onClick={this.retrieveData} data-year={2017}>Retrieve 2017 Phone Data</Button>
+            <Button onClick={this.retrieveData} data-year={2016}>Retrieve 2016 Phone Data</Button>
         </ReactDrawer>
-        <Button className="top-right-button" onClick={() => this.setState({ leftOpen: !this.state.leftOpen })}>
+        <Button className="top-right-button" onClick={() => this.setState({ topOpen: !this.state.topOpen })}>
             Open Data Nav Bar
         </Button>
 
@@ -62,16 +62,9 @@ export default class MapNav extends React.Component {
           noOverlay>
           <Grid fluid={true}>
             <Row>
-              <Col lg={1}>
+              <Col lg={2}>
                 <h5 className='config-drawer-title'> Total </h5>
                 <hr></hr>
-              </Col>
-              <Col lg={3}>
-                <h5 className='config-drawer-title'> Playback </h5>
-                <hr></hr>
-                <p className='text-faded'>{this.state.loadedData}</p>
-                <hr></hr>
-                <PlaybackControl></PlaybackControl>
               </Col>
               <Col lg={2}>
                 <h5 className='config-drawer-title'> North America </h5>
@@ -81,15 +74,15 @@ export default class MapNav extends React.Component {
                 <h5 className='config-drawer-title'> South America </h5>
                 <hr></hr>
               </Col>
-              <Col lg={1}>
+              <Col lg={2}>
                 <h5 className='config-drawer-title'> Europe </h5>
                 <hr></hr>
               </Col>
-              <Col lg={1}>
+              <Col lg={2}>
                 <h5 className='config-drawer-title'> Africa </h5>
                 <hr></hr>
               </Col>
-              <Col lg={1}>
+              <Col lg={2}>
                 <h5 className='config-drawer-title'> Asia </h5>
                 <hr></hr>
               </Col>
