@@ -5,15 +5,17 @@ html {
 }
 
 body {
+  background-color: rgba(14, 21, 31, 1);
   font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
 }
 
 .datamap {
-  background-color: rgba(14, 21, 31, 1);
   position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(14, 21, 31, 1);
+  padding: 0 !important;
+  margin: 0
 }
 
 .hidden {
@@ -150,6 +152,12 @@ body {
   height: 0;
 }
 
+.playback-container {
+  position: absolute;
+  height: 15px;
+  width: 100vw;
+}
+
 .top-right-button-playback {
   position: fixed;
   top: 5%;
@@ -174,6 +182,13 @@ body {
   border-top: none;
   border-bottom: 2px solid rgba(155, 224, 255, .75);
   outline: none !important;
+}
+
+.config-container {
+  position: absolute;
+  bottom: 0;
+  height: 15px;
+  width: 100vw;
 }
 
 .config-drawer-title {

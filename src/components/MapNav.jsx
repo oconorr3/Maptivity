@@ -27,10 +27,9 @@ export default class MapNav extends React.Component {
     console.log(year);
     axios.get(`/data/${year}`)
       .then(response => {
-        console.log(response);
         this.props.updateData(response.data);
         this.setState({
-          bottomOpen: true,
+          bottomOpen: true, //open config bar for statistics and options when playback begins
           dataLabel: `${year} Data`
         });
       })
@@ -84,63 +83,70 @@ export default class MapNav extends React.Component {
             Toggle Playback
         </Button>
 
-        <ReactDrawer
-          open={this.state.topOpen}
-          position='top'
-          onClose={this.onTopClose}
-          noOverlay>
-            <h3 className='playback-drawer-title'> Data </h3>
-            <Button className='playback-drawer-button' onClick={this.retrieveData} data-year={2015}>Retrieve 2015 Phone Data</Button>
-            <Button className='playback-drawer-button' onClick={this.retrieveData} data-year={2016}>Retrieve 2016 Phone Data</Button>
+        <div className='playback-container' onMouseEnter={this.onMouseOverTopDrawer} onMouseLeave={this.onMouseLeaveTopDrawer}>
+          <ReactDrawer
+            open={this.state.topOpen}
+            position='top'
+            onClose={this.onTopClose}
+            noOverlay>
+            <Row onMouseEnter={this.onMouseOverTopDrawer} onMouseLeave={this.onMouseLeaveTopDrawer}>
+              <h3 className='playback-drawer-title'> Data </h3>
+              <Button className='playback-drawer-button' onClick={this.retrieveData} data-year={2015}>Retrieve 2015 Phone Data</Button>
+              <Button className='playback-drawer-button' onClick={this.retrieveData} data-year={2016}>Retrieve 2016 Phone Data</Button>
+            </Row>
             <Row className='zero-height'>
-              <Button onMouseEnter={this.onMouseOverTopDrawer}
-                onMouseLeave={this.onMouseLeaveTopDrawer} className={topDrawerButton} onClick={() => this.setState({ topOpen: !this.state.topOpen })}>
+              <Button onMouseEnter={this.onMouseOverTopDrawer} onMouseLeave={this.onMouseLeaveTopDrawer} className={topDrawerButton} onClick={() => this.setState({ topOpen: !this.state.topOpen })}>
                 Data
               </Button>
             </Row>
-        </ReactDrawer>
+            <Row></Row>
+          </ReactDrawer>
+        </div>
 
-        <ReactDrawer
-          open={this.state.bottomOpen}
-          position='bottom'
-          noOverlay>
-          <Row className='zero-height'>
-            <Button onMouseEnter={this.onMouseOverBottomDrawer}
-              onMouseLeave={this.onMouseLeaveBottomDrawer} className={bottomDrawerButton} onClick={() => this.setState({ bottomOpen: !this.state.bottomOpen })}>
-              Config
-            </Button>
-          </Row>
-          <Row>
-            <Grid fluid={true}>
-              <Row>
-                <Col sm={2}>
-                  <h5 className='config-drawer-title'> Total </h5>
-                  <hr></hr>
-                </Col>
-                <Col sm={2}>
-                  <h5 className='config-drawer-title'> North America </h5>
-                  <hr></hr>
-                </Col>
-                <Col sm={2}>
-                  <h5 className='config-drawer-title'> South America </h5>
-                  <hr></hr>
-                </Col>
-                <Col sm={2}>
-                  <h5 className='config-drawer-title'> Europe </h5>
-                  <hr></hr>
-                </Col>
-                <Col sm={2}>
-                  <h5 className='config-drawer-title'> Africa </h5>
-                  <hr></hr>
-                </Col>
-                <Col sm={2}>
-                  <h5 className='config-drawer-title'> Asia </h5>
-                  <hr></hr>
-                </Col>
-              </Row>
-            </Grid>
-          </Row>
-        </ReactDrawer>
+        <div className='config-container' onMouseEnter={this.onMouseOverBottomDrawer}
+          onMouseLeave={this.onMouseLeaveBottomDrawer}>
+          <ReactDrawer
+            open={this.state.bottomOpen}
+            position='bottom'
+            noOverlay>
+            <Row className='zero-height'>
+              <Button onMouseEnter={this.onMouseOverBottomDrawer}
+                onMouseLeave={this.onMouseLeaveBottomDrawer} className={bottomDrawerButton} onClick={() => this.setState({ bottomOpen: !this.state.bottomOpen })}>
+                Config
+              </Button>
+            </Row>
+            <Row onMouseEnter={this.onMouseOverBottomDrawer} onMouseLeave={this.onMouseLeaveBottomDrawer}>
+              <Grid fluid={true}>
+                <Row>
+                  <Col sm={2}>
+                    <h5 className='config-drawer-title'> Total </h5>
+                    <hr></hr>
+                  </Col>
+                  <Col sm={2}>
+                    <h5 className='config-drawer-title'> North America </h5>
+                    <hr></hr>
+                  </Col>
+                  <Col sm={2}>
+                    <h5 className='config-drawer-title'> South America </h5>
+                    <hr></hr>
+                  </Col>
+                  <Col sm={2}>
+                    <h5 className='config-drawer-title'> Europe </h5>
+                    <hr></hr>
+                  </Col>
+                  <Col sm={2}>
+                    <h5 className='config-drawer-title'> Africa </h5>
+                    <hr></hr>
+                  </Col>
+                  <Col sm={2}>
+                    <h5 className='config-drawer-title'> Asia </h5>
+                    <hr></hr>
+                  </Col>
+                </Row>
+              </Grid>
+            </Row>
+          </ReactDrawer>
+        </div>
       </div>
     );
   }
