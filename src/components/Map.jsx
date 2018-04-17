@@ -13,7 +13,7 @@ export default class Map extends React.Component {
     super(props);
     this.state = {
       mapType: false,
-      timeScaleFactor: 1000
+      timeScaleFactor: 10
     };
   }
 
@@ -216,7 +216,6 @@ export default class Map extends React.Component {
   }
 
   drawBubbles = () => {
-
     this.props.data.forEach((datum, index) => {
       let ms = 0;
       if (this.props.data[index + 1]) {
@@ -225,6 +224,10 @@ export default class Map extends React.Component {
         //"timeStamp":"2016-01-05T05:09:00.000Z"
         ms = moment(next,"YYYY/MM/DD HH:mm:ss").diff(moment(now,"YYYY/MM/DD HH:mm:ss"));
       }
+
+      if (ms == 0) {
+        console.log('DOne playback');
+      }
         setTimeout(() => {
 
             this.map.fadingBubbles([datum]);
@@ -232,6 +235,7 @@ export default class Map extends React.Component {
         }, ms / this.state.timeScaleFactor);
 
     });
+
   }
 
   render() {
