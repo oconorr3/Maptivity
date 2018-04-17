@@ -48,9 +48,10 @@ export default class MapNav extends React.Component {
         <ReactDrawer
           open={this.state.topOpen}
           position='top'
-          onClose={this.onTopClose}>
-            <h2 className='nav-title'> Data </h2>
-            <Button onClick={this.retrieveData} data-year={2016}>Retrieve 2016 Phone Data</Button>
+          onClose={this.onTopClose}
+          noOverlay>
+            <h2 className='playback-drawer-title'> Data </h2>
+            <Button className='playback-drawer-button' onClick={this.retrieveData} data-year={2016}>Retrieve 2016 Phone Data</Button>
         </ReactDrawer>
         <Button className="top-right-button" onClick={() => this.setState({ topOpen: !this.state.topOpen })}>
             Open Data Nav Bar
