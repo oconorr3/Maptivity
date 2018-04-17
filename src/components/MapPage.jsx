@@ -7,7 +7,7 @@ export default class MapPage extends React.Component {
     super(props);
     this.state = {
       data: null,
-      simulationPlaying: false
+      isSimulationPlaying: false
     };
 
   }
@@ -16,13 +16,13 @@ export default class MapPage extends React.Component {
   updateData = (data) => {
     this.setState({
       data,
-      simulationPlaying: true
+      isSimulationPlaying: true
     });
   }
 
   togglePlayback = () => {
     this.setState({
-      simulationPlaying: !this.state.simulationPlaying
+      isSimulationPlaying: !this.state.isSimulationPlaying
     })
   }
 
@@ -37,7 +37,7 @@ export default class MapPage extends React.Component {
   render() {
     return (
         <div>
-            <MapNav updateData={this.updateData} togglePlayback={this.togglePlayback}></MapNav>
+            <MapNav updateData={this.updateData} togglePlayback={this.togglePlayback} isSimulationPlaying={this.state.isSimulationPlaying}></MapNav>
             <Map {...this.state}></Map>
       </div>
     );

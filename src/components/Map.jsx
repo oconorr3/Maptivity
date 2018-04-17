@@ -63,7 +63,7 @@ export default class Map extends React.Component {
   fadingBubbles(layer, data) {
     let className = 'fadingBubble';
     let defaultColor = 'rgba(155, 224, 255, 0.2)';
-    let initialRadius = 1;
+    let initialRadius = .1;
     let bubbles = layer.selectAll(className).data(data, JSON.stringify) // bind the data
 
 
@@ -72,7 +72,7 @@ export default class Map extends React.Component {
       .attr('class', className)
       .attr('cx', data => this.latLngToXY(data.latitude, data.longitude)[0]) // this refers to the datamap instance in this case
       .attr('cy', data => this.latLngToXY(data.latitude, data.longitude)[1])
-      .attr('r', () => initialRadius / 10)
+      .attr('r', () => initialRadius)
       .style('fill', data => { //check if 'fills' option is set and if fillkey was provided  in data
         if (this.options.fills && data.fillKey && this.options.fills[data.fillKey])
           return this.options.fills[data.fillKey];
@@ -86,7 +86,7 @@ export default class Map extends React.Component {
           return defaultColor;
       })
       .transition().duration(2000).ease(Math.sqrt)
-      .attr('r', data => data.magnitude ? data.magnitude * 1 : 4)
+      .attr('r', data => data.magnitude ? data.magnitude * 1 : 5)
       .style('fill-opacity', 1e-6)
       .style('stroke-opacity', 1e-6)
       .remove();

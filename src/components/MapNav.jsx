@@ -6,7 +6,8 @@ import classnames from 'classnames';
 import 'react-drawer/lib/react-drawer.css';
 
 import '../styles/MapNav.css';
-import PlaybackControl from './PlaybackControl.jsx';
+import DataControls from './DataControls.jsx';
+import PlaybackControls from './PlaybackControls.jsx';
 
 
 export default class MapNav extends React.Component {
@@ -15,9 +16,9 @@ export default class MapNav extends React.Component {
     this.state = {
       topOpen: false,
       bottomOpen: false,
-      dataLabel: null,
       topButtonControlHover: false,
-      bottomButtonControlHover: false
+      bottomButtonControlHover: false,
+      dataLabel: null,
     };
 
     //show menu items on page load for clarity (after 1 second delay for animation)
@@ -44,6 +45,10 @@ export default class MapNav extends React.Component {
         });
       })
       .catch(error => alert(error.message)); //shouldn't happen unless we provide invalid params
+  }
+
+  removeDataLabel = () => {
+    this.setState({dataLabel: null});
   }
 
   onTopClose = (event) => {
@@ -94,10 +99,6 @@ export default class MapNav extends React.Component {
 
     return (
       <div className='nav-content'>
-        <Button className="top-right-button-playback" onClick={this.props.togglePlayback} disabled={!this.state.dataLabel}>
-            Toggle Playback
-        </Button>
-
         <div className='playback-container' onMouseEnter={this.onMouseOverTopDrawer} onMouseLeave={this.onMouseLeaveTopDrawer}>
           <ReactDrawer
             open={this.state.topOpen}
@@ -105,9 +106,15 @@ export default class MapNav extends React.Component {
             onClose={this.onTopClose}
             noOverlay>
             <Row onMouseEnter={this.onMouseOverTopDrawer} onMouseLeave={this.onMouseLeaveTopDrawer}>
-              <h3 className='playback-drawer-title'> Data </h3>
-              <Button className='playback-drawer-button' onClick={this.retrieveData} data-year={2015}>Retrieve 2015 Phone Data</Button>
-              <Button className='playback-drawer-button' onClick={this.retrieveData} data-year={2016}>Retrieve 2016 Phone Data</Button>
+              {!this.state.dataLabel
+                ? <DataControls retrieveData={this.retrieveData}/>
+                : <PlaybackControls
+                  isPlaying={this.props.isSimulationPlaying}
+                  togglePlayback={this.props.togglePlayback}
+                  dataLabel={this.state.dataLabel}
+                  removeDataLabel={this.removeDataLabel}
+                  percentProgress={50}
+                  />}
             </Row>
             <Row className='zero-height'>
               <Button onMouseEnter={this.onMouseOverTopDrawer} onMouseLeave={this.onMouseLeaveTopDrawer} className={topDrawerTab} onClick={() => this.setState({ topOpen: !this.state.topOpen })}>
