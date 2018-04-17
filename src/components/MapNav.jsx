@@ -91,7 +91,7 @@ export default class MapNav extends React.Component {
             <Row>
               <Button onMouseEnter={this.onMouseOverTopDrawer}
                 onMouseLeave={this.onMouseLeaveTopDrawer} className={topDrawerButton} onClick={() => this.setState({ topOpen: !this.state.topOpen })}>
-                LOL
+                &darr
               </Button>
             </Row>
         </ReactDrawer>

@@ -160,12 +160,18 @@ body {
   display: block !important;
   margin: 0 auto;
   transform: translate(0, 100%);
+  border-radius: 0 0 25px 25px;
+  border-bottom: 0 0 0 3px solid rgba(155, 224, 255, .75);
+  outline: none !important;
 }
 
 .config-drawer-control {
   display: block !important;
   margin: 0 auto;
   transform: translate(0, -100%);
+  border-radius: 25px 25px 0 0;
+  border-bottom: 3px 0 0 0 solid rgba(155, 224, 255, .75);
+  outline: none !important;
 }
 
 .config-drawer-title {
