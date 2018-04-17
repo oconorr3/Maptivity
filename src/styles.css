@@ -16,11 +16,92 @@ body {
   z-index: 1;
 }
 
+.hidden {
+  opacity: 0;
+}
 /***** DRAWER MENU STYLE OVERRIDES *****/
 
+.nav-content {
+  visibility: visible;
+  animation-name: initialHide !important;
+  animation-duration: .5s;
+}
 .nav-content *{
   z-index: 10;
   text-align: center;
+}
+
+@keyframes initialHide {
+  from {
+      visibility: hidden;
+  }
+  to {
+    visibility: hidden;
+  }
+}
+
+@keyframes moveOutUp {
+  from {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, -100%, 0);
+  }
+}
+
+@keyframes moveInDown {
+  from {
+      opacity: 1;
+      transform: translate3d(0, -100%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.css-sourceMap-modules-importLoaders-1-localIdentName-animate__fadeOutUp___3e5Sp {
+  animation-name: moveOutUp !important;
+  animation-duration: .5s !important;
+}
+
+.css-sourceMap-modules-importLoaders-1-localIdentName-animate__fadeInDown___dGqol {
+  animation-name: moveInDown !important;
+  animation-duration: .5s !important;
+}
+
+@keyframes moveOutDown {
+  from {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 100%, 0);
+  }
+}
+
+@keyframes moveInUp{
+  from {
+      opacity: 1;
+      transform: translate3d(0, 100%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.css-sourceMap-modules-importLoaders-1-localIdentName-animate__fadeInUp___2xZln {
+  animation-name: moveInUp !important;
+  animation-duration: .5s !important;
+}
+
+.css-sourceMap-modules-importLoaders-1-localIdentName-animate__fadeOutDown___2VkMZ {
+  animation-name: moveOutDown !important;
+  animation-duration: .5s !important;
 }
 
 .css-sourceMap-modules-importLoaders-1-localIdentName-ReactDrawer__drawer___2r5VH-sass {
@@ -40,12 +121,17 @@ body {
 .css-sourceMap-modules-importLoaders-1-localIdentName-ReactDrawer__drawer-bottom___2f9G_-sass {
     z-index: 8;
     height: auto !important;
-    padding: 10px 10px 10px 25px;
+    padding: 0px 10px 10px 25px;
     border-top: 1px solid rgba(155, 224, 255, .75);
 }
 
 .css-sourceMap-modules-importLoaders-1-localIdentName-ReactDrawer__overlay___2QFmC-sass {
   background-color: rgba(0,0,0,.4) !important;
+}
+
+.css-sourceMap-modules-importLoaders-1-localIdentName-ReactDrawer__hidden___12vbU-sass {
+  display: block !important;
+  transform: translate3d(0, -100%, 0) !important;
 }
 
 .btn, .btn:focus {
@@ -59,27 +145,6 @@ body {
   background-color: rgba(27, 39, 63, .9) !important;
 }
 
-.top-middle {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  z-index: 5;
-  transform: translate(-50%, 0);
-}
-
-.top-right-button {
-  position: fixed;
-  top: 0%;
-  right: 0%;
-  z-index: 5;
-}
-
-.top-right-button-config {
-  position: fixed;
-  top: 5%;
-  right: 0%;
-  z-index: 5;
-}
 
 .playback-drawer-title {
   display: inline-block;
@@ -89,6 +154,24 @@ body {
 
 .playback-drawer-button {
   margin: 15px;
+}
+
+.playback-drawer-control {
+  display: block !important;
+  margin: 0 auto;
+  transform: translate(0, 100%);
+  border-radius: 0 0 25px 25px;
+  border-bottom: 0 0 0 3px solid rgba(155, 224, 255, .75);
+  outline: none !important;
+}
+
+.config-drawer-control {
+  display: block !important;
+  margin: 0 auto;
+  transform: translate(0, -100%);
+  border-radius: 25px 25px 0 0;
+  border-bottom: 3px 0 0 0 solid rgba(155, 224, 255, .75);
+  outline: none !important;
 }
 
 .config-drawer-title {
