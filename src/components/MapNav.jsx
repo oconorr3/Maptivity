@@ -2,12 +2,12 @@ import React from 'react';
 import { Clearfix, Grid, Row, Col, Image, Button, Panel } from 'react-bootstrap';
 import ReactDrawer from 'react-drawer';
 import axios from 'axios';
-import PlaybackControl from './PlaybackControl.jsx';
 import classnames from 'classnames';
-
-import '../styles.css';
-
 import 'react-drawer/lib/react-drawer.css';
+
+import '../styles/MapNav.css';
+import PlaybackControl from './PlaybackControl.jsx';
+
 
 export default class MapNav extends React.Component {
   constructor(props) {
@@ -16,9 +16,19 @@ export default class MapNav extends React.Component {
       topOpen: false,
       bottomOpen: false,
       dataLabel: null,
-      topButtonControlHover: true, //show on page load for clarity
-      bottomButtonControlHover: true
+      topButtonControlHover: false,
+      bottomButtonControlHover: false
     };
+
+    //show menu items on page load for clarity (after 1 second delay for animation)
+    setTimeout(() => {
+      this.onMouseOverTopDrawer();
+      this.onMouseOverBottomDrawer();
+
+      //hide menu tabs if no user contact after 5 seconds
+      this.onMouseLeaveTopDrawer(5000);
+      this.onMouseLeaveBottomDrawer(5000);
+    }, 1000);
   }
 
   retrieveData = (event) => {
@@ -44,37 +54,42 @@ export default class MapNav extends React.Component {
 
   //Mouse Events for Top Drawer
   onMouseOverTopDrawer = () => {
+    window.clearTimeout(this.closeTopTimer);
+    this.closeTopTimer = null;
     this.setState({
       topButtonControlHover: true
     });
   }
 
-  onMouseLeaveTopDrawer = () => {
-      this.setState({
-        topButtonControlHover: false
-      });
+  onMouseLeaveTopDrawer = (waitTime) => {
+    if(!this.closeTopTimer) //ensure multiple timers don't get stacked
+      this.closeTopTimer = window.setTimeout(() => this.setState({ topButtonControlHover: false }), Number.isInteger(waitTime) ? waitTime : 1000); //execute the fade away if timer still exists after specified time or one second
   }
 
   //Mouse Events for Bottom Drawer
   onMouseOverBottomDrawer = () => {
+    window.clearTimeout(this.closeBottomTimer);
+    this.closeBottomTimer = null;
     this.setState({
       bottomButtonControlHover: true
     });
   }
 
-  onMouseLeaveBottomDrawer = (event) => {
-      this.setState({
-        bottomButtonControlHover: false
-      });
+  onMouseLeaveBottomDrawer = (waitTime) => {
+    if(!this.closeBottomTimer)
+      this.closeBottomTimer = window.setTimeout(() => this.setState({ bottomButtonControlHover: false }), Number.isInteger(waitTime) ? waitTime : 1000);
   }
 
-
   render() {
-    let topDrawerButton = classnames('playback-drawer-control', {
-      'hidden': !this.state.topButtonControlHover
+    let topDrawerTab = classnames('playback-drawer-tab', {
+      'hidden': !this.state.topButtonControlHover,
+      'fade-in-top-tab' : this.state.topButtonControlHover,
+      'fade-out-top-tab' : !this.state.topButtonControlHover
     });
-    let bottomDrawerButton = classnames('config-drawer-control', {
-      'hidden': !this.state.bottomButtonControlHover
+    let bottomDrawerTab = classnames('config-drawer-tab', {
+      'hidden': !this.state.bottomButtonControlHover,
+      'fade-in-bottom-tab' : this.state.bottomButtonControlHover,
+      'fade-out-bottom-tab' : !this.state.bottomButtonControlHover
     });
 
     return (
@@ -95,7 +110,7 @@ export default class MapNav extends React.Component {
               <Button className='playback-drawer-button' onClick={this.retrieveData} data-year={2016}>Retrieve 2016 Phone Data</Button>
             </Row>
             <Row className='zero-height'>
-              <Button onMouseEnter={this.onMouseOverTopDrawer} onMouseLeave={this.onMouseLeaveTopDrawer} className={topDrawerButton} onClick={() => this.setState({ topOpen: !this.state.topOpen })}>
+              <Button onMouseEnter={this.onMouseOverTopDrawer} onMouseLeave={this.onMouseLeaveTopDrawer} className={topDrawerTab} onClick={() => this.setState({ topOpen: !this.state.topOpen })}>
                 Data
               </Button>
             </Row>
@@ -111,7 +126,7 @@ export default class MapNav extends React.Component {
             noOverlay>
             <Row className='zero-height'>
               <Button onMouseEnter={this.onMouseOverBottomDrawer}
-                onMouseLeave={this.onMouseLeaveBottomDrawer} className={bottomDrawerButton} onClick={() => this.setState({ bottomOpen: !this.state.bottomOpen })}>
+                onMouseLeave={this.onMouseLeaveBottomDrawer} className={bottomDrawerTab} onClick={() => this.setState({ bottomOpen: !this.state.bottomOpen })}>
                 Config
               </Button>
             </Row>

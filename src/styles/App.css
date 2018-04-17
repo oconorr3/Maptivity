@@ -1,0 +1,23 @@
+body,
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background-color: rgba(14, 21, 31, 1);
+  font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.datamap {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(14, 21, 31, 1);
+  padding: 0 !important;
+  margin: 0
+}
+
+.hidden {
+  opacity: 0;
+}

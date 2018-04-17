@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import { Clearfix, Grid, Row, Col, Image, Button, Navbar, NavItem, Nav } from 'react-bootstrap';
+
+import '../styles/Home.css';
 import LoginModal from './LoginModal.jsx'
 
 export default class HomePage extends React.Component {
@@ -17,6 +19,7 @@ export default class HomePage extends React.Component {
 
     return (
         <div>
+          //TODO split into separate Header component and pull in react-scroll library for navigation, see link for more info: https://github.com/c0d3ster/DakDoug/blob/master/src/components/Header.jsx then use name={toValue}
           <Navbar id="mainNav" fixedTop >
               <Navbar.Header>
                  <Navbar.Brand>
