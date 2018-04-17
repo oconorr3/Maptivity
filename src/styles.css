@@ -26,6 +26,7 @@ body {
   animation-name: initialHide !important;
   animation-duration: .5s;
 }
+
 .nav-content *{
   z-index: 10;
   text-align: center;
@@ -145,6 +146,16 @@ body {
   background-color: rgba(27, 39, 63, .9) !important;
 }
 
+.zero-height {
+  height: 0;
+}
+
+.top-right-button-playback {
+  position: fixed;
+  top: 5%;
+  right: 0%;
+  z-index: 5;
+}
 
 .playback-drawer-title {
   display: inline-block;
@@ -159,24 +170,25 @@ body {
 .playback-drawer-control {
   display: block !important;
   margin: 0 auto;
-  transform: translate(0, 100%);
-  border-radius: 0 0 25px 25px;
-  border-bottom: 0 0 0 3px solid rgba(155, 224, 255, .75);
-  outline: none !important;
-}
-
-.config-drawer-control {
-  display: block !important;
-  margin: 0 auto;
-  transform: translate(0, -100%);
-  border-radius: 25px 25px 0 0;
-  border-bottom: 3px 0 0 0 solid rgba(155, 224, 255, .75);
+  border-radius: 0 0 30px 30px;
+  border-top: none;
+  border-bottom: 2px solid rgba(155, 224, 255, .75);
   outline: none !important;
 }
 
 .config-drawer-title {
   margin-left: 0px;
   color: rgba(200, 200, 200, 1);
+}
+
+.config-drawer-control {
+  display: block !important;
+  margin: 0 auto;
+  border-radius: 30px 30px 0 0;
+  border-top: 2px solid rgba(155, 224, 255, .75);
+  border-bottom: none;
+  transform: translate(0, -100%);
+  outline: none !important;
 }
 
 hr {

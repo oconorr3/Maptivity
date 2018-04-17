@@ -9,29 +9,32 @@ export default class TimedPlayback {
     this.resume();
   }
 
+  /* loop function to call timer and iterate through data points*/
   myLoop() {
     let data = this.data;
     let waitTime = 1;
-    if (data[1]) {
+    if (data[1]) { //if there is more than one object in the array, calculate wait time
       let now  = data[0].timestamp;
       let next = data[1].timestamp;
       let millisecondsToNext = moment(next).diff(moment(now));
 
       waitTime = millisecondsToNext / this.timeScaleFactor;
-      console.log(waitTime);
-      if (waitTime < -1) {
+      if (waitTime < -1) { //data is out of order
         console.log(`whoops, negative time to next: ${waitTime}`);
       }
-      if(waitTime <= 1) {
+      if(waitTime < 1) { //less than 1 millisecond wait time should be set to 1ms
         waitTime = 1;
+      }
+      if(waitTime > 5000) { //greater than 5 seconds is logged
+        console.log(waitTime)
       }
     }
     else {
       console.log('data mapping complete');
     }
     this.timerId = window.setTimeout(() => {
-      this.callback(data.shift());
-      if(data.length) {
+      this.callback(data.shift()); //shift will modify array to remove and return first element
+      if(data.length) { //if there is elements left, continue looping
         this.myLoop();
       }
     }, waitTime);

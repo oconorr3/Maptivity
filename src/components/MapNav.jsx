@@ -16,8 +16,8 @@ export default class MapNav extends React.Component {
       topOpen: false,
       bottomOpen: false,
       dataLabel: null,
-      topButtonControlHover: false,
-      bottomButtonControlHover: false
+      topButtonControlHover: true, //show on page load for clarity
+      bottomButtonControlHover: true
     };
   }
 
@@ -71,7 +71,6 @@ export default class MapNav extends React.Component {
 
 
   render() {
-    const wrapperStyle = { width: 400, margin: 50 };
     let topDrawerButton = classnames('playback-drawer-control', {
       'hidden': !this.state.topButtonControlHover
     });
@@ -81,10 +80,7 @@ export default class MapNav extends React.Component {
 
     return (
       <div className='nav-content'>
-        <Button className="top-right-button" onClick={() => this.setState({ topOpen: !this.state.topOpen })}>
-            Open Data Nav Bar
-        </Button>
-        <Button className="top-right-button-config" onClick={this.props.togglePlayback}>
+        <Button className="top-right-button-playback" onClick={this.props.togglePlayback} disabled={!this.state.dataLabel}>
             Toggle Playback
         </Button>
 
@@ -93,97 +89,59 @@ export default class MapNav extends React.Component {
           position='top'
           onClose={this.onTopClose}
           noOverlay>
-            <h2 className='playback-drawer-title'> Data </h2>
-<<<<<<< HEAD
+            <h3 className='playback-drawer-title'> Data </h3>
             <Button className='playback-drawer-button' onClick={this.retrieveData} data-year={2015}>Retrieve 2015 Phone Data</Button>
-                <Button className='playback-drawer-button' onClick={this.retrieveData} data-year={2017}>Retrieve 2017 Phone Data</Button>
-=======
             <Button className='playback-drawer-button' onClick={this.retrieveData} data-year={2016}>Retrieve 2016 Phone Data</Button>
-            <Row>
+            <Row className='zero-height'>
               <Button onMouseEnter={this.onMouseOverTopDrawer}
                 onMouseLeave={this.onMouseLeaveTopDrawer} className={topDrawerButton} onClick={() => this.setState({ topOpen: !this.state.topOpen })}>
-                &darr
+                Data
               </Button>
             </Row>
->>>>>>> a4166609b8599554b70e26bf39fb9077a06faf76
         </ReactDrawer>
 
         <ReactDrawer
           open={this.state.bottomOpen}
           position='bottom'
           noOverlay>
-<<<<<<< HEAD
-          <Grid fluid={true}>
-            <Row>
-              <Col sm={2}>
-                <h5 className='config-drawer-title'> Total </h5>
-                <hr></hr>
-              </Col>
-              <Col sm={2}>
-                <h5 className='config-drawer-title'> North America </h5>
-                <hr></hr>
-              </Col>
-              <Col sm={2}>
-                <h5 className='config-drawer-title'> South America </h5>
-                <hr></hr>
-              </Col>
-              <Col sm={2}>
-                <h5 className='config-drawer-title'> Europe </h5>
-                <hr></hr>
-              </Col>
-              <Col sm={2}>
-                <h5 className='config-drawer-title'> Africa </h5>
-                <hr></hr>
-              </Col>
-              <Col sm={2}>
-                <h5 className='config-drawer-title'> Asia </h5>
-                <hr></hr>
-              </Col>
-            </Row>
-          </Grid>
-        </ReactDrawer>
-
-      </div>
-=======
-          <Row>
+          <Row className='zero-height'>
             <Button onMouseEnter={this.onMouseOverBottomDrawer}
               onMouseLeave={this.onMouseLeaveBottomDrawer} className={bottomDrawerButton} onClick={() => this.setState({ bottomOpen: !this.state.bottomOpen })}>
-              LOL
+              Config
             </Button>
           </Row>
           <Row>
             <Grid fluid={true}>
               <Row>
-                <Col lg={2}>
+                <Col sm={2}>
                   <h5 className='config-drawer-title'> Total </h5>
                   <hr></hr>
                 </Col>
-                <Col lg={2}>
+                <Col sm={2}>
                   <h5 className='config-drawer-title'> North America </h5>
                   <hr></hr>
                 </Col>
-                <Col lg={2}>
+                <Col sm={2}>
                   <h5 className='config-drawer-title'> South America </h5>
                   <hr></hr>
                 </Col>
-                <Col lg={2}>
+                <Col sm={2}>
                   <h5 className='config-drawer-title'> Europe </h5>
                   <hr></hr>
                 </Col>
-                <Col lg={2}>
+                <Col sm={2}>
                   <h5 className='config-drawer-title'> Africa </h5>
                   <hr></hr>
                 </Col>
-                <Col lg={2}>
+                <Col sm={2}>
                   <h5 className='config-drawer-title'> Asia </h5>
                   <hr></hr>
                 </Col>
               </Row>
-          </Grid>
-        </Row>
-      </ReactDrawer>
-    </div>
->>>>>>> a4166609b8599554b70e26bf39fb9077a06faf76
+            </Grid>
+          </Row>
+        </ReactDrawer>
+      </div>
     );
   }
 }
