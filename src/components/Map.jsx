@@ -1,6 +1,7 @@
 import propTypes from 'prop-types';
 import React from 'react';
 import WorldMap from 'datamaps/dist/datamaps.world.hires.js';
+import USAMap from 'datamaps/dist/datamaps.usa.js';
 import {Button} from 'react-bootstrap';
 import moment from 'moment';
 
@@ -12,7 +13,7 @@ export default class Map extends React.Component {
     super(props);
     this.state = {
       mapType: false,
-      timeScaleFactor: 10
+      timeScaleFactor: 1000
     };
   }
 
@@ -46,8 +47,8 @@ export default class Map extends React.Component {
 
   fadingBubbles(layer, data) {
     let className = 'fadingBubble';
-    let defaultColor = 'rgba(155, 224, 255, 0.5)';
-    let initialRadius = 0.1;
+    let defaultColor = 'rgba(155, 224, 255, 0.2)';
+    let initialRadius = 1;
     let bubbles = layer.selectAll(className).data(data, JSON.stringify) // bind the data
 
 
@@ -56,7 +57,7 @@ export default class Map extends React.Component {
       .attr('class', className)
       .attr('cx', data => this.latLngToXY(data.latitude, data.longitude)[0]) // this refers to the datamap instance in this case
       .attr('cy', data => this.latLngToXY(data.latitude, data.longitude)[1])
-      .attr('r', () => initialRadius)
+      .attr('r', () => initialRadius / 5)
       .style('fill', data => { //check if 'fills' option is set and if fillkey was provided  in data
         if (this.options.fills && data.fillKey && this.options.fills[data.fillKey])
           return this.options.fills[data.fillKey];
@@ -70,7 +71,7 @@ export default class Map extends React.Component {
           return defaultColor;
       })
       .transition().duration(2000).ease(Math.sqrt)
-      .attr('r', data => data.magnitude ? data.magnitude * 20 : 22)
+      .attr('r', data => data.magnitude ? data.magnitude * 1 : 3)
       .style('fill-opacity', 1e-6)
       .style('stroke-opacity', 1e-6)
       .remove();
@@ -136,7 +137,7 @@ export default class Map extends React.Component {
     var map = new WorldMap({
       ...this.props,
       element: this.refs.container,
-      scope: 'world', //currently supports 'usa' and 'world', however with custom map data you can specify your own
+      scope: 'usa', //currently supports 'usa' and 'world', however with custom map data you can specify your own
       //setProjection: this.setProjection,
       projection: 'equirectangular', //style of projection to be used. try "mercator"
       responsive: true, //if true, call `resize()` on the map object when it should adjust it's size
@@ -217,22 +218,12 @@ export default class Map extends React.Component {
   drawBubbles = () => {
 
     this.props.data.forEach((datum, index) => {
-      let ms;
-      let s;
-      if (index == 0) {
+      let ms = 0;
+      if (this.props.data[index + 1]) {
         let now  = datum.timeStamp;
         let next = this.props.data[index + 1].timeStamp;
         //"timeStamp":"2016-01-05T05:09:00.000Z"
         ms = moment(next,"YYYY/MM/DD HH:mm:ss").diff(moment(now,"YYYY/MM/DD HH:mm:ss"));
-        console.log('ms =' + ms);
-        //let d = moment.duration(ms);
-        //s = Math.floor(d.asHours()) + moment.utc(ms).format(":mm:ss");
-
-        //console.log('now = ' + now);
-        //console.log('next = ' + next);
-
-        //console.log('s = ' + s);
-        console.log('divided by timescale factor = ' + ms / this.state.timeScaleFactor);
       }
         setTimeout(() => {
 
