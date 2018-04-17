@@ -16,8 +16,8 @@ body {
   z-index: 1;
 }
 
-.hide {
-  visibility: hidden;
+.hidden {
+  opacity: 0;
 }
 /***** DRAWER MENU STYLE OVERRIDES *****/
 
@@ -145,27 +145,6 @@ body {
   background-color: rgba(27, 39, 63, .9) !important;
 }
 
-.top-middle {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  z-index: 5;
-  transform: translate(-50%, 0);
-}
-
-.top-right-button {
-  position: fixed;
-  top: 0%;
-  right: 0%;
-  z-index: 5;
-}
-
-.top-right-button-config {
-  position: fixed;
-  top: 5%;
-  right: 0%;
-  z-index: 5;
-}
 
 .playback-drawer-title {
   display: inline-block;
@@ -178,11 +157,13 @@ body {
 }
 
 .playback-drawer-control {
+  display: block !important;
   margin: 0 auto;
   transform: translate(0, 100%);
 }
 
 .config-drawer-control {
+  display: block !important;
   margin: 0 auto;
   transform: translate(0, -100%);
 }

@@ -15,6 +15,8 @@ export default class MapNav extends React.Component {
     this.state = {
       topOpen: false,
       bottomOpen: false,
+      topButtonControlHover: false,
+      bottomButtonControlHover: false,
       loadedData: 'No Data Loaded'
     };
   }
@@ -41,14 +43,41 @@ export default class MapNav extends React.Component {
     });
   }
 
+  //Mouse Events for Top Drawer
+  onMouseOverTopDrawer = () => {
+    this.setState({
+      topButtonControlHover: true
+    });
+  }
+
+  onMouseLeaveTopDrawer = () => {
+      this.setState({
+        topButtonControlHover: false
+      });
+  }
+
+  //Mouse Events for Bottom Drawer
+  onMouseOverBottomDrawer = () => {
+    this.setState({
+      bottomButtonControlHover: true
+    });
+  }
+
+  onMouseLeaveBottomDrawer = (event) => {
+      this.setState({
+        bottomButtonControlHover: false
+      });
+  }
+
 
   render() {
     const wrapperStyle = { width: 400, margin: 50 };
-    let topDrawerButton = classnames('top-middle', {
-      'hide': this.state.topOpen
+    let topDrawerButton = classnames('playback-drawer-control', {
+      'hidden': !this.state.topButtonControlHover
     });
-    console.log('top = ' + this.state.topOpen);
-    console.log('bot = ' + this.state.bottomOpen);
+    let bottomDrawerButton = classnames('config-drawer-control', {
+      'hidden': !this.state.bottomButtonControlHover
+    });
 
     return (
       <div className='nav-content'>
@@ -60,18 +89,20 @@ export default class MapNav extends React.Component {
             <h2 className='playback-drawer-title'> Data </h2>
             <Button className='playback-drawer-button' onClick={this.retrieveData} data-year={2016}>Retrieve 2016 Phone Data</Button>
             <Row>
-              <Button className='playback-drawer-control' onClick={() => this.setState({ topOpen: !this.state.topOpen })}>
+              <Button onMouseEnter={this.onMouseOverTopDrawer}
+                onMouseLeave={this.onMouseLeaveTopDrawer} className={topDrawerButton} onClick={() => this.setState({ topOpen: !this.state.topOpen })}>
                 LOL
               </Button>
             </Row>
         </ReactDrawer>
-        
+
         <ReactDrawer
           open={this.state.bottomOpen}
           position='bottom'
           noOverlay>
           <Row>
-            <Button className='config-drawer-control' onClick={() => this.setState({ bottomOpen: !this.state.bottomOpen })}>
+            <Button onMouseEnter={this.onMouseOverBottomDrawer}
+              onMouseLeave={this.onMouseLeaveBottomDrawer} className={bottomDrawerButton} onClick={() => this.setState({ bottomOpen: !this.state.bottomOpen })}>
               LOL
             </Button>
           </Row>
