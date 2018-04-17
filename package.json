@@ -22,6 +22,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^3.3.7",
+    "classnames": "^2.2.5",
     "datamaps": "^0.5.8",
     "express": "^4.16.2",
     "jquery": "^3.3.1",
