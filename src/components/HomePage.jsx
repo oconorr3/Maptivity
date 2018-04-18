@@ -19,7 +19,8 @@ export default class HomePage extends React.Component {
 
     return (
         <div>
-          //TODO split into separate Header component and pull in react-scroll library for navigation, see link for more info: https://github.com/c0d3ster/DakDoug/blob/master/src/components/Header.jsx then use name={toValue}
+          {/*TODO split into separate Header component and pull in react-scroll library for navigation
+          see link for more info: https://github.com/c0d3ster/DakDoug/blob/master/src/components/Header.jsx then use name={toValue}*/}
           <Navbar id="mainNav" fixedTop >
               <Navbar.Header>
                  <Navbar.Brand>

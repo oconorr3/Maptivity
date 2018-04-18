@@ -2,9 +2,13 @@ const path = require('path');
 const express = require('express');
 const app = express();
 
+
 const DIST_DIR = path.join(__dirname, 'public/');
 const DATA_DIR = path.join(__dirname, 'data/');
 const PORT = 3000;
+
+//create log file for cpu usage
+///require('./CpuProfiler').init(DATA_DIR);
 
 app.use(express.static(DIST_DIR));
 
