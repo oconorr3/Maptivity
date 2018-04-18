@@ -40,7 +40,6 @@ export default class MapNav extends React.Component {
       .then(response => {
         this.props.updateData(response.data);
         this.setState({
-          bottomOpen: true, //open config bar for statistics and options when playback begins
           dataLabel: `${year} Data`
         });
       })
