@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 export default class TimedPlayback {
-  constructor(data, callback, timeScaleFactor) {
+  constructor(data, timeScaleFactor, callback) {
     this.data = JSON.parse(JSON.stringify(data)); //make copy of data object array
     this.callback = callback; //this will draw bubbles when it's time
     this.timeScaleFactor = timeScaleFactor;
@@ -28,25 +28,30 @@ export default class TimedPlayback {
       if(waitTime > 5000) { //greater than 5 seconds is logged
         console.log(waitTime)
       }
+      this.timerId = window.setTimeout(() => {
+        this.callback(data.shift()); //shift will modify array to remove and return first element
+        if(data.length) { //if there is elements left, continue looping
+          this.myLoop();
+        }
+      }, waitTime);
     }
     else {
+      this.callback(data.shift());  //notify map that we finished processing the data
       console.log('data mapping complete');
     }
-    this.timerId = window.setTimeout(() => {
-      this.callback(data.shift()); //shift will modify array to remove and return first element
-      if(data.length) { //if there is elements left, continue looping
-        this.myLoop();
-      }
-    }, waitTime);
+
   }
 
   pause() {
+    console.log('paused');
     this.isPlaying = false;
     window.clearTimeout(this.timerId);
     this.remaining -= new Date() - this.start;
   };
 
   resume() {
+    console.log('resume');
+
     this.isPlaying = true;
     this.start = new Date();
     if(this.timerId)

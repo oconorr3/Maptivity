@@ -15,7 +15,8 @@ export default class Map extends React.Component {
     super(props);
     this.state = {
       mapType: false,
-      timeScaleFactor: 1000000
+      timeScaleFactor: 1000000,
+      isPlaybackComplete: false
     };
   }
 
@@ -29,11 +30,11 @@ export default class Map extends React.Component {
 
   componentDidUpdate() {
     this.drawMap();
-    if(this.timer && this.props.simulationPlaying != this.timer.isPlaying){
-      console.log('toggling playback');
+    if(this.timer && this.props.simulationPlaying != this.timer.isPlaying){ //when this.props.togglePlayback is called()
+      console.log('toggling playback in Map');
       this.togglePlay();
     }
-    if(!this.timer && this.props.data) {
+    if(!this.timer && this.props.data) { //first time you load data into map
       console.log('drawing bubbles');
       this.drawBubbles();
     }
@@ -53,7 +54,7 @@ export default class Map extends React.Component {
   }
 
   togglePlay() {
-    console.log(`was playing: ${this.timer.isPlaying}`);
+    //console.log(`was playing: ${this.timer.isPlaying}`);
     if(this.timer.isPlaying)
       this.timer.pause();
     else
@@ -92,62 +93,6 @@ export default class Map extends React.Component {
       .remove();
   }
 
-  //Possible functionality for dynamically zooming to different geo regions
-  /*setProjection (element, options) {
-      if (currentProjection == "africa") {
-          //zoom to Africa
-          var projection = d3.geo.mercator()
-            .center([23, -3])
-            .rotate([4.4, 0])
-            .scale(400)
-            .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
-          var path = d3.geo.path()
-            .projection(projection);
-
-          return {path: path, projection: projection};
-
-       } else if (currentProjection == "europe") {
-          //Zoom on Europe
-          var projection = d3.geo.mercator()
-            .center([45, 60])
-            .rotate([0, 0])
-            .scale(400)
-            .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
-          var path = d3.geo.path()
-            .projection(projection);
-
-        return { path: path, projection: projection };
-
-       } else if (currentProjection == "india") {
-         var projection = d3.geo.mercator()
-              .center([78.9629, 23.5937]) // always in [East Latitude, North Longitude]
-              .scale(1000);
-          var path = d3.geo.path().projection(projection);
-          return { path: path, projection: projection };
-
-       } else if (currentProject == "canada") {
-          var projection = d3.geo.mercator()
-             .center([-106.3468, 68.1304]) // always in [East Latitude, North Longitude]
-             .scale(250)
-             .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
-
-             var path = d3.geo.path().projection(projection);
-             return { path: path, projection: projection };
-       }else { // (currentProjection == "world") {
-          // Zoom in on World
-          var projection = d3.geo.mercator()
-            .center([10, -10])
-            .rotate([0, 0])
-            .scale(300)
-            .translate([element.offsetWidth / 2, element.offsetHeight]);
-          var path = d3.geo.path()
-            .projection(projection);
-
-          return {path: path, projection: projection};
-
-      }
-  }*/
-
   drawMap() {
     var map = new WorldMap({
       ...this.props,
@@ -185,7 +130,7 @@ export default class Map extends React.Component {
           });
 
          //Zoom functionality for mousewheel and panning (HAS BUG)
-         datamap.svg.call(d3.behavior.zoom().scaleExtent([1, 4]).on("zoom", function() {
+         datamap.svg.call(d3.behavior.zoom().scaleExtent([1, 4]).on("zoom", function() {f
              console.log("zooming");
              var e = d3.event,
              // constrain the x and y components of the translation by the dimensions of the viewport
@@ -243,9 +188,20 @@ export default class Map extends React.Component {
       this.timer.pause();
       this.timer = null;
     }
-    this.timer = new TimedPlayback(data, (datum) => {
+    this.timer = new TimedPlayback(data, this.state.timeScaleFactor, (datum) => {
         this.map.fadingBubbles([datum]);
-    }, this.state.timeScaleFactor);
+
+
+        //if all data is processed
+        if (!this.timer.data.length) {
+          console.log('cleaning up timer');
+          this.setState({
+            isPlaybackComplete : true
+          });
+          this.timer = null;
+          this.props.togglePlayback();
+        }
+    });
   }
 
   render() {

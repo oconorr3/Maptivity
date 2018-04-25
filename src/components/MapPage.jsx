@@ -21,6 +21,7 @@ export default class MapPage extends React.Component {
   }
 
   togglePlayback = () => {
+    console.log('toggling playback');
     this.setState({
       isSimulationPlaying: !this.state.isSimulationPlaying
     })
@@ -34,11 +35,13 @@ export default class MapPage extends React.Component {
     }, window.example));
   }
 
+  createTimer
+
   render() {
     return (
         <div>
             <MapNav updateData={this.updateData} togglePlayback={this.togglePlayback} isSimulationPlaying={this.state.isSimulationPlaying}></MapNav>
-            <Map {...this.state}></Map>
+            <Map togglePlayback={this.togglePlayback} {...this.state}></Map>
       </div>
     );
   }
