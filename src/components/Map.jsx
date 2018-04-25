@@ -53,11 +53,15 @@ export default class Map extends React.Component {
   }
 
   togglePlay() {
-    console.log(`was playing: ${this.timer.isPlaying}`);
-    if(this.timer.isPlaying)
+    //console.log(`was playing: ${this.timer.isPlaying}`);
+    if(this.timer.isPlaying) {
+      console.log('timer is paused');
       this.timer.pause();
-    else
+    }
+    else {
       this.timer.resume();
+      console.log('timer is resumed');
+    }
   }
 
   fadingBubbles(layer, data) {
@@ -91,62 +95,6 @@ export default class Map extends React.Component {
       .style('stroke-opacity', 1e-6)
       .remove();
   }
-
-  //Possible functionality for dynamically zooming to different geo regions
-  /*setProjection (element, options) {
-      if (currentProjection == "africa") {
-          //zoom to Africa
-          var projection = d3.geo.mercator()
-            .center([23, -3])
-            .rotate([4.4, 0])
-            .scale(400)
-            .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
-          var path = d3.geo.path()
-            .projection(projection);
-
-          return {path: path, projection: projection};
-
-       } else if (currentProjection == "europe") {
-          //Zoom on Europe
-          var projection = d3.geo.mercator()
-            .center([45, 60])
-            .rotate([0, 0])
-            .scale(400)
-            .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
-          var path = d3.geo.path()
-            .projection(projection);
-
-        return { path: path, projection: projection };
-
-       } else if (currentProjection == "india") {
-         var projection = d3.geo.mercator()
-              .center([78.9629, 23.5937]) // always in [East Latitude, North Longitude]
-              .scale(1000);
-          var path = d3.geo.path().projection(projection);
-          return { path: path, projection: projection };
-
-       } else if (currentProject == "canada") {
-          var projection = d3.geo.mercator()
-             .center([-106.3468, 68.1304]) // always in [East Latitude, North Longitude]
-             .scale(250)
-             .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
-
-             var path = d3.geo.path().projection(projection);
-             return { path: path, projection: projection };
-       }else { // (currentProjection == "world") {
-          // Zoom in on World
-          var projection = d3.geo.mercator()
-            .center([10, -10])
-            .rotate([0, 0])
-            .scale(300)
-            .translate([element.offsetWidth / 2, element.offsetHeight]);
-          var path = d3.geo.path()
-            .projection(projection);
-
-          return {path: path, projection: projection};
-
-      }
-  }*/
 
   drawMap() {
     var map = new WorldMap({
@@ -186,7 +134,6 @@ export default class Map extends React.Component {
 
          //Zoom functionality for mousewheel and panning (HAS BUG)
          datamap.svg.call(d3.behavior.zoom().scaleExtent([1, 4]).on("zoom", function() {
-             console.log("zooming");
              var e = d3.event,
              // constrain the x and y components of the translation by the dimensions of the viewport
              tx = Math.min(0, Math.max(e.translate[0], window.innerWidth - window.innerWidth * e.scale)),

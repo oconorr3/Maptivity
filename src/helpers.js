@@ -31,6 +31,8 @@ export default class TimedPlayback {
     }
     else {
       console.log('data mapping complete');
+      this.isPlaying = false;
+      window.clearTimeout(this.timerId);
     }
     this.timerId = window.setTimeout(() => {
       this.callback(data.shift()); //shift will modify array to remove and return first element

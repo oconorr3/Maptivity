@@ -14,6 +14,7 @@ export default class MapPage extends React.Component {
 
   //utilizing class properties to bind functions correctly, babel stage-2
   updateData = (data) => {
+    console.log('updating data');
     this.setState({
       data,
       isSimulationPlaying: true
@@ -21,6 +22,7 @@ export default class MapPage extends React.Component {
   }
 
   togglePlayback = () => {
+    console.log('toggling');
     this.setState({
       isSimulationPlaying: !this.state.isSimulationPlaying
     })
