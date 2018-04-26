@@ -82,13 +82,26 @@
 }
 
 .css-sourceMap-modules-importLoaders-1-localIdentName-ReactDrawer__drawer-top___1dfbB-sass {
-    width: 50vw !important;
+    width: 60vw !important;
     height: auto !important;
     text-align: center;
     padding: 0 15px;
-    margin: 0 25vw;
+    margin: 0 20vw;
     border-bottom: 4px solid rgba(155, 224, 255, .75);
     border-radius: 0 0 75px 75px;
+}
+
+
+@media only screen and (max-width: 992px) {
+  .css-sourceMap-modules-importLoaders-1-localIdentName-ReactDrawer__drawer-top___1dfbB-sass {
+    width: 80vw !important;
+    height: auto !important;
+    text-align: center;
+    padding: 0 15px;
+    margin: 0 10vw;
+    border-bottom: 4px solid rgba(155, 224, 255, .75);
+    border-radius: 0 0 75px 75px;
+  }
 }
 
 .css-sourceMap-modules-importLoaders-1-localIdentName-ReactDrawer__drawer-bottom___2f9G_-sass {
@@ -111,14 +124,18 @@
   background-color: rgba(27, 39, 63, .9) !important;
 }
 
-.zero-height {
-  height: 0;
+.drawer-title {
+  display: inline-block;
+  margin: 15px;
+  color: rgba(200, 200, 200, 1);
 }
 
-.progress {
-  margin: 0 1px 10px 1px;
-  border-radius: 0;
-  height: 15px;
+.drawer-button {
+  margin: 15px;
+}
+
+.zero-height {
+  height: 0;
 }
 
 .fade-in-top-tab {
@@ -166,10 +183,10 @@
   outline: none !important;
 }
 
-.playback-drawer-title {
-  display: inline-block;
-  margin: 15px;
-  color: rgba(200, 200, 200, 1);
+.progress {
+  margin: 0 1px 10px 1px;
+  border-radius: 0;
+  height: 15px;
 }
 
 .playback-time-scale {
@@ -177,22 +194,14 @@
   color: rgba(200, 200, 200, 1);
 }
 
-.playback-drawer-button {
-  margin: 15px;
+.playback-button-back {
+  padding: 20px;
+  margin: -20px 0 0 -70%;
 }
 
-.playback-drawer-button-left {
-  padding: 10px 20px;
-  margin: -10px 0px 0 -14px;
-  border-bottom-left-radius: 125px;
-  outline: none !important;
-}
-
-.playback-drawer-button-right {
-  padding: 10px 25px;
-  margin: -10px -35px 0px 0;
-  border-bottom-right-radius: 125px;
-  outline: none !important;
+.playback-button-toggle {
+  padding: 15px;
+  margin: -15px 0 0 0;
 }
 
 .fade-in-bottom-tab {

@@ -1,0 +1,21 @@
+.icon {
+  width: 40px;
+  height: auto;
+  margin: 5px;
+  opacity: .75;
+  transition: opacity .3s;
+}
+
+.icon--small {
+  width: 25px;
+  height: auto;
+  margin: 0;
+  opacity: .75;
+  transition: opacity .3s;
+}
+
+.icon:hover, .icon--small:hover {
+  opacity: 1;
+  cursor: pointer;
+  transition: opacity .3s;
+}

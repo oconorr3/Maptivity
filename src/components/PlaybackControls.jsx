@@ -1,26 +1,29 @@
 import React from 'react';
 import { Grid, Row, Col, Button, ProgressBar } from 'react-bootstrap';
 
+import Icon from './Icon.jsx';
 
-//return playback controller as pure component in Array to avoid extra divs from being created
 const PlaybackControls = ({isPlaying, togglePlayback, dataLabel, removeDataLabel, percentProgress, changeProgress, currentTimeScale, changeTimeScale}) => (
-    <div>
-      <ProgressBar now={percentProgress}/>
-      <Col sm={3}>
-        <Button className='playback-drawer-button playback-drawer-button-left' onClick={removeDataLabel}> Back To Data Selection </Button>
-      </Col>
-      <Col sm={3}>
-        <h4 className='playback-drawer-title'> {dataLabel} </h4>
-      </Col>
-      <Col sm={4} className='playback-time-scale'>
-        <p>Time Scale Multiplier</p>
-        <small>100x 1000x 10000x 100000x</small>
-      </Col>
-      <Col sm={2}>
-      <Button className='playback-drawer-button playback-drawer-button-right' onClick={togglePlayback}>{isPlaying ? 'Pause' : 'Resume'}</Button>
-      </Col>
-
-    </div>
+  <div>
+    <ProgressBar now={percentProgress}/>
+    <Col sm={1}>
+      <Icon name='back' tip='Select Data' location='right' isSmall className='playback-button-back' onClick={removeDataLabel}/>
+    </Col>
+    <Col sm={3}>
+      <h3 className='drawer-title'> {dataLabel} </h3>
+    </Col>
+    <Col sm={3} className='playback-time-scale'>
+      <p>Time Remaining</p>
+      <small>5 mins 25 seconds</small>
+    </Col>
+    <Col sm={3} className='playback-time-scale'>
+      <p>Time Scale Multiplier</p>
+      <small>100x 1000x 10000x 100000x</small>
+    </Col>
+    <Col sm={2}>
+      <Icon name={isPlaying ? 'pause' : 'play'} tip='Toggle Playback' onClick={togglePlayback} location='left' className='playback-button-toggle'/>
+    </Col>
+  </div>
 );
 
 export default PlaybackControls;
