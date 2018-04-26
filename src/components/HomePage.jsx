@@ -28,11 +28,11 @@ export default class HomePage extends React.Component {
                  </Navbar.Brand>
                </Navbar.Header>
                 <Nav bsStyle="pills" pullRight>
-                    <NavItem id="nav-item" href="/Map">Map</NavItem>
-                    <NavItem id="nav-item" href="#about">About</NavItem >
-                    <NavItem id="nav-item" href="#services">Services</NavItem >
-                    <NavItem id="nav-item" href="#contact">Pricing</NavItem >
-                    <NavItem id="nav-item" href="#contact">Contact</NavItem >
+                    <NavItem className="nav-item" href="/Map">Map</NavItem>
+                    <NavItem className="nav-item" href="#about">About</NavItem >
+                    <NavItem className="nav-item" href="#services">Services</NavItem >
+                    <NavItem className="nav-item" href="#contact">Pricing</NavItem >
+                    <NavItem className="nav-item" href="#contact">Contact</NavItem >
                     <NavItem onClick={() => this.setState({ showLoginModal: true })}>Sign In</NavItem>
                   </Nav>
                   <LoginModal show={this.state.showLoginModal} onHide={loginModalClose}/>

@@ -104,6 +104,18 @@
   }
 }
 
+@media only screen and (max-width: 768px) {
+  .css-sourceMap-modules-importLoaders-1-localIdentName-ReactDrawer__drawer-top___1dfbB-sass {
+    width: 100vw !important;
+    height: auto !important;
+    text-align: center;
+    padding: 0 0;
+    margin: 0 0;
+    border-bottom: 4px solid rgba(155, 224, 255, .75);
+    border-radius: 0 0 75px 75px;
+  }
+}
+
 .css-sourceMap-modules-importLoaders-1-localIdentName-ReactDrawer__drawer-bottom___2f9G_-sass {
     z-index: 8;
     height: auto !important;
@@ -128,6 +140,7 @@
   display: inline-block;
   margin: 15px;
   color: rgba(200, 200, 200, 1);
+  font-weight: bold;
 }
 
 .drawer-button {
@@ -189,9 +202,21 @@
   height: 15px;
 }
 
-.playback-time-scale {
-  display: block;
+.progress-bar {
+  background-color: rgba(155, 224, 255, .75);
+}
+
+.playback-time-label {
   color: rgba(200, 200, 200, 1);
+}
+
+.playback-time-label p {
+  font-weight: bold;
+}
+
+.playback-button-time {
+  display: inline-block;
+  margin: 0 5%;
 }
 
 .playback-button-back {

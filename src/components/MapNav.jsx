@@ -113,6 +113,8 @@ export default class MapNav extends React.Component {
                   dataLabel={this.state.dataLabel}
                   removeDataLabel={this.removeDataLabel}
                   percentProgress={50}
+                  timeScale={this.props.timeScale}
+                  changeTimeScale={this.props.changeTimeScale}
                   />}
             </Row>
             <Row className='zero-height'>

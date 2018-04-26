@@ -15,7 +15,6 @@ export default class Map extends React.Component {
     super(props);
     this.state = {
       mapType: false,
-      timeScaleFactor: 1000000
     };
   }
 
@@ -184,7 +183,7 @@ export default class Map extends React.Component {
     let totalMilliseconds = last.diff(first);
     let totalDays = moment.duration(totalMilliseconds, 'milliseconds').asDays();
     console.log(`Total Days in Dataset --- ${totalDays} \n`);
-    let totalSimulationTimeInMinutes = totalMilliseconds / 1000 / 60 / this.state.timeScaleFactor;
+    let totalSimulationTimeInMinutes = totalMilliseconds / 1000 / 60 / this.props.timeScale;
     console.log(`Total Simulation Time In minutes --- ${totalSimulationTimeInMinutes} \n`);
     if(this.timer) { //if we already had a simulation going, destroy old timeouts and this.timer
       this.timer.pause();
@@ -192,7 +191,7 @@ export default class Map extends React.Component {
     }
     this.timer = new TimedPlayback(data, (datum) => {
         this.map.fadingBubbles([datum]);
-    }, this.state.timeScaleFactor);
+    }, this.props.timeScale);
   }
 
   render() {

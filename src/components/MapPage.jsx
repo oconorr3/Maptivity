@@ -7,7 +7,8 @@ export default class MapPage extends React.Component {
     super(props);
     this.state = {
       data: null,
-      isSimulationPlaying: false
+      isSimulationPlaying: false,
+      timeScale: 100000
     };
 
   }
@@ -21,8 +22,12 @@ export default class MapPage extends React.Component {
     });
   }
 
+  changeTimeScale = (timeScale) => {
+    this.setState({timeScale});
+  }
+
   togglePlayback = () => {
-    console.log('toggling');
+    console.log('toggling playback from MapPage');
     this.setState({
       isSimulationPlaying: !this.state.isSimulationPlaying
     })
@@ -39,8 +44,13 @@ export default class MapPage extends React.Component {
   render() {
     return (
         <div>
-            <MapNav updateData={this.updateData} togglePlayback={this.togglePlayback} isSimulationPlaying={this.state.isSimulationPlaying}></MapNav>
-            <Map {...this.state}></Map>
+            <MapNav
+              updateData={this.updateData}
+              togglePlayback={this.togglePlayback}
+              isSimulationPlaying={this.state.isSimulationPlaying}
+              timeScale={this.state.timeScale}
+              changeTimeScale={this.changeTimeScale}/>
+            <Map {...this.state}/>
       </div>
     );
   }

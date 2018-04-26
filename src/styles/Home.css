@@ -76,38 +76,37 @@ img::-moz-selection {
 
 #mainNav {
   border-bottom: 1px solid rgba(33, 37, 41, 0.1);
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
   font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
   transition: all 0.2s;
 }
 
-#mainNav .navbar-brand {
+.navbar-brand {
   font-weight: 700;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.75);
   font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 
-#mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
-  color: #f05f40;
+.navbar-item {
+  color: rgba(255, 255, 255, 0.6);
 }
 
-.navbar-default .navbar-nav> li > a {
-  color: rgba(255, 255, 255, 0.8);
-  background-color: transparent;
+.navbar-brand:focus, .navbar-brand:hover, .nav-item:focus, .nav-item:hover{
+  color: #fff;
 }
 
-@media (min-width: 992px) {
+@media (max-width: 992px) {
   #mainNav {
     border-color: transparent;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.4);
   }
-  #mainNav .navbar-brand {
+  .navbar-brand, .navbar-item {
     color: rgba(255, 255, 255, 0.7);
   }
-  #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
+  .navbar-brand:focus, .navbar-brand:hover, .nav-item:focus, .nav-item:hover {
     color: #fff;
   }
 }
