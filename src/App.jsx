@@ -8,6 +8,11 @@ import MapPage from './components/MapPage.jsx';
 import NotFoundPage from './components/NotFoundPage.jsx';
 
 export default class App extends React.Component {
+  componentDidCatch(error, info) {
+    alert(`Unexpected Error Occured: ${error.message} \n\n refreshing page`);
+    window.location.reload();
+  }
+
   render() {
     return (<Router>
       <Switch>

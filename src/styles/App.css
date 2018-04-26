@@ -9,6 +9,10 @@ body {
   font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
 }
 
+a:hover {
+  color: rgba(255,255,255,1) !important;
+}
+
 .datamap {
   position: absolute;
   width: 100vw;

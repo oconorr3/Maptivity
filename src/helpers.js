@@ -38,6 +38,8 @@ export default class TimedPlayback {
     else {
       this.callback(data.shift());  //notify map that we finished processing the data
       console.log('data mapping complete');
+      this.isPlaying = false;
+      window.clearTimeout(this.timerId);
     }
 
   }

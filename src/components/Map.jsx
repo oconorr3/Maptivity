@@ -55,10 +55,14 @@ export default class Map extends React.Component {
 
   togglePlay() {
     //console.log(`was playing: ${this.timer.isPlaying}`);
-    if(this.timer.isPlaying)
+    if(this.timer.isPlaying) {
       this.timer.pause();
-    else
+      console.log('timer is paused');
+    }
+    else {
       this.timer.resume();
+      console.log('timer is resumed');
+    }
   }
 
   fadingBubbles(layer, data) {
@@ -130,8 +134,7 @@ export default class Map extends React.Component {
           });
 
          //Zoom functionality for mousewheel and panning (HAS BUG)
-         datamap.svg.call(d3.behavior.zoom().scaleExtent([1, 4]).on("zoom", function() {f
-             console.log("zooming");
+         datamap.svg.call(d3.behavior.zoom().scaleExtent([1, 4]).on("zoom", function() {
              var e = d3.event,
              // constrain the x and y components of the translation by the dimensions of the viewport
              tx = Math.min(0, Math.max(e.translate[0], window.innerWidth - window.innerWidth * e.scale)),
@@ -182,15 +185,14 @@ export default class Map extends React.Component {
     let totalMilliseconds = last.diff(first);
     let totalDays = moment.duration(totalMilliseconds, 'milliseconds').asDays();
     console.log(`Total Days in Dataset --- ${totalDays} \n`);
-    let totalSimulationTimeInMinutes = totalMilliseconds / 1000 / 60 / this.state.timeScaleFactor;
+    let totalSimulationTimeInMinutes = totalMilliseconds / 1000 / 60 / this.props.timeScale;
     console.log(`Total Simulation Time In minutes --- ${totalSimulationTimeInMinutes} \n`);
     if(this.timer) { //if we already had a simulation going, destroy old timeouts and this.timer
       this.timer.pause();
       this.timer = null;
     }
-    this.timer = new TimedPlayback(data, this.state.timeScaleFactor, (datum) => {
+    this.timer = new TimedPlayback(data, this.props.timeScale, (datum) => {
         this.map.fadingBubbles([datum]);
-
 
         //if all data is processed
         if (!this.timer.data.length) {

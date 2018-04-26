@@ -113,6 +113,8 @@ export default class MapNav extends React.Component {
                   dataLabel={this.state.dataLabel}
                   removeDataLabel={this.removeDataLabel}
                   percentProgress={50}
+                  timeScale={this.props.timeScale}
+                  changeTimeScale={this.props.changeTimeScale}
                   />}
             </Row>
             <Row className='zero-height'>
@@ -133,7 +135,7 @@ export default class MapNav extends React.Component {
             <Row className='zero-height'>
               <Button onMouseEnter={this.onMouseOverBottomDrawer}
                 onMouseLeave={this.onMouseLeaveBottomDrawer} className={bottomDrawerTab} onClick={() => this.setState({ bottomOpen: !this.state.bottomOpen })}>
-                Config
+                Stats
               </Button>
             </Row>
             <Row onMouseEnter={this.onMouseOverBottomDrawer} onMouseLeave={this.onMouseLeaveBottomDrawer}>
