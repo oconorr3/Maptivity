@@ -41,6 +41,8 @@ export default class MapPage extends React.Component {
     }, window.example));
   }
 
+  createTimer
+
   render() {
     return (
         <div>
@@ -50,7 +52,7 @@ export default class MapPage extends React.Component {
               isSimulationPlaying={this.state.isSimulationPlaying}
               timeScale={this.state.timeScale}
               changeTimeScale={this.changeTimeScale}/>
-            <Map {...this.state}/>
+            <Map togglePlayback={this.togglePlayback} {...this.state}/>
       </div>
     );
   }

@@ -15,6 +15,8 @@ export default class Map extends React.Component {
     super(props);
     this.state = {
       mapType: false,
+      timeScaleFactor: 1000000,
+      isPlaybackComplete: false
     };
   }
 
@@ -28,11 +30,11 @@ export default class Map extends React.Component {
 
   componentDidUpdate() {
     this.drawMap();
-    if(this.timer && this.props.simulationPlaying != this.timer.isPlaying){
-      console.log('toggling playback');
+    if(this.timer && this.props.simulationPlaying != this.timer.isPlaying){ //when this.props.togglePlayback is called()
+      console.log('toggling playback in Map');
       this.togglePlay();
     }
-    if(!this.timer && this.props.data) {
+    if(!this.timer && this.props.data) { //first time you load data into map
       console.log('drawing bubbles');
       this.drawBubbles();
     }
@@ -54,8 +56,8 @@ export default class Map extends React.Component {
   togglePlay() {
     //console.log(`was playing: ${this.timer.isPlaying}`);
     if(this.timer.isPlaying) {
-      console.log('timer is paused');
       this.timer.pause();
+      console.log('timer is paused');
     }
     else {
       this.timer.resume();
@@ -189,9 +191,19 @@ export default class Map extends React.Component {
       this.timer.pause();
       this.timer = null;
     }
-    this.timer = new TimedPlayback(data, (datum) => {
+    this.timer = new TimedPlayback(data, this.props.timeScale, (datum) => {
         this.map.fadingBubbles([datum]);
-    }, this.props.timeScale);
+
+        //if all data is processed
+        if (!this.timer.data.length) {
+          console.log('cleaning up timer');
+          this.setState({
+            isPlaybackComplete : true
+          });
+          this.timer = null;
+          this.props.togglePlayback();
+        }
+    });
   }
 
   render() {
