@@ -40,9 +40,16 @@ export default class MapPage extends React.Component {
   }
 
   changeTimeScale = (timeScale) => {
-    if(timeScale >= 1 && timeScale <= 1000000)
+    if(timeScale >= 1 && timeScale <= 1000000) {
       //this.updateTimeline()
-      this.setState({timeScale});
+      let data = this.state.data;
+      let totalTime = moment(data[data.length-1].timestamp).diff(moment(data[0].timestamp));
+      let remainingSeconds = totalTime / timeScale / 1000;
+      this.setState({
+        timeScale,
+        remainingSeconds
+      });
+    }
   }
 
   togglePlayback = () => {
