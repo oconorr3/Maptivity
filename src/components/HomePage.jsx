@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import { Clearfix, Grid, Row, Col, Image, Button, Navbar, NavItem, Nav } from 'react-bootstrap';
+
+import '../styles/Home.css';
 import LoginModal from './LoginModal.jsx'
 
 export default class HomePage extends React.Component {
@@ -17,6 +19,8 @@ export default class HomePage extends React.Component {
 
     return (
         <div>
+          {/*TODO split into separate Header component and pull in react-scroll library for navigation
+          see link for more info: https://github.com/c0d3ster/DakDoug/blob/master/src/components/Header.jsx then use name={toValue}*/}
           <Navbar id="mainNav" fixedTop >
               <Navbar.Header>
                  <Navbar.Brand>
@@ -24,11 +28,11 @@ export default class HomePage extends React.Component {
                  </Navbar.Brand>
                </Navbar.Header>
                 <Nav bsStyle="pills" pullRight>
-                    <NavItem id="nav-item" href="/Map">Map</NavItem>
-                    <NavItem id="nav-item" href="#about">About</NavItem >
-                    <NavItem id="nav-item" href="#services">Services</NavItem >
-                    <NavItem id="nav-item" href="#contact">Pricing</NavItem >
-                    <NavItem id="nav-item" href="#contact">Contact</NavItem >
+                    <NavItem className="nav-item" href="/Map">Map</NavItem>
+                    <NavItem className="nav-item" href="#about">About</NavItem >
+                    <NavItem className="nav-item" href="#services">Services</NavItem >
+                    <NavItem className="nav-item" href="#contact">Pricing</NavItem >
+                    <NavItem className="nav-item" href="#contact">Contact</NavItem >
                     <NavItem onClick={() => this.setState({ showLoginModal: true })}>Sign In</NavItem>
                   </Nav>
                   <LoginModal show={this.state.showLoginModal} onHide={loginModalClose}/>
@@ -38,7 +42,7 @@ export default class HomePage extends React.Component {
             <Grid>
               <Row>
                 <Col lg={12} className="mx-auto">
-                  <h1 className="text-uppercase">
+                  <h1 className="text-primary">
                     <strong>A LOW COST SOLUTION TO YOUR DATA VISUALIZATION NEEDS</strong>
                   </h1>
                   <hr></hr>
@@ -56,7 +60,7 @@ export default class HomePage extends React.Component {
               <Row>
                 <Col lg={12} className="text-center mx-auto">
                   <h2 className="section-heading text-white">About Us</h2>
-                  <hr className="light my-4"></hr>
+                  <hr className="light-short my-4"></hr>
                   <p className="text-faded mb-4">Maptivity has everything you need to get your new or existing business a competitive edge in no time! Through modern data analytics and visualization Maptivity empowers your business to make better decisions to grow and thrive.</p>
                   <Button className="btn-homepage" bsStyle="default" href="#services">Get Started!</Button>
                 </Col>
@@ -68,8 +72,8 @@ export default class HomePage extends React.Component {
             <Grid>
               <Row>
                 <Col lg={12} className="text-center">
-                  <h2 className="section-heading">At Your Service</h2>
-                  <hr className="my-4"></hr>
+                  <h2 className="section-heading text-white">At Your Service</h2>
+                  <hr className="dark-short my-4"></hr>
                 </Col>
               </Row>
             </Grid>

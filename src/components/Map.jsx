@@ -1,7 +1,11 @@
 import propTypes from 'prop-types';
 import React from 'react';
 import WorldMap from 'datamaps/dist/datamaps.world.hires.js';
+import USAMap from 'datamaps/dist/datamaps.usa.js';
 import {Button} from 'react-bootstrap';
+import moment from 'moment';
+
+import TimedPlayback from '../TimedPlayback.js';
 
 var selectedRegion = "world";
 const zoomFactor = 0.9;
@@ -18,17 +22,32 @@ export default class Map extends React.Component {
     this.drawMap();
   }
 
-  componentWillReceiveProps() {
-    this.clear();
-  }
-
   componentDidUpdate() {
     this.drawMap();
+    /*console.log('updating from map');
+    console.log(this.props.isSimulationPlaying);
+    if(this.timer)
+      console.log(this.timer.isPlaying);
+    console.log('\n\n');*/
+    if(this.props.isSimulationStarting && this.props.data) //called any time new data is loaded, destroys old timer
+      this.drawBubbles();
+    if(this.timer && this.timer.timeScale != this.props.timeScale) //ensure time scale is in sync on updates
+      this.timer.updateTimeScale(this.props.timeScale);
+    if(this.timer && this.props.isSimulationPlaying != this.timer.isPlaying){ //when this.props.togglePlayback is called(), make sure our timer playback matches
+      this.togglePlay();
+    }
   }
 
   componentWillUnmount() {
     this.clear();
     window.removeEventListener('resize', this.resize);
+  }
+
+  togglePlay() {
+    if(this.timer.isPlaying)
+      this.timer.pause();
+    else
+      this.timer.resume();
   }
 
   clear() {
@@ -41,8 +60,8 @@ export default class Map extends React.Component {
 
   fadingBubbles(layer, data) {
     let className = 'fadingBubble';
-    let defaultColor = 'rgba(155, 224, 255, 0.5)';
-    let initialRadius = 1;
+    let defaultColor = 'rgba(155, 224, 255, 0.2)';
+    let initialRadius = .1;
     let bubbles = layer.selectAll(className).data(data, JSON.stringify) // bind the data
 
     bubbles.enter().append('circle')
@@ -63,67 +82,11 @@ export default class Map extends React.Component {
           return defaultColor;
       })
       .transition().duration(2000).ease(Math.sqrt)
-      .attr('r', data => data.magnitude ? data.magnitude * 20 : 22)
+      .attr('r', data => data.magnitude ? data.magnitude * 1 : 5)
       .style('fill-opacity', 1e-6)
       .style('stroke-opacity', 1e-6)
       .remove();
   }
-
-  //Possible functionality for dynamically zooming to different geo regions
-  /*setProjection (element, options) {
-      if (currentProjection == "africa") {
-          //zoom to Africa
-          var projection = d3.geo.mercator()
-            .center([23, -3])
-            .rotate([4.4, 0])
-            .scale(400)
-            .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
-          var path = d3.geo.path()
-            .projection(projection);
-
-          return {path: path, projection: projection};
-
-       } else if (currentProjection == "europe") {
-          //Zoom on Europe
-          var projection = d3.geo.mercator()
-            .center([45, 60])
-            .rotate([0, 0])
-            .scale(400)
-            .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
-          var path = d3.geo.path()
-            .projection(projection);
-
-        return { path: path, projection: projection };
-
-       } else if (currentProjection == "india") {
-         var projection = d3.geo.mercator()
-              .center([78.9629, 23.5937]) // always in [East Latitude, North Longitude]
-              .scale(1000);
-          var path = d3.geo.path().projection(projection);
-          return { path: path, projection: projection };
-
-       } else if (currentProject == "canada") {
-          var projection = d3.geo.mercator()
-             .center([-106.3468, 68.1304]) // always in [East Latitude, North Longitude]
-             .scale(250)
-             .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
-
-             var path = d3.geo.path().projection(projection);
-             return { path: path, projection: projection };
-       }else { // (currentProjection == "world") {
-          // Zoom in on World
-          var projection = d3.geo.mercator()
-            .center([10, -10])
-            .rotate([0, 0])
-            .scale(300)
-            .translate([element.offsetWidth / 2, element.offsetHeight]);
-          var path = d3.geo.path()
-            .projection(projection);
-
-          return {path: path, projection: projection};
-
-      }
-  }*/
 
   drawMap() {
     var map = new WorldMap({
@@ -131,7 +94,7 @@ export default class Map extends React.Component {
       element: this.refs.container,
       scope: 'world', //currently supports 'usa' and 'world', however with custom map data you can specify your own
       //setProjection: this.setProjection,
-      projection: 'mercator', //style of projection to be used. try "mercator"
+      projection: 'equirectangular', //style of projection to be used. try "mercator"
       responsive: true, //if true, call `resize()` on the map object when it should adjust it's size
       geographyConfig: {
         dataUrl: null, //if not null, datamaps will fetch the map JSON (currently only supports topojson)
@@ -163,7 +126,6 @@ export default class Map extends React.Component {
 
          //Zoom functionality for mousewheel and panning (HAS BUG)
          datamap.svg.call(d3.behavior.zoom().scaleExtent([1, 4]).on("zoom", function() {
-             console.log("zooming");
              var e = d3.event,
              // constrain the x and y components of the translation by the dimensions of the viewport
              tx = Math.min(0, Math.max(e.translate[0], window.innerWidth - window.innerWidth * e.scale)),
@@ -208,27 +170,33 @@ export default class Map extends React.Component {
   }
 
   drawBubbles = () => {
-    var data = [
-      {
-        "latitude": "28.014067",
-        "longitude": "-81.728676"
-      }, {
-        "latitude": "40.750793",
-        "longitude": "-73.989525",
-        "magnitude": 3
-      }
-    ];
+    let data = this.props.data;
+    let first = moment(data[0].timestamp,"YYYY/MM/DD HH:mm:ss");
+    let last = moment(data[data.length - 1].timestamp,"YYYY/MM/DD HH:mm:ss");
+    let totalMilliseconds = last.diff(first);
+    let totalDays = moment.duration(totalMilliseconds, 'milliseconds').asDays();
+    console.log(`Total Days in Dataset --- ${totalDays} \n`);
+    let totalSimulationTimeInMinutes = totalMilliseconds / 1000 / 60 / this.props.timeScale;
+    console.log(`Total Simulation Time In minutes --- ${totalSimulationTimeInMinutes} \n`);
+    if(this.timer) { //if we already had a simulation going, destroy old timeouts and this.timer
+      this.timer.pause();
+      this.timer = null;
+    }
+    this.timer = new TimedPlayback(data, this.props.timeScale, (datum) => {
+        this.map.fadingBubbles([datum]);
 
-    this.map.fadingBubbles(data);
+        if (!this.timer.data.length) { //if all data is processed
+          console.log('reloading timer and putting into paused state');
+          this.timer.data = this.props.data; //reload data
+          this.props.togglePlayback(); //pause the simulation and timer
+        }
+    });
+    if(this.props.isSimulationPlaying && !this.timer.isPlaying) //only plays timer when new data is loaded
+      this.togglePlay();
   }
 
   render() {
-    return (
-      <div>
-        <Button className="top-left-panel" onClick={this.drawBubbles}>Draw Fading Bubbles</Button>
-        <div className="datamap" ref="container"></div>
-      </div>
-  );
+    return (<div className="datamap" ref="container"></div>);
   }
 }
 

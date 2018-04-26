@@ -1,115 +1,13 @@
-body,
-html {
-  width: 100%;
-  height: 100%;
-}
-
-body {
-  font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
-}
-
-.datamap {
-  background-color: rgba(14, 21, 31, 1);
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index:1;
-}
-
-.top-left-panel {
-  position: fixed;
-  top: 2%;
-  left: 1%;
-  z-index: 2;
-  background-color: rgba(155, 224, 255, 0.6);
-  border-color: rgba(27, 39, 63, 0.7);
-}
-
-.top-right-panel {
-  position: fixed;
-  top: 2%;
-  right: 1%;
-  z-index: 2;
-  background-color: rgba(155, 224, 255, 0.6);
-  border-color: rgba(27, 39, 63, 0.7);
-}
-
-.bottom-left-panel {
-  position: fixed;
-  bottom: 2%;
-  left: 1%;
-  z-index: 2;
-  background-color: rgba(155, 224, 255, 0.6);
-  border-color: rgba(27, 39, 63, 0.7);
-}
-
-.bottom-right-panel {
-  bottom: 2%;
-  right: 1%;
-  position: fixed;
-  z-index: 2;
-  background-color: rgba(155, 224, 255, 0.6);
-  border-color: rgba(27, 39, 63, 0.7);
-}
-
-.top-left-button{
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  height:50px;
-  width:50px;
-  color: rgba(155, 224, 255, 1);
-  background-color: rgba(27, 39, 63, 1);
-  border-color: rgba(155, 224, 255, 1);
-}
-
-.top-right-button {
-  position: fixed;
-  top: 0;
-  right: 0%;
-  z-index: 2;
-  height:50px;
-  width:50px;
-  color: rgba(155, 224, 255, 1);
-  background-color: rgba(27, 39, 63, 1);
-  border-color: rgba(155, 224, 255, 1);
-}
-
-.bottom-left-button{
-  position: fixed;
-  bottom: 0%;
-  left: 0;
-  z-index: 2;
-  height:50px;
-  width:50px;
-  color: rgba(155, 224, 255, 1);
-  background-color: rgba(27, 39, 63, 1);
-  border-color: rgba(155, 224, 255, 1);
-}
-
-.bottom-right-button {
-  bottom: 0%;
-  right: 0%;
-  z-index: 2;
-  position: fixed;
-  height:50px;
-  width:50px;
-  background-size: 100%;
-  background-image: url("../img/compass_rose.svg");
-  color: rgba(155, 224, 255, 1);
-  background-color: rgba(27, 39, 63, 1);
-  border-color: rgba(155, 224, 255, 1);
-}
-
-hr {
+hr.dark-short {
   max-width: 50px;
   border-width: 3px;
   border-color: #F05F40;
 }
 
-hr.light {
+hr.light-short {
   border-color: #fff;
+  max-width: 50px;
+  border-width: 3px;
 }
 
 a {
@@ -174,40 +72,41 @@ img::-moz-selection {
   background: transparent;
 }
 
+/***** HOMEPAGE HEADER STYLES *****/
+
 #mainNav {
   border-bottom: 1px solid rgba(33, 37, 41, 0.1);
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
   font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
   transition: all 0.2s;
 }
 
-#mainNav .navbar-brand {
+.navbar-brand {
   font-weight: 700;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.75);
   font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 
-#mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
-  color: #f05f40;
+.navbar-item {
+  color: rgba(255, 255, 255, 0.6);
 }
 
-.navbar-default .navbar-nav> li > a {
-  color: rgba(255, 255, 255, 0.8);
-  background-color: transparent;
+.navbar-brand:focus, .navbar-brand:hover, .nav-item:focus, .nav-item:hover{
+  color: #fff;
 }
 
-@media (min-width: 992px) {
+@media (max-width: 992px) {
   #mainNav {
     border-color: transparent;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.4);
   }
-  #mainNav .navbar-brand {
+  .navbar-brand, .navbar-item {
     color: rgba(255, 255, 255, 0.7);
   }
-  #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
+  .navbar-brand:focus, .navbar-brand:hover, .nav-item:focus, .nav-item:hover {
     color: #fff;
   }
 }
@@ -215,7 +114,7 @@ img::-moz-selection {
 header.masthead {
   padding-top: 10rem;
   padding-bottom: calc(10rem - 56px);
-  background-image: url("../img/tweetping.jpg");
+  background-image: url("/tweetping.jpg");
   background-position: center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
