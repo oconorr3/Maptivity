@@ -5,6 +5,7 @@ export default class TimedPlayback {
     this.data = JSON.parse(JSON.stringify(data)); //make copy of data object array
     this.callback = callback; //this will draw bubbles when it's time
     this.timeScale = timeScale;
+    this.elapsedBetween = 0;
     this.isPlaying = false;
   }
 
@@ -25,14 +26,15 @@ export default class TimedPlayback {
       if(waitTime < 1) //less than 1 millisecond wait time should be set to 1ms
         waitTime = 1;
       if(waitTime > 3000) //greater than 3 seconds is logged
-        console.log(`${((waitTime-this.elapsed)/1000).toFixed(2)} seconds to next ping, ${this.remainingSeconds} seconds remaining total`);
+        console.log(`${((waitTime-this.elapsedBetween)/1000).toFixed(2)} seconds to next ping, ${this.remainingSeconds} seconds remaining total`);
+
       this.timerId = window.setTimeout(() => {
-        this.elapsed = 0;
+        this.elapsedBetween = 0;
         this.callback(data.shift()); //shift will modify array to remove and return first element
         if(data.length) { //if there is elements left, continue looping
           this.myLoop();
         }
-      }, waitTime - this.elapsed);
+      }, waitTime - this.elapsedBetween);
     }
     else {
       this.callback(data.shift());  //notify map that we finished processing the data
@@ -46,8 +48,8 @@ export default class TimedPlayback {
   pause() {
     console.log('pausing timer');
     this.isPlaying = false;
-    this.elapsed += moment().diff(this.start);
-    console.log(this.elapsed);
+    this.elapsedBetween += moment().diff(this.start);
+    console.log(this.elapsedBetween);
     window.clearTimeout(this.timerId);
   };
 
@@ -62,7 +64,7 @@ export default class TimedPlayback {
 
   updateTimeScale(timeScale) {
     this.timeScale = timeScale;
-    this.elapsed = 0;
+    this.elapsedBetween = 0;
     if(this.timerId && this.isPlaying) {
       window.clearTimeout(this.timerId);
       this.myLoop();

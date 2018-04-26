@@ -185,8 +185,7 @@ export default class Map extends React.Component {
     this.timer = new TimedPlayback(data, this.props.timeScale, (datum) => {
         this.map.fadingBubbles([datum]);
 
-        //if all data is processed
-        if (!this.timer.data.length) {
+        if (!this.timer.data.length) { //if all data is processed
           console.log('reloading timer and putting into paused state');
           this.timer.data = this.props.data; //reload data
           this.props.togglePlayback(); //pause the simulation and timer

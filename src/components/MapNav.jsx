@@ -112,7 +112,8 @@ export default class MapNav extends React.Component {
                   togglePlayback={this.props.togglePlayback}
                   dataLabel={this.state.dataLabel}
                   removeDataLabel={this.removeDataLabel}
-                  percentProgress={50}
+                  elapsedSeconds={this.props.elapsedSeconds}
+                  remainingSeconds={this.props.remainingSeconds}
                   timeScale={this.props.timeScale}
                   changeTimeScale={this.props.changeTimeScale}
                   />}

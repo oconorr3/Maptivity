@@ -1,4 +1,6 @@
 import React, {PropTypes} from 'react';
+import moment from 'moment';
+
 import Map from './Map.jsx';
 import MapNav from './MapNav.jsx'
 
@@ -7,6 +9,8 @@ export default class MapPage extends React.Component {
     super(props);
     this.state = {
       data: null,
+      elapsedSeconds: 0,
+      remainingSeconds: 0,
       isSimulationPlaying: false,
       isSimulationStarting: false,
       timeScale: 100000
@@ -17,16 +21,27 @@ export default class MapPage extends React.Component {
   //utilizing class properties to bind functions correctly, babel stage-2
   updateData = (data) => {
     console.log('updating data');
+    let totalTime = moment(data[data.length-1].timestamp).diff(moment(data[0].timestamp));
+    let remainingSeconds = totalTime / this.state.timeScale / 1000;
+    console.log(remainingSeconds);
     this.setState({
       data,
       isSimulationPlaying: true,
-      isSimulationStarting: true
+      isSimulationStarting: true,
+      remainingSeconds
     },() => this.setState({isSimulationStarting: false}));
   }
 
+  updateTimeline = (elapsedSeconds, remainingSeconds) => {
+    this.setState({
+      elapsedSeconds,
+      remainingSeconds
+    });
+  }
 
   changeTimeScale = (timeScale) => {
     if(timeScale >= 1 && timeScale <= 1000000)
+      //this.updateTimeline()
       this.setState({timeScale});
   }
 
@@ -43,10 +58,11 @@ export default class MapPage extends React.Component {
             <MapNav
               updateData={this.updateData}
               togglePlayback={this.togglePlayback}
-              isSimulationPlaying={this.state.isSimulationPlaying}
-              timeScale={this.state.timeScale}
-              changeTimeScale={this.changeTimeScale}/>
-            <Map togglePlayback={this.togglePlayback} {...this.state}/>
+              changeTimeScale={this.changeTimeScale}
+              {...this.state}/>
+            <Map
+              togglePlayback={this.togglePlayback}
+              {...this.state}/>
       </div>
     );
   }

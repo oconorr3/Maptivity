@@ -3,9 +3,9 @@ import { Grid, Row, Col, Button, ProgressBar } from 'react-bootstrap';
 
 import Icon from './Icon.jsx';
 
-const PlaybackControls = ({isPlaying, togglePlayback, dataLabel, removeDataLabel, percentProgress, changeProgress, timeScale, changeTimeScale}) => (
+const PlaybackControls = ({isPlaying, togglePlayback, dataLabel, removeDataLabel, elapsedSeconds, remainingSeconds, timeScale, changeTimeScale}) => (
   <div>
-    <ProgressBar now={percentProgress}/>
+    <ProgressBar now={remainingSeconds ? elapsedSeconds/(elapsedSeconds + remainingSeconds)*100 : 0}/>
     <Col xs={1}>
       <Icon
         name='back'
@@ -19,8 +19,8 @@ const PlaybackControls = ({isPlaying, togglePlayback, dataLabel, removeDataLabel
       <h3 className='drawer-title'> {dataLabel} </h3>
     </Col>
     <Col xs={3} className='playback-time-label'>
-      <p>Time Remaining</p>
-      <small>5 mins 25 seconds</small>
+      <p>Total Simulation Time</p>
+      <small>{remainingSeconds.toFixed(0)} seconds</small>
     </Col>
     <Col xs={3} className='playback-time-label'>
       <p>Time Scale Multiplier</p>
