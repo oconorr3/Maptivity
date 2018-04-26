@@ -8,6 +8,7 @@ export default class MapPage extends React.Component {
     this.state = {
       data: null,
       isSimulationPlaying: false,
+      isSimulationStarting: false,
       timeScale: 100000
     };
 
@@ -18,12 +19,15 @@ export default class MapPage extends React.Component {
     console.log('updating data');
     this.setState({
       data,
-      isSimulationPlaying: true
-    });
+      isSimulationPlaying: true,
+      isSimulationStarting: true
+    },() => this.setState({isSimulationStarting: false}));
   }
 
+
   changeTimeScale = (timeScale) => {
-    this.setState({timeScale});
+    if(timeScale >= 1 && timeScale <= 1000000)
+      this.setState({timeScale});
   }
 
   togglePlayback = () => {
@@ -32,16 +36,6 @@ export default class MapPage extends React.Component {
       isSimulationPlaying: !this.state.isSimulationPlaying
     })
   }
-
-  update(region) {
-    var _this = this;
-
-    this.setState(Object.assign({}, {
-      selectedRegion: region
-    }, window.example));
-  }
-
-  createTimer
 
   render() {
     return (

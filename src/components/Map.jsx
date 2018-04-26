@@ -5,7 +5,7 @@ import USAMap from 'datamaps/dist/datamaps.usa.js';
 import {Button} from 'react-bootstrap';
 import moment from 'moment';
 
-import TimedPlayback from '../helpers.js';
+import TimedPlayback from '../TimedPlayback.js';
 
 var selectedRegion = "world";
 const zoomFactor = 0.9;
@@ -14,9 +14,7 @@ export default class Map extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      mapType: false,
-      timeScaleFactor: 1000000,
-      isPlaybackComplete: false
+      mapType: false
     };
   }
 
@@ -24,25 +22,32 @@ export default class Map extends React.Component {
     this.drawMap();
   }
 
-  componentWillReceiveProps() {
-    this.clear();
-  }
-
   componentDidUpdate() {
     this.drawMap();
-    if(this.timer && this.props.simulationPlaying != this.timer.isPlaying){ //when this.props.togglePlayback is called()
-      console.log('toggling playback in Map');
-      this.togglePlay();
-    }
-    if(!this.timer && this.props.data) { //first time you load data into map
-      console.log('drawing bubbles');
+    /*console.log('updating from map');
+    console.log(this.props.isSimulationPlaying);
+    if(this.timer)
+      console.log(this.timer.isPlaying);
+    console.log('\n\n');*/
+    if(this.props.isSimulationStarting && this.props.data) //called any time new data is loaded, destroys old timer
       this.drawBubbles();
+    if(this.timer && this.timer.timeScale != this.props.timeScale) //ensure time scale is in sync on updates
+      this.timer.updateTimeScale(this.props.timeScale);
+    if(this.timer && this.props.isSimulationPlaying != this.timer.isPlaying){ //when this.props.togglePlayback is called(), make sure our timer playback matches
+      this.togglePlay();
     }
   }
 
   componentWillUnmount() {
     this.clear();
     window.removeEventListener('resize', this.resize);
+  }
+
+  togglePlay() {
+    if(this.timer.isPlaying)
+      this.timer.pause();
+    else
+      this.timer.resume();
   }
 
   clear() {
@@ -53,25 +58,11 @@ export default class Map extends React.Component {
     }
   }
 
-  togglePlay() {
-    //console.log(`was playing: ${this.timer.isPlaying}`);
-    if(this.timer.isPlaying) {
-      this.timer.pause();
-      console.log('timer is paused');
-    }
-    else {
-      this.timer.resume();
-      console.log('timer is resumed');
-    }
-  }
-
   fadingBubbles(layer, data) {
     let className = 'fadingBubble';
     let defaultColor = 'rgba(155, 224, 255, 0.2)';
     let initialRadius = .1;
     let bubbles = layer.selectAll(className).data(data, JSON.stringify) // bind the data
-
-
 
     bubbles.enter().append('circle')
       .attr('class', className)
@@ -196,22 +187,17 @@ export default class Map extends React.Component {
 
         //if all data is processed
         if (!this.timer.data.length) {
-          console.log('cleaning up timer');
-          this.setState({
-            isPlaybackComplete : true
-          });
-          this.timer = null;
-          this.props.togglePlayback();
+          console.log('reloading timer and putting into paused state');
+          this.timer.data = this.props.data; //reload data
+          this.props.togglePlayback(); //pause the simulation and timer
         }
     });
+    if(this.props.isSimulationPlaying && !this.timer.isPlaying) //only plays timer when new data is loaded
+      this.togglePlay();
   }
 
   render() {
-    return (
-      <div>
-        <div className="datamap" ref="container"></div>
-      </div>
-  );
+    return (<div className="datamap" ref="container"></div>);
   }
 }
 
