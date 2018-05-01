@@ -82,7 +82,7 @@ export default class Map extends React.Component {
           return defaultColor;
       })
       .transition().duration(2000).ease(Math.sqrt)
-      .attr('r', data => data.magnitude ? data.magnitude * 1 : 5)
+      .attr('r', data => data.magnitude ? data.magnitude * 1 : 10)
       .style('fill-opacity', 1e-6)
       .style('stroke-opacity', 1e-6)
       .remove();
@@ -98,7 +98,7 @@ export default class Map extends React.Component {
       responsive: true, //if true, call `resize()` on the map object when it should adjust it's size
       geographyConfig: {
         dataUrl: null, //if not null, datamaps will fetch the map JSON (currently only supports topojson)
-        hideAntarctica: false,
+        hideAntarctica: true,
         borderWidth: 0.5,
         borderOpacity: 0.7,
         borderColor: 'rgba(155, 224, 255, 1)',
@@ -106,7 +106,7 @@ export default class Map extends React.Component {
           return '<div class="hoverinfo"><strong>' + geography.properties.name + '</strong></div>';
         },
         popupOnHover: false, //disable the popup while hovering
-        highlightOnHover: true,
+        highlightOnHover: false,
         highlightFillColor: 'rgba(240, 95, 54, 0.4)',
         highlightBorderColor: 'rgba(240, 95, 54, 0.2)',
         highlightBorderWidth: 2,
