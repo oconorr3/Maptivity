@@ -42,6 +42,10 @@ h6 {
   color: rgba(255, 255, 255, 0.7);
 }
 
+.text-white {
+  color: #fff;
+}
+
 section {
   padding: 8rem 0;
 }
@@ -114,7 +118,7 @@ img::-moz-selection {
 header.masthead {
   padding-top: 10rem;
   padding-bottom: calc(10rem - 56px);
-  background-image: url("/tweetping.jpg");
+  background-image: url("/homepage_background.png");
   background-position: center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;

@@ -55,12 +55,12 @@ export default class HomePage extends React.Component {
             </Grid>
           </header>
 
-          <section className="bg-primary" id="about">
+          <section className="bg-dark" id="about">
             <Grid>
               <Row>
                 <Col lg={12} className="text-center mx-auto">
                   <h2 className="section-heading text-white">About Us</h2>
-                  <hr className="light-short my-4"></hr>
+                  <hr className="dark-short my-4"></hr>
                   <p className="text-faded mb-4">Maptivity has everything you need to get your new or existing business a competitive edge in no time! Through modern data analytics and visualization Maptivity empowers your business to make better decisions to grow and thrive.</p>
                   <Button className="btn-homepage" bsStyle="default" href="#services">Get Started!</Button>
                 </Col>
@@ -68,12 +68,12 @@ export default class HomePage extends React.Component {
             </Grid>
           </section>
 
-          <section className="bg-dark" id="services">
+          <section className="bg-primary" id="services">
             <Grid>
               <Row>
                 <Col lg={12} className="text-center">
-                  <h2 className="section-heading text-white">At Your Service</h2>
-                  <hr className="dark-short my-4"></hr>
+                  <h2 className="section-heading text-white">Services</h2>
+                  <hr className="light-short my-4"></hr>
                 </Col>
               </Row>
             </Grid>
@@ -82,36 +82,63 @@ export default class HomePage extends React.Component {
                 <Col lg={6} md={6} className="text-center">
                     <i className="fa fa-4x fa-diamond text-primary mb-3 sr-icons">
                     <h3 className="mb-3">Realtime Data Visualization</h3>
-                    <p className="text-muted mb-0">View the use of your app or service in realtime via our Geo-Spatial Data Visualization</p>
+                    <p className="text-muted mb-0">Geographic visualization of data events in real-time to facilitate pattern recognition and data analysis.</p>
                     </i>
                 </Col>
                 <Col lg={6} md={6} className="text-center">
                     <i className="fa fa-4x fa-paper-plane text-primary mb-3 sr-icons">
-                    <h3 className="mb-3">Ready to Ship</h3>
-                    <p className="text-muted mb-0">You can use this rabble as is, or you can make changes!</p>
+                    <h3 className="mb-3">Data Playback</h3>
+                    <p className="text-muted mb-0">Re-visualization of geographic data events over a period of time.</p>
                     </i>
                 </Col>
                 <Clearfix></Clearfix>
                 <Col lg={6} md={6} className="text-center">
                     <i className="fa fa-4x fa-newspaper-o text-primary mb-3 sr-icons">
-                    <h3 className="mb-3">Up to Date</h3>
-                    <p className="text-muted mb-0">We regularly rouse new rabble to keep you up to date with the best rabble.</p>
+                    <h3 className="mb-3">Application Event Tracking</h3>
+                    <p className="text-muted mb-0">Analyze specific application events over time.</p>
                     </i>
                 </Col>
                 <Col lg={6} md={6} className="text-center">
                     <i className="fa fa-4x fa-heart text-primary mb-3 sr-icons">
-                    <h3 className="mb-3">Made with Love</h3>
-                    <p className="text-muted mb-0">You have to love the rabble you raise these Days! #RabbleRousers</p>
+                    <h3 className="mb-3">Comparitive Event Tracking</h3>
+                    <p className="text-muted mb-0">Find the distribution of feature usage in your application</p>
                     </i>
                 </Col>
               </Row>
             </Grid>
           </section>
 
-          <section className="bg-primary text-white">
-            <Grid className="text-center">
-              <h2 className="mb-4">Pricing</h2>
-              <Button className="btn-homepage" bsStyle="default" href="https://github.com/oconorr3/Maptivity">Link to repo for now</Button>
+          <section className="bg-dark text-white" id="pricing">
+            <Grid>
+              <Row>
+                <Col lg={12} className="text-center">
+                  <h2 className="section-heading text-white">Pricing</h2>
+                  <hr className="dark-short my-4"></hr>
+                </Col>
+              </Row>
+            </Grid>
+            <Grid>
+                <Col lg={4} md={4} className="text-center">
+                    <i className="fa fa-4x fa-diamond text-primary mb-3 sr-icons">
+                    <h3 className="mb-3">Plan 1</h3>
+                    <hr className="light-short my-4"></hr>
+                    <p className="text-muted mb-0">Details about plan 1 for Maptivity</p>
+                    </i>
+                </Col>
+                <Col lg={4} md={4} className="text-center">
+                    <i className="fa fa-4x fa-paper-plane text-primary mb-3 sr-icons">
+                    <h3 className="mb-3">Plan 2</h3>
+                    <hr className="light-short my-4"></hr>
+                    <p className="text-muted mb-0">Details about plan 2 for Maptivity</p>
+                    </i>
+                </Col>
+                <Col lg={4} md={4} className="text-center">
+                    <i className="fa fa-4x fa-paper-plane text-primary mb-3 sr-icons">
+                    <h3 className="mb-3">Plan 3</h3>
+                    <hr className="light-short my-4"></hr>
+                    <p className="text-muted mb-0">Details about plan 3 for Maptivity</p>
+                    </i>
+                </Col>
             </Grid>
           </section>
 
@@ -119,9 +146,9 @@ export default class HomePage extends React.Component {
             <Grid>
               <Row>
                 <Col lg={12} className="mx-auto text-center">
-                  <h2 className="section-heading">Contact</h2>
+                  <h2 className="section-heading text-white">Contact</h2>
                   <hr className="my-4"></hr>
-                  <p className="mb-5">For questions or support please give us a call or send us an email and we will get back to you as soon as possible!</p>
+                  <p className="mb-5 text-white">For questions or support please give us a call or send us an email and we will get back to you as soon as possible!</p>
                 </Col>
               </Row>
               <Row>
@@ -132,7 +159,7 @@ export default class HomePage extends React.Component {
                 <Col lg={12} className="mr-auto text-center">
                   <i className="fa fa-envelope-o fa-3x mb-3 sr-contact"></i>
                   <p>
-                    <Button className="btn-homepage" bsStyle="default" href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</Button>
+                    <Button className="btn-homepage" bsStyle="default" href="oconorr3@vt.edu">feedback@Maptivity.com</Button>
                   </p>
                 </Col>
               </Row>
