@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
-    "start": "npm run build && node server.js",
+    "start": "npm run build && supervisor server.js",
     "start-dev": "concurrently --kill-others \"npm run dev\" \"supervisor server.js\""
   },
   "repository": {

@@ -5,7 +5,7 @@ const app = express();
 
 const DIST_DIR = path.join(__dirname, 'public/');
 const DATA_DIR = path.join(__dirname, 'data/');
-const PORT = 3000;
+const PORT = 80;
 
 //create log file for cpu usage, python isnt recognized by my machine for some reason
 ///require('./CpuProfiler').init(DATA_DIR);
