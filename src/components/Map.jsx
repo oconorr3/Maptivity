@@ -8,7 +8,6 @@ import moment from 'moment';
 import TimedPlayback from '../TimedPlayback.js';
 
 var selectedRegion = "world";
-const zoomFactor = 0.9;
 
 export default class Map extends React.Component {
   constructor(props) {
@@ -58,9 +57,9 @@ export default class Map extends React.Component {
     }
   }
 
-  fadingBubbles(layer, data) {
-    let className = 'fadingBubble';
-    let defaultColor = 'rgba(155, 224, 255, 0.2)';
+  fadeBubble(layer, data) {
+    let className = 'fadeBubble';
+    let defaultColor = 'rgba(207, 69, 32, 0.2)';//<-VT orange....cyan->'rgba(155, 224, 255, 0.2)';
     let initialRadius = .1;
     let bubbles = layer.selectAll(className).data(data, JSON.stringify) // bind the data
 
@@ -86,6 +85,33 @@ export default class Map extends React.Component {
       .style('fill-opacity', 1e-6)
       .style('stroke-opacity', 1e-6)
       .remove();
+
+  }
+
+  stickBubble(layer, data) {
+    console.log("sticking bubble");
+    let className = 'stickBubble';
+    let defaultColor = 'rgba(207, 69, 32, 0.2)';//<-orange....cyan->'rgba(155, 224, 255, 0.2)';
+    let initialRadius = 1;
+    let bubbles = layer.selectAll(className).data(data, JSON.stringify) // bind the data
+
+    bubbles.enter().append('circle')
+      .attr('class', className)
+      .attr('cx', data => this.latLngToXY(data.latitude, data.longitude)[0]) // this refers to the datamap instance in this case
+      .attr('cy', data => this.latLngToXY(data.latitude, data.longitude)[1])
+      .attr('r', () => initialRadius)
+      .style('fill', data => { //check if 'fills' option is set and if fillkey was provided  in data
+        if (this.options.fills && data.fillKey && this.options.fills[data.fillKey])
+          return this.options.fills[data.fillKey];
+        else
+          return defaultColor; // no fillKey was specified, so use the default color
+      })
+      .style('stroke', data => {
+        if (this.options.fills && data.fillKey && this.options.fills[data.fillKey])
+          return this.options.fills[data.fillKey];
+        else
+          return defaultColor;
+      });
   }
 
   drawMap() {
@@ -166,7 +192,8 @@ export default class Map extends React.Component {
         oldsize = d3.select(options.element).select('svg').attr('data-width');
         return d3.select(options.element).select('svg').selectAll('g').attr('transform', 'scale(' + (newsize / oldsize) + ')');
     });
-    this.map.addPlugin('fadingBubbles', this.fadingBubbles.bind(this.map));
+    this.map.addPlugin('fadeBubble', this.fadeBubble.bind(this.map));
+    this.map.addPlugin('stickBubble', this.stickBubble.bind(this.map));
   }
 
   drawBubbles = () => {
@@ -183,7 +210,8 @@ export default class Map extends React.Component {
       this.timer = null;
     }
     this.timer = new TimedPlayback(data, this.props.timeScale, (datum) => {
-        this.map.fadingBubbles([datum]);
+        this.map.stickBubble([datum]);  //stick before we fade
+        this.map.fadeBubble([datum]);
 
         if (!this.timer.data.length) { //if all data is processed
           console.log('reloading timer and putting into paused state');
