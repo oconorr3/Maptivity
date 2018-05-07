@@ -1,4 +1,17 @@
-node_modules/
+# Build files
 public/bundle.js*
 public/*.svg
-.DS_Store
+
+
+# Dependency directory
+node_modules/
+
+# Certs
+*.pem
+ssl/
+
+# In Case iOS makes these extra files, ignore them
+*.DS_Store
+
+# Data Files
+data/
