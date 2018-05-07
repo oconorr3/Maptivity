@@ -89,7 +89,6 @@ export default class Map extends React.Component {
   }
 
   stickBubble(layer, data) {
-    console.log("sticking bubble");
     let className = 'stickBubble';
     let defaultColor = 'rgba(207, 69, 32, 0.2)';//<-orange....cyan->'rgba(155, 224, 255, 0.2)';
     let initialRadius = 1;
