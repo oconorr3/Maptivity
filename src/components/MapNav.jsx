@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom'
 import { Clearfix, Grid, Row, Col, Image, Button, Panel } from 'react-bootstrap';
 import ReactDrawer from 'react-drawer';
 import axios from 'axios';
@@ -9,8 +10,10 @@ import '../styles/MapNav.css';
 import DataControls from './DataControls.jsx';
 import PlaybackControls from './PlaybackControls.jsx';
 import StatManager from './StatManager.jsx';
+import Icon from './Icon.jsx';
 
-export default class MapNav extends React.Component {
+
+class MapNav extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,11 +28,15 @@ export default class MapNav extends React.Component {
     setTimeout(() => {
       this.onMouseOverTopDrawer();
       this.onMouseOverBottomDrawer();
-
       //hide menu tabs if no user contact after 5 seconds
       this.onMouseLeaveTopDrawer(5000);
       this.onMouseLeaveBottomDrawer(5000);
     }, 1000);
+  }
+
+  componentWillUnmount() {
+    window.clearTimeout(this.closeTopTimer);
+    window.clearTimeout(this.closeBottomTimer);
   }
 
   retrieveData = (event) => {
@@ -84,6 +91,10 @@ export default class MapNav extends React.Component {
       this.closeBottomTimer = window.setTimeout(() => this.setState({ bottomButtonControlHover: false }), Number.isInteger(waitTime) ? waitTime : 1000);
   }
 
+  onHomeButtonClick = () => {
+    this.props.history.push('/');
+  }
+
   render() {
     let topDrawerTab = classnames('playback-drawer-tab', {
       'hidden': !this.state.topButtonControlHover,
@@ -98,6 +109,14 @@ export default class MapNav extends React.Component {
 
     return (
       <div className='nav-content'>
+        <Icon
+          name='back'
+          tip='Back to Landing Page'
+          location='right'
+          className='map-home-button-back'
+          onClick={this.onHomeButtonClick}
+          />
+
         <div className='playback-container' onMouseEnter={this.onMouseOverTopDrawer} onMouseLeave={this.onMouseLeaveTopDrawer}>
           <ReactDrawer
             open={this.state.topOpen}
@@ -123,7 +142,6 @@ export default class MapNav extends React.Component {
                 Data
               </Button>
             </Row>
-            <Row></Row>
           </ReactDrawer>
         </div>
 
@@ -140,9 +158,6 @@ export default class MapNav extends React.Component {
               </Button>
             </Row>
             <Row onMouseEnter={this.onMouseOverBottomDrawer} onMouseLeave={this.onMouseLeaveBottomDrawer}>
-              <StatManager
-                countryCounters={this.props.countryCounters}>
-              </StatManager>
             </Row>
           </ReactDrawer>
         </div>
@@ -150,3 +165,5 @@ export default class MapNav extends React.Component {
     );
   }
 }
+
+export default withRouter(MapNav);

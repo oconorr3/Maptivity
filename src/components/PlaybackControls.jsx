@@ -5,7 +5,6 @@ import Icon from './Icon.jsx';
 
 const PlaybackControls = ({isPlaying, togglePlayback, dataLabel, removeDataLabel, elapsedSeconds, remainingSeconds, timeScale, changeTimeScale}) => (
   <div>
-    <ProgressBar now={remainingSeconds ? elapsedSeconds/(elapsedSeconds + remainingSeconds)*100 : 0}/>
     <Col xs={1}>
       <Icon
         name='back'

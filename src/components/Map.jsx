@@ -22,12 +22,13 @@ export default class Map extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    console.log('component will update');
       //compare this.props.data to nextprops.data and only swap if different
+      if (this.props.isSimulationStarting != nextProps.isSimulationStarting) {
+        this.drawMap();
+      }
   }
 
   componentDidUpdate() {
-
     if(this.props.isSimulationStarting && this.props.data) //called any time new data is loaded, destroys old timer
       this.drawBubbles();
     if(this.timer && this.timer.timeScale != this.props.timeScale) //ensure time scale is in sync on updates
