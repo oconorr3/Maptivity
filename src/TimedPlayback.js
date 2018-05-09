@@ -23,7 +23,7 @@ export default class TimedPlayback {
       waitTime = millisecondsToNext / this.timeScale;
       if (waitTime < -1) //data is out of order
         console.log(`whoops, negative time to next: ${waitTime}`);
-      if(waitTime < 1) //less than 1 millisecond wait time should be set to 1ms
+      if(waitTime < 250) //less than 1 millisecond wait time should be set to 1ms
         waitTime = 1;
       if(waitTime > 3000) //greater than 3 seconds is logged
         console.log(`${((waitTime-this.elapsedBetween)/1000).toFixed(2)} seconds to next ping, ${this.remainingSeconds} seconds remaining total`);
