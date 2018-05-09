@@ -4,15 +4,10 @@ const express = require('express');
 const https = require('https');
 const app = express();
 
-
 const BUILD_DIR = path.join(__dirname, 'public/');
 const DATA_DIR = path.join(__dirname, 'data/');
-<<<<<<< HEAD
-const PORT = 3000;
-=======
 const SSL_DIR = path.join(__dirname, 'ssl/live/maptivetech.com/');
 const PORT = 443;
->>>>>>> 42f15b099f654b1cbaad36dc2d2e7c43d3f15ade
 
 //create log file for cpu usage, python isnt recognized by my machine for some reason
 ///require('./CpuProfiler').init(DATA_DIR);

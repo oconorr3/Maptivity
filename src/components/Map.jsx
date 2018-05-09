@@ -22,7 +22,6 @@ export default class Map extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    console.log('component will update');
       //compare this.props.data to nextprops.data and only swap if different
   }
 
@@ -208,7 +207,7 @@ export default class Map extends React.Component {
       this.timer = null;
     }
     this.timer = new TimedPlayback(data, this.props.timeScale, (datum) => {
-        //this.props.updateCounters(datum.country_code);  //update the counters
+        this.props.updateCounters(datum.country);  //update the counters
 
         this.map.stickBubble([datum]);  //stick before we fade
         this.map.fadeBubble([datum]);

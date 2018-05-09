@@ -14,42 +14,33 @@ export default class MapPage extends React.Component {
       isSimulationPlaying: false,
       isSimulationStarting: false,
       timeScale: 100000,
-      countryCounters: [{total: 0}]
+      countryCounters: [
+        {
+          name: 'Total',
+          count: 0
+        }
+      ]
     };
-
   }
 
-  compare(a,b) {
-    if (a.count < b.count)
-      return -1;
-    if (a.count > b.count)
-      return 1;
-    return 0;
-  }
-
-
-  updateCounters = (country) => {
-
-    /*let updatedCounts = Object.assign({}, this.state.countryCounters);  //copy
-
-    if (!updatedCounts[country]) {
-      updatedCounts[country] = {count: 0};
+  updateCounters = (countryName) => {
+    let newCountryCounters = this.state.countryCounters.slice();
+    newCountryCounters[0].count++; //always add to the total counter
+    let countryIndex = this.state.countryCounters.findIndex((currentCountryObject) => currentCountryObject.name == countryName);
+    if(countryIndex == -1) { //if country isn't in array, add it
+       newCountryCounters.push({name: countryName, count: 1});
     }
-
-    updatedCounts[country].count += 1;
-    updatedCounts.total.count += 1;
-
-    this.setState({
-      countryCounters: updatedCounts
-    });
-
-    //figure out the order of the countries now
-    for (var k in this.state.countryCounters) {
-      // use hasOwnProperty to filter out keys from the Object.prototype
-      if (this.state.countryCounters.hasOwnProperty(k)) {
-          console.log('key is: ' + k + ', value is: ' + this.state.countryCounters[k]);
-      }
-    }*/
+    else { //otherwise add to count and resort array
+      newCountryCounters[countryIndex].count++;
+      newCountryCounters.sort((a, b) => {
+        if (a.count < b.count)
+          return 1;
+        if (a.count > b.count)
+          return -1;
+        return 0;
+      });
+    }
+    this.setState({countryCounters: newCountryCounters});
   }
 
   //utilizing class properties to bind functions correctly, babel stage-2
