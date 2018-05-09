@@ -81,10 +81,10 @@ export default class Map extends React.Component {
         else
           return defaultColor;
       })
-      .transition().duration(2000).ease(Math.sqrt)
+      .transition().duration(1000).ease(Math.sqrt)
       .attr('r', data => data.magnitude ? data.magnitude * 1 : 10)
-      .style('fill-opacity', 1e-6)
-      .style('stroke-opacity', 1e-6)
+      .style('fill-opacity', 0.5)
+      .style('stroke-opacity', 0.5)
       .remove();
 
   }
