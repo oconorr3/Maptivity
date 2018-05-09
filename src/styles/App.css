@@ -17,7 +17,7 @@ a:hover {
   position: absolute;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(14, 21, 31, 1);
+  background-color: rgba(14, 21, 31, 1);/*rgba(255, 255, 255, 1);*/
   padding: 0 !important;
   margin: 0
 }

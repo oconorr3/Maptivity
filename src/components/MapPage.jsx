@@ -13,9 +13,43 @@ export default class MapPage extends React.Component {
       remainingSeconds: 0,
       isSimulationPlaying: false,
       isSimulationStarting: false,
-      timeScale: 100000
+      timeScale: 100000,
+      countryCounters: [{total: 0}]
     };
 
+  }
+
+  compare(a,b) {
+    if (a.count < b.count)
+      return -1;
+    if (a.count > b.count)
+      return 1;
+    return 0;
+  }
+
+
+  updateCounters = (country) => {
+
+    /*let updatedCounts = Object.assign({}, this.state.countryCounters);  //copy
+
+    if (!updatedCounts[country]) {
+      updatedCounts[country] = {count: 0};
+    }
+
+    updatedCounts[country].count += 1;
+    updatedCounts.total.count += 1;
+
+    this.setState({
+      countryCounters: updatedCounts
+    });
+
+    //figure out the order of the countries now
+    for (var k in this.state.countryCounters) {
+      // use hasOwnProperty to filter out keys from the Object.prototype
+      if (this.state.countryCounters.hasOwnProperty(k)) {
+          console.log('key is: ' + k + ', value is: ' + this.state.countryCounters[k]);
+      }
+    }*/
   }
 
   //utilizing class properties to bind functions correctly, babel stage-2
@@ -69,6 +103,7 @@ export default class MapPage extends React.Component {
               {...this.state}/>
             <Map
               togglePlayback={this.togglePlayback}
+              updateCounters={this.updateCounters}
               {...this.state}/>
       </div>
     );

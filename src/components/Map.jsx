@@ -21,13 +21,13 @@ export default class Map extends React.Component {
     this.drawMap();
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    console.log('component will update');
+      //compare this.props.data to nextprops.data and only swap if different
+  }
+
   componentDidUpdate() {
-    this.drawMap();
-    /*console.log('updating from map');
-    console.log(this.props.isSimulationPlaying);
-    if(this.timer)
-      console.log(this.timer.isPlaying);
-    console.log('\n\n');*/
+
     if(this.props.isSimulationStarting && this.props.data) //called any time new data is loaded, destroys old timer
       this.drawBubbles();
     if(this.timer && this.timer.timeScale != this.props.timeScale) //ensure time scale is in sync on updates
@@ -126,9 +126,9 @@ export default class Map extends React.Component {
         hideAntarctica: true,
         borderWidth: 0.5,
         borderOpacity: 0.7,
-        borderColor: 'rgba(155, 224, 255, 1)',
+        borderColor: 'rgba(155, 224, 255, 1)', //'rgba(207, 69, 32, 1)'
         popupTemplate: function(geography, data) { //this function should just return a string
-          return '<div class="hoverinfo"><strong>' + geography.properties.name + '</strong></div>';
+          return '<div class="hoverinfo"><strong>' +  geography.properties + '</strong></div>';
         },
         popupOnHover: false, //disable the popup while hovering
         highlightOnHover: false,
@@ -160,7 +160,7 @@ export default class Map extends React.Component {
          }));
       },
       fills: {
-          defaultFill: 'rgba(27, 39, 63, 1)'
+          defaultFill: 'rgba(27, 39, 63, 1)',
       },
       data: {
       }
@@ -181,7 +181,6 @@ export default class Map extends React.Component {
     if (this.props.labels) {
       map.labels();
     }
-
 
     this.map = map;
     window.addEventListener('resize', function() {
@@ -209,6 +208,8 @@ export default class Map extends React.Component {
       this.timer = null;
     }
     this.timer = new TimedPlayback(data, this.props.timeScale, (datum) => {
+        //this.props.updateCounters(datum.country_code);  //update the counters
+
         this.map.stickBubble([datum]);  //stick before we fade
         this.map.fadeBubble([datum]);
 

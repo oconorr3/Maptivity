@@ -8,7 +8,7 @@ import 'react-drawer/lib/react-drawer.css';
 import '../styles/MapNav.css';
 import DataControls from './DataControls.jsx';
 import PlaybackControls from './PlaybackControls.jsx';
-
+import StatManager from './StatManager.jsx';
 
 export default class MapNav extends React.Component {
   constructor(props) {
@@ -140,34 +140,9 @@ export default class MapNav extends React.Component {
               </Button>
             </Row>
             <Row onMouseEnter={this.onMouseOverBottomDrawer} onMouseLeave={this.onMouseLeaveBottomDrawer}>
-              <Grid fluid={true}>
-                <Row>
-                  <Col sm={2}>
-                    <h5 className='config-drawer-title'> Total </h5>
-                    <hr></hr>
-                  </Col>
-                  <Col sm={2}>
-                    <h5 className='config-drawer-title'> North America </h5>
-                    <hr></hr>
-                  </Col>
-                  <Col sm={2}>
-                    <h5 className='config-drawer-title'> South America </h5>
-                    <hr></hr>
-                  </Col>
-                  <Col sm={2}>
-                    <h5 className='config-drawer-title'> Europe </h5>
-                    <hr></hr>
-                  </Col>
-                  <Col sm={2}>
-                    <h5 className='config-drawer-title'> Africa </h5>
-                    <hr></hr>
-                  </Col>
-                  <Col sm={2}>
-                    <h5 className='config-drawer-title'> Asia </h5>
-                    <hr></hr>
-                  </Col>
-                </Row>
-              </Grid>
+              <StatManager
+                countryCounters={this.props.countryCounters}>
+              </StatManager>
             </Row>
           </ReactDrawer>
         </div>
