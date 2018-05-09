@@ -4,7 +4,6 @@ const express = require('express');
 const https = require('https');
 const app = express();
 
-
 const BUILD_DIR = path.join(__dirname, 'public/');
 const DATA_DIR = path.join(__dirname, 'data/');
 const SSL_DIR = path.join(__dirname, 'ssl/live/maptivetech.com/');

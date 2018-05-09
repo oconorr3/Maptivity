@@ -158,6 +158,7 @@ class MapNav extends React.Component {
               </Button>
             </Row>
             <Row onMouseEnter={this.onMouseOverBottomDrawer} onMouseLeave={this.onMouseLeaveBottomDrawer}>
+              <StatManager countryCounters={this.props.countryCounters} />
             </Row>
           </ReactDrawer>
         </div>
