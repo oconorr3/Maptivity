@@ -38,8 +38,8 @@ export default class MapPage extends React.Component {
           return 1;
         }
         if (a.count > b.count ){
-          console.log(`${a.name} is greater than ${b.name}`);
-          console.log(`${a.rank} is less than ${b.rank}`);
+          //console.log(`${a.name} is greater than ${b.name}`);
+          //console.log(`${a.rank} is less than ${b.rank}`);
           return -1;
         }
         if (a.rank > b.rank)
