@@ -128,7 +128,7 @@ export default class HomePage extends React.Component {
                 <Col lg={4} md={4} className="text-center">
                     <i className="fa fa-4x fa-paper-plane text-primary mb-3 sr-icons">
                     <h3 className="mb-3">Plan 2</h3>
-                    <hr className="light-short my-4"></hr>
+                    <hr  className="light-short my-4"></hr>
                     <p className="text-muted mb-0">Details about plan 2 for Maptivity</p>
                     </i>
                 </Col>
