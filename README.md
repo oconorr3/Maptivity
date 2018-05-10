@@ -19,9 +19,8 @@ With increased ability to understand target markets, real-time data visualizatio
 Maptivity aims to bring all of these elements into a single and simple to use real-time data visualization tool. It will strive to provide unique real-time interactive visual reporting and analysis solutions for a wide domain of company applications. Its analytics will be customizable to each client’s needs and goals for analysis. 
 
 Ultimately, it is a tool built to work with a wide range of different data sets and can be tailored to fit the motives of any company. In the form of a generic and extensible website that provides geospatial visualizations of data sets in real-time. This project will serve as a baseline for launching a data analytics platform that can be utilized to influence intelligence and productivity decisions for small companies and businesses.
-tivity
 
-The current version and landing page for our bussiness can be visitied at [Maptivity](https://maptivetech.com/).
+The current version and landing page for our bussiness can be visited at [Maptivity](https://maptivetech.com/).
 
 
 
