@@ -6,6 +6,7 @@ import StatLabel from './StatLabel.jsx';
 
 const StatManager = ({countryCounters}) => {
   let topCounters = countryCounters.slice(0, 6);
+  console.log(topCounters);
   return (
       <Grid fluid={true}>
         <Row>

@@ -17,7 +17,8 @@ export default class MapPage extends React.Component {
       countryCounters: [
         {
           name: 'Total',
-          count: 0
+          count: 0,
+          rank: 0
         }
       ]
     };
@@ -28,16 +29,22 @@ export default class MapPage extends React.Component {
     newCountryCounters[0].count++; //always add to the total counter
     let countryIndex = this.state.countryCounters.findIndex((currentCountryObject) => currentCountryObject.name == countryName);
     if(countryIndex == -1) { //if country isn't in array, add it
-       newCountryCounters.push({name: countryName, count: 1});
+       newCountryCounters.push({name: countryName, count: 1, rank: newCountryCounters.length});
     }
     else { //otherwise add to count and resort array
       newCountryCounters[countryIndex].count++;
       newCountryCounters.sort((a, b) => {
-        if (a.count < b.count)
+        if (a.count < b.count) {
           return 1;
-        if (a.count > b.count)
+        }
+        if (a.count > b.count ){
+          console.log(`${a.name} is greater than ${b.name}`);
+          console.log(`${a.rank} is less than ${b.rank}`);
           return -1;
-        return 0;
+        }
+        if (a.rank > b.rank)
+            return 1;
+        return -1;
       });
     }
     this.setState({countryCounters: newCountryCounters});
@@ -48,12 +55,17 @@ export default class MapPage extends React.Component {
     console.log('updating data');
     let totalTime = moment(data[data.length-1].timestamp).diff(moment(data[0].timestamp));
     let remainingSeconds = totalTime / this.state.timeScale / 1000;
-    console.log(remainingSeconds);
     this.setState({
       data,
       isSimulationPlaying: true,
       isSimulationStarting: true,
-      remainingSeconds
+      remainingSeconds,
+      countryCounters: [
+        {
+          name: 'Total',
+          count: 0
+        }
+      ]
     },() => this.setState({isSimulationStarting: false}));
   }
 
@@ -65,7 +77,7 @@ export default class MapPage extends React.Component {
   }
 
   changeTimeScale = (timeScale) => {
-    if(timeScale >= 1 && timeScale <= 1000000) {
+    if(timeScale >= 1 && timeScale <= 100000) {
       //this.updateTimeline()
       let data = this.state.data;
       let totalTime = moment(data[data.length-1].timestamp).diff(moment(data[0].timestamp));

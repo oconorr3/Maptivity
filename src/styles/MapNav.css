@@ -17,6 +17,10 @@
   text-align: center;
 }
 
+hr {
+  margin: 10px;
+}
+
 /***** REACT-DRAWER STYLE/ANIMATION OVERRIDES *****/
 
 .css-sourceMap-modules-importLoaders-1-localIdentName-ReactDrawer__drawer___2r5VH-sass {
@@ -230,8 +234,8 @@
 
 .map-home-button-back {
   position: absolute;
-  top: 2%;
-  left: 2%;
+  top: 1%;
+  left: 1%;
   background: rgba(27, 39, 63, 1);
   border: 1px solid rgba(155, 224, 255, 0.4);
   border-radius: 10px;
@@ -288,6 +292,14 @@
   border-bottom: none;
   transform: translate(0, -100%);
   outline: none !important;
+}
+
+.config-drawer-title {
+  margin: 15px 10px;
+}
+
+.config-drawer-value {
+  margin-bottom: 5px;
 }
 
 .stat-drawer-title {
