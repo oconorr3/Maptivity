@@ -9,11 +9,10 @@ export default class MapPage extends React.Component {
     super(props);
     this.state = {
       data: null,
-      elapsedSeconds: 0,
-      remainingSeconds: 0,
+      simulationDate: null,
       isSimulationPlaying: false,
       isSimulationStarting: false,
-      timeScale: 100000,
+      timeScale: 10000,
       countryCounters: [
         {
           name: 'Total',
@@ -22,6 +21,11 @@ export default class MapPage extends React.Component {
         }
       ]
     };
+  }
+
+  processDataPoint = (datum) => {
+    this.updateCounters(datum.country);
+    this.setState({simulationDate: moment(datum.timestamp).utcOffset(-4).format('ddd, MMM Do YYYY, h:mm:ss a')});
   }
 
   updateCounters = (countryName) => {
@@ -53,38 +57,23 @@ export default class MapPage extends React.Component {
   //utilizing class properties to bind functions correctly, babel stage-2
   updateData = (data) => {
     console.log('updating data');
-    let totalTime = moment(data[data.length-1].timestamp).diff(moment(data[0].timestamp));
-    let remainingSeconds = totalTime / this.state.timeScale / 1000;
     this.setState({
       data,
       isSimulationPlaying: true,
       isSimulationStarting: true,
-      remainingSeconds,
       countryCounters: [
         {
           name: 'Total',
           count: 0
         }
       ]
-    },() => this.setState({isSimulationStarting: false}));
-  }
-
-  updateTimeline = (elapsedSeconds, remainingSeconds) => {
-    this.setState({
-      elapsedSeconds,
-      remainingSeconds
-    });
+    },() => this.setState({isSimulationStarting: false})); //this state variable is needed to allow for automatic starting and manual playback control
   }
 
   changeTimeScale = (timeScale) => {
     if(timeScale >= 1 && timeScale <= 100000) {
-      //this.updateTimeline()
-      let data = this.state.data;
-      let totalTime = moment(data[data.length-1].timestamp).diff(moment(data[0].timestamp));
-      let remainingSeconds = totalTime / timeScale / 1000;
       this.setState({
-        timeScale,
-        remainingSeconds
+        timeScale
       });
     }
   }
@@ -106,7 +95,7 @@ export default class MapPage extends React.Component {
               {...this.state}/>
             <Map
               togglePlayback={this.togglePlayback}
-              updateCounters={this.updateCounters}
+              processDataPoint={this.processDataPoint}
               {...this.state}/>
       </div>
     );

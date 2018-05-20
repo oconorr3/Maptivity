@@ -113,7 +113,7 @@ class MapNav extends React.Component {
           name='back'
           tip='Back to Landing Page'
           location='right'
-          className='map-home-button-back'
+          className='nav-button-back'
           onClick={this.onHomeButtonClick}
           />
 
@@ -131,8 +131,9 @@ class MapNav extends React.Component {
                   togglePlayback={this.props.togglePlayback}
                   dataLabel={this.state.dataLabel}
                   removeDataLabel={this.removeDataLabel}
-                  elapsedSeconds={this.props.elapsedSeconds}
-                  remainingSeconds={this.props.remainingSeconds}
+                  totalPoints={this.props.data.length}
+                  processedPoints={this.props.countryCounters[0].count}
+                  simulationDate={this.props.simulationDate}
                   timeScale={this.props.timeScale}
                   changeTimeScale={this.props.changeTimeScale}
                   />}

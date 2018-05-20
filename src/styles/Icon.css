@@ -1,3 +1,8 @@
+.icon--disabled {
+  opacity: .2 !important;
+  pointer-events: none;
+}
+
 .icon {
   width: 40px;
   height: auto;

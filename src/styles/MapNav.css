@@ -21,6 +21,21 @@ hr {
   margin: 10px;
 }
 
+.nav-button-back {
+  position: absolute;
+  opacity: .75;
+  top: 1%;
+  left: 1%;
+  background: rgba(27, 39, 63, 1);
+  border: 1px solid rgba(155, 224, 255, 0.4);
+  border-radius: 10px;
+  transition: opacity .3s;
+}
+
+.nav-button-back:hover {
+  opacity: 1;
+}
+
 /***** REACT-DRAWER STYLE/ANIMATION OVERRIDES *****/
 
 .css-sourceMap-modules-importLoaders-1-localIdentName-ReactDrawer__drawer___2r5VH-sass {
@@ -206,6 +221,7 @@ hr {
 
 .progress {
   margin: 0 1px 10px 1px;
+  background-color: rgba(27, 39, 63, 1);
   border-radius: 0;
   height: 15px;
 }
@@ -230,15 +246,6 @@ hr {
 .playback-button-back {
   padding: 20px;
   margin: -20px 0 0 -70%;
-}
-
-.map-home-button-back {
-  position: absolute;
-  top: 1%;
-  left: 1%;
-  background: rgba(27, 39, 63, 1);
-  border: 1px solid rgba(155, 224, 255, 0.4);
-  border-radius: 10px;
 }
 
 .playback-button-toggle {

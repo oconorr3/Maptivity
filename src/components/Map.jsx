@@ -33,8 +33,8 @@ export default class Map extends React.Component {
       this.drawBubbles();
     if(this.timer && this.timer.timeScale != this.props.timeScale) //ensure time scale is in sync on updates
       this.timer.updateTimeScale(this.props.timeScale);
-    if(this.timer && this.props.isSimulationPlaying != this.timer.isPlaying){ //when this.props.togglePlayback is called(), make sure our timer playback matches
-      this.togglePlay();
+    if(this.timer && this.props.isSimulationPlaying != this.timer.isPlaying){ //when this.props.toggleTimerback is called(), make sure our timer playback matches
+      this.toggleTimer();
     }
   }
 
@@ -43,7 +43,7 @@ export default class Map extends React.Component {
     window.removeEventListener('resize', this.resize);
   }
 
-  togglePlay() {
+  toggleTimer() {
     if(this.timer.isPlaying)
       this.timer.pause();
     else
@@ -209,7 +209,7 @@ export default class Map extends React.Component {
       this.timer = null;
     }
     this.timer = new TimedPlayback(data, this.props.timeScale, (datum) => {
-        this.props.updateCounters(datum.country);  //update the counters
+        this.props.processDataPoint(datum);  //update the MapPage state to show information about data point on MapNav
 
         this.map.stickBubble([datum]);  //stick before we fade
         this.map.fadeBubble([datum]);
@@ -221,7 +221,7 @@ export default class Map extends React.Component {
         }
     });
     if(this.props.isSimulationPlaying && !this.timer.isPlaying) //only plays timer when new data is loaded
-      this.togglePlay();
+      this.toggleTimer();
   }
 
   render() {

@@ -3,8 +3,9 @@ import { Grid, Row, Col, Button, ProgressBar } from 'react-bootstrap';
 
 import Icon from './Icon.jsx';
 
-const PlaybackControls = ({isPlaying, togglePlayback, dataLabel, removeDataLabel, elapsedSeconds, remainingSeconds, timeScale, changeTimeScale}) => (
+const PlaybackControls = ({isPlaying, togglePlayback, dataLabel, removeDataLabel, totalPoints, processedPoints, simulationDate, timeScale, changeTimeScale}) => (
   <div>
+    <ProgressBar now={processedPoints / totalPoints * 100}/>
     <Col xs={1}>
       <Icon
         name='back'
@@ -18,8 +19,8 @@ const PlaybackControls = ({isPlaying, togglePlayback, dataLabel, removeDataLabel
       <h3 className='drawer-title'> {dataLabel} </h3>
     </Col>
     <Col xs={3} className='playback-time-label'>
-      <p>Total Simulation Time</p>
-      <small>{remainingSeconds.toFixed(0)} seconds</small>
+      <p>Last Date Processed</p>
+      <small>{simulationDate}</small>
     </Col>
     <Col xs={3} className='playback-time-label'>
       <p>Time Scale Multiplier</p>
@@ -29,6 +30,7 @@ const PlaybackControls = ({isPlaying, togglePlayback, dataLabel, removeDataLabel
           tip='Divide By 10'
           location='left'
           isSmall
+          disabled={timeScale == 1}
           className='playback-button-time'
           onClick={() => changeTimeScale(timeScale / 10)}/>
         {timeScale}x
@@ -37,6 +39,7 @@ const PlaybackControls = ({isPlaying, togglePlayback, dataLabel, removeDataLabel
           tip='Multiply By 10'
           location='right'
           isSmall
+          disabled={timeScale == 100000}
           className='playback-button-time'
           onClick={() => changeTimeScale(timeScale * 10)}/>
       </small>
